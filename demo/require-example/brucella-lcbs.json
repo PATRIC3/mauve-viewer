@@ -1,0 +1,750 @@
+[
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 1197665,
+            "end": 1200304,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 1,
+            "groupID": 0
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 3323983,
+            "end": 3326620,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 2,
+            "groupID": 0
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1,
+            "end": 595866,
+            "strand": "-",
+            "lcb_idx": 1,
+            "id": 3,
+            "groupID": 1
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 1515460,
+            "end": 2110642,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 4,
+            "groupID": 1
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 1192322,
+            "end": 1789647,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 5,
+            "groupID": 1
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 595869,
+            "end": 860196,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 6,
+            "groupID": 2
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2110643,
+            "end": 2376580,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 7,
+            "groupID": 2
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2101786,
+            "end": 2366157,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 8,
+            "groupID": 2
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 860197,
+            "end": 863973,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 9,
+            "groupID": 3
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2376581,
+            "end": 2380357,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 10,
+            "groupID": 3
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2366158,
+            "end": 2369934,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 11,
+            "groupID": 3
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 863974,
+            "end": 1042963,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 12,
+            "groupID": 4
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2380359,
+            "end": 2562068,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 13,
+            "groupID": 4
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2369935,
+            "end": 2550183,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 14,
+            "groupID": 4
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1042964,
+            "end": 1049074,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 15,
+            "groupID": 5
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2564720,
+            "end": 2572616,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 16,
+            "groupID": 5
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2550184,
+            "end": 2558082,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 17,
+            "groupID": 5
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1049080,
+            "end": 1051262,
+            "strand": "-",
+            "lcb_idx": 1,
+            "id": 18,
+            "groupID": 6
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2562301,
+            "end": 2564719,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 19,
+            "groupID": 6
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2558083,
+            "end": 2560501,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 20,
+            "groupID": 6
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1051492,
+            "end": 1051720,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 21,
+            "groupID": 7
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2562072,
+            "end": 2562300,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 22,
+            "groupID": 7
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2560502,
+            "end": 2560730,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 23,
+            "groupID": 7
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1051721,
+            "end": 1447508,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 24,
+            "groupID": 8
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2572617,
+            "end": 2969827,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 25,
+            "groupID": 8
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2560731,
+            "end": 2960224,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 26,
+            "groupID": 8
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1447509,
+            "end": 1602225,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 27,
+            "groupID": 9
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2969828,
+            "end": 3125530,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 28,
+            "groupID": 9
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 3156686,
+            "end": 3312044,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 29,
+            "groupID": 9
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1608523,
+            "end": 1806330,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 30,
+            "groupID": 10
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 3125531,
+            "end": 3322555,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 31,
+            "groupID": 10
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2960227,
+            "end": 3156683,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 32,
+            "groupID": 10
+        }
+    ],
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 3323372,
+            "end": 3329623,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 33,
+            "groupID": 11
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 3312062,
+            "end": 3318785,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 34,
+            "groupID": 11
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1812618,
+            "end": 2124238,
+            "strand": "-",
+            "lcb_idx": 1,
+            "id": 35,
+            "groupID": 12
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 1202027,
+            "end": 1515459,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 36,
+            "groupID": 12
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 1789648,
+            "end": 2101784,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 37,
+            "groupID": 12
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 2124239,
+            "end": 2349420,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 38,
+            "groupID": 13
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 872526,
+            "end": 1096777,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 39,
+            "groupID": 13
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 97064,
+            "end": 322112,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 40,
+            "groupID": 13
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 2349423,
+            "end": 3072533,
+            "strand": "-",
+            "lcb_idx": 1,
+            "id": 41,
+            "groupID": 14
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 110639,
+            "end": 872525,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 42,
+            "groupID": 14
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 322113,
+            "end": 1082784,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 43,
+            "groupID": 14
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 3072534,
+            "end": 3181977,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 44,
+            "groupID": 15
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 4,
+            "end": 110638,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 45,
+            "groupID": 15
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 1082785,
+            "end": 1192320,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 46,
+            "groupID": 15
+        }
+    ],
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 1194227,
+            "end": 1197624,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 47,
+            "groupID": 16
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 3326629,
+            "end": 3331122,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 48,
+            "groupID": 16
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 3189566,
+            "end": 3286442,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 49,
+            "groupID": 17
+        },
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 1096778,
+            "end": 1194224,
+            "strand": "-",
+            "lcb_idx": 2,
+            "id": 50,
+            "groupID": 17
+        },
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 1,
+            "end": 97063,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 51,
+            "groupID": 17
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 595867,
+            "end": 595868,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 52,
+            "groupID": 18
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1049075,
+            "end": 1049079,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 53,
+            "groupID": 19
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1051263,
+            "end": 1051491,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 54,
+            "groupID": 20
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1602226,
+            "end": 1608522,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 55,
+            "groupID": 21
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 1806331,
+            "end": 1812617,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 56,
+            "groupID": 22
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 2349421,
+            "end": 2349422,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 57,
+            "groupID": 23
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 3181978,
+            "end": 3189565,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 58,
+            "groupID": 24
+        }
+    ],
+    [
+        {
+            "name": "brucella/262698.4/262698.4.fna",
+            "start": 3286443,
+            "end": 3286445,
+            "strand": "+",
+            "lcb_idx": 1,
+            "id": 59,
+            "groupID": 25
+        }
+    ],
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 1,
+            "end": 3,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 60,
+            "groupID": 26
+        }
+    ],
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 1194225,
+            "end": 1194226,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 61,
+            "groupID": 27
+        }
+    ],
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 1197625,
+            "end": 1197664,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 62,
+            "groupID": 28
+        }
+    ],
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 1200305,
+            "end": 1202026,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 63,
+            "groupID": 29
+        }
+    ],
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2380358,
+            "end": 2380358,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 64,
+            "groupID": 30
+        }
+    ],
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 2562069,
+            "end": 2562071,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 65,
+            "groupID": 31
+        }
+    ],
+    [
+        {
+            "name": "brucella/520456.3/520456.3.fna",
+            "start": 3322556,
+            "end": 3323371,
+            "strand": "+",
+            "lcb_idx": 2,
+            "id": 66,
+            "groupID": 32
+        }
+    ],
+    [
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 1192321,
+            "end": 1192321,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 67,
+            "groupID": 33
+        }
+    ],
+    [
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2101785,
+            "end": 2101785,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 68,
+            "groupID": 34
+        }
+    ],
+    [
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 2960225,
+            "end": 2960226,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 69,
+            "groupID": 35
+        }
+    ],
+    [
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 3156684,
+            "end": 3156685,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 70,
+            "groupID": 36
+        }
+    ],
+    [
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 3312045,
+            "end": 3312061,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 71,
+            "groupID": 37
+        }
+    ],
+    [
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 3318786,
+            "end": 3323982,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 72,
+            "groupID": 38
+        }
+    ],
+    [
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 3326621,
+            "end": 3326628,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 73,
+            "groupID": 39
+        }
+    ],
+    [
+        {
+            "name": "brucella/520459.3/520459.3.fna",
+            "start": 3331123,
+            "end": 3334689,
+            "strand": "+",
+            "lcb_idx": 3,
+            "id": 74,
+            "groupID": 40
+        }
+    ]
+]

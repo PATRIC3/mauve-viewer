@@ -1,12 +1,16 @@
 var path = require('path');
 var webpack = require('webpack');
 module.exports = {
-    mode: 'production',
-    entry: './demo/main.js',
+    mode: 'development',
+    entry: {
+        app: ['./demo/main.js'],
+        'mauve-viewer': ['./src/mauve-viewer.js']
+    },
     output: {
-        path: path.resolve(__dirname, 'build'),
-        publicPath: '/build/',
-        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/dist/',
+        filename: '[name].js',
+        libraryTarget: 'umd'
     },
     module: {
         rules: [
@@ -17,12 +21,16 @@ module.exports = {
             }
         ]
     },
+    //externals: {
+    //    d3: 'd3',
+    //    axios: 'axios'
+    //},
     stats: {
         colors: true
     },
     devtool: 'source-map',
     devServer: {
-        publicPath: '/build/',
+        publicPath: '/dist/',
         port: 9000
     },
     performance: {

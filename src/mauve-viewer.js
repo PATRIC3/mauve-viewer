@@ -14,6 +14,8 @@ export default class MauveViewer {
         this.ele = params.ele;
         this.data = params.data;
         this.d3 = params.d3;
+
+        this.init();
     }
 
     init() {
