@@ -19,11 +19,36 @@ export default class MauveViewer {
     }
 
     init() {
-        console.log('data', this.data)
+        this.ele.innerHTML = `
+            <div class="mauve-viewer">
+                <div class="mv-header" style="text-align: left;">
+                    <h4 class="title">Mauve Viewer (Alpha)</h4>
+                    <div class="help-text">
+                        <b>Tips:</b> click and drag to pan; use mouse wheel or double click to zoom.
+                    </div><br>
+                    <button class="reset-btn">Reset</button><br>
+                </div>
+                <br>
+                <div class="mv-chart">
+                    <svg></svg>
+
+                    <div style="position: relative;">
+                        <div class="mv-context-menu" style="display: none;">
+                            <ul>
+                                <li id="nucleotide-align">Align by nucleotide</li>
+                                <li>Another item</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+
         this.render(this.d3, this.data);
     }
 
     render(d3, data) {
+        console.log('data', data)
+
         const genomeRegions = this.getGenomeRegions(data);
         const trackCount = Object.keys(genomeRegions).length;
 
@@ -36,8 +61,10 @@ export default class MauveViewer {
 
 
         // clear svg
-        d3.select('svg').remove();
-        const svg = d3.select("#chart").append("svg")
+
+        console.log(this.ele.querySelector('svg'))
+        d3.select(this.ele.querySelector('svg')).remove();
+        const svg = d3.select(this.ele.querySelector('.mv-chart')).append("svg")
             .attr('width', 1000)
             .attr('height', trackCount * 165)
 
@@ -167,7 +194,7 @@ export default class MauveViewer {
 
         })
 
-        d3.select('#reset-btn')
+        d3.select(this.ele.querySelector('.reset-btn'))
             .on("click", reset);
 
 

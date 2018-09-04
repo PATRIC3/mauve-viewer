@@ -4,8 +4,7 @@ module.exports = {
     mode: 'production',
     entry: {
         'app': ['./demo/main.js'],
-        'mauve-viewer': ['./src/mauve-viewer.js'],
-        'mv-bundle': ['./src/mauve-viewer.js', 'd3']
+        'mauve-viewer': ['./src/mauve-viewer.js']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
