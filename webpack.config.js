@@ -1,10 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
-        app: ['./demo/main.js'],
-        'mauve-viewer': ['./src/mauve-viewer.js']
+        'app': ['./demo/main.js'],
+        'mauve-viewer': ['./src/mauve-viewer.js'],
+        'mv-bundle': ['./src/mauve-viewer.js', 'd3']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
