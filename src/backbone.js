@@ -59,7 +59,7 @@ export class BackBone {
     }
 
     scale(newScale) {
-        this.d3.selectAll('path.lcb-line')
+        this.svg.selectAll('path.lcb-line')
             .attr("d", d => {
                 let set = d.map(p => {
                     return {

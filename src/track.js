@@ -1,18 +1,16 @@
 import {schemeCategory20} from './colors';
-
 import {trackOffset, yPos, lcbHeight} from './consts';
 
 
 export class Track {
 
     constructor(params) {
-
-        console.log('params', params)
         this.d3 = params.d3;
         this.svg = params.svg;
 
         this.id = params.id;
         this.name = params.name;
+        this.label = params.label;
         this.pos = params.pos;
         this.width = params.width;
         this.height = params.height;
@@ -49,7 +47,7 @@ export class Track {
         this.svg.append('text')
             .attr('x', 10)
             .attr('y', this.pos - 2) // -2 padding
-            .text(this.name)
+            .text(this.label || this.name)
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", '#aaaaaa');
@@ -79,7 +77,6 @@ export class Track {
 
         this.regions = regions;
     }
-
 
     rescaleAxis() {
         this.gX.call(this.xAxis.scale(this.d3.event.transform.rescaleX(this.x)));

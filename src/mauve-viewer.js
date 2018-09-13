@@ -9,49 +9,31 @@
 
 import {Track} from './track';
 import {BackBone} from './backbone';
-import {marginTop, trackOffset, yPos, lcbHeight} from './consts';
+import {
+    container,
+    marginTop,
+    trackOffset,
+    yPos,
+    lcbHeight
+} from './consts';
 
 
 export default class MauveViewer {
 
-    constructor(params){
-        this.ele = params.ele;
-        this.data = params.data;
-        this.d3 = params.d3;
+    constructor({d3, ele, data, labels}){
+        this.ele = ele;
+        this.data = data;
+        this.d3 = d3;
 
-        this.tracks = [];
+        this.labels = labels;
 
         this.init();
     }
 
     init() {
-        this.ele.innerHTML = `
-            <div class="mauve-viewer">
-                <div class="mv-header" style="text-align: left;">
-                    <h4 class="title">Mauve Viewer (Alpha)</h4>
-                    <div class="help-text">
-                        <b>Tips:</b> click and drag to pan; use ctrl-scroll or double click to zoom.
-                    </div><br>
-                    <button class="reset-btn">Reset</button><br>
-                </div>
-                <br>
-                <div class="mv-chart">
-                    <svg></svg>
-
-                    <div style="position: relative;">
-                        <div class="mv-context-menu" style="display: none;">
-                            <ul>
-                                <li id="nucleotide-align">Align by nucleotide</li>
-                                <li>Another item</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>`
-
+        this.ele.innerHTML = container;
         this.render(this.d3, this.data);
     }
-
 
     render(d3, data) {
         const genomeRegions = this.getGenomeRegions(data);
@@ -61,7 +43,7 @@ export default class MauveViewer {
         const numOfLCBs = genomeRegions[1].length;
 
         // get highest end value
-        const endMax = Math.max( ...[].concat.apply([], data).map(region => region.end));
+        const endMax = Math.max(...[].concat.apply([], data).map(region => region.end));
         const xLength = endMax + 100;
 
         // create svg dom element
@@ -70,11 +52,12 @@ export default class MauveViewer {
             .attr('width', 1000)
             .attr('height', trackCount * 165)
 
-
         const width = +svg.attr("width"),
             height = +svg.attr("height");
 
-        // ctrl-mousewheel for zoom
+        /**
+         *  ctrl-mousewheel for zoom
+         */
         let zoom = d3.zoom()
             .scaleExtent([1, 150])
             .translateExtent([[-2000, 0], [width + 90, height + 100]])
@@ -100,11 +83,11 @@ export default class MauveViewer {
 
         for (let i = 0; i < trackCount; i++) {
             let pos = (marginTop + i * (trackOffset + 0 )),
-                name = genomeRegions[i+1][0].name
-
+                name = genomeRegions[i+1][0].name,
+                label = this.labels ? this.labels[name] : '';
 
             let track = new Track({
-                d3, svg, id: i, name,
+                d3, svg, id: i, name, label,
                 pos, width, height, xLength,
             })
 
@@ -115,8 +98,7 @@ export default class MauveViewer {
             tracks.push(track);
         }
 
-        // x scale is same for all tracks
-        let x = xScales[0];
+        let x = xScales[0]; // x scale is same for all tracks
 
 
         /**
@@ -204,16 +186,6 @@ export default class MauveViewer {
                 });
         }
 
-
-
-        function reset() {
-            zoom.transform(svg, d3.zoomIdentity);
-        }
-
-        function getRegionYPos(trackIdx, strandDirection ) {
-            return (strandDirection === '-' ? yPos + lcbHeight : yPos) + ((trackIdx-1) * trackOffset);
-        }
-
         function zoomed() {
             let srcEvent = d3.event.sourceEvent;
             let newScale = d3.event.transform.rescaleX(xScales[0]);
@@ -225,11 +197,11 @@ export default class MauveViewer {
 
             // scale all rectangles
             if (!srcEvent || srcEvent.type === 'wheel' || srcEvent.type === 'click') {
-                d3.selectAll('.region')
+                svg.selectAll('.region')
                     .attr('x', (d) => newScale(d.start))
                     .attr("width", (d) => newScale(d.end) - newScale(d.start))
             } else if ((d3.event.sourceEvent.type === 'mousemove')) {
-                d3.selectAll('.region')
+                svg.selectAll('.region')
                   .attr("x", (d) => newScale(d.start) );
             }
 
@@ -237,13 +209,21 @@ export default class MauveViewer {
             backbone.scale(newScale);
 
             // rescale hover events
-            d3.selectAll('.region')
+            svg.selectAll('.region')
                 .on("mousemove", null)
                 .on("mouseover", null)
                 .on("mouseenter", null)
                 .on("mouseleave", null)
                 .on("mouseout", null)
             resetHover(newScale);
+        }
+
+        function reset() {
+            zoom.transform(svg, d3.zoomIdentity);
+        }
+
+        function getRegionYPos(trackIdx, strandDirection ) {
+            return (strandDirection === '-' ? yPos + lcbHeight : yPos) + ((trackIdx-1) * trackOffset);
         }
     }
 
