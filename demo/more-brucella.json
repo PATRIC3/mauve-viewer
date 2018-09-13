@@ -1,0 +1,2528 @@
+[
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 2107795,
+            "end": 2199957,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 2117150,
+            "end": 2209261,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 2124240,
+            "end": 2216164,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 2121358,
+            "end": 2213347,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2,
+            "end": 91853,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 2105970,
+            "end": 2198148,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 2213862,
+            "end": 2306798,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 1004628,
+            "end": 1096774,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 97067,
+            "end": 190209,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 2138344,
+            "end": 2230524,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 1,
+            "end": 92139,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 2199958,
+            "end": 2331071,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 3164422,
+            "end": 3294931,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 2216165,
+            "end": 2349423,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 2213348,
+            "end": 2346589,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 91854,
+            "end": 222704,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 2198149,
+            "end": 2329358,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 2306799,
+            "end": 2439113,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 872522,
+            "end": 1004627,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 190210,
+            "end": 322116,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 2230525,
+            "end": 2363068,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 92140,
+            "end": 224551,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 2331072,
+            "end": 2479367,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 3034525,
+            "end": 3164421,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 2942596,
+            "end": 3072531,
+            "strand": "-",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 2939693,
+            "end": 3064406,
+            "strand": "-",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 222705,
+            "end": 351241,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 2329359,
+            "end": 2477470,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 2439114,
+            "end": 2589857,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 726369,
+            "end": 872521,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 322117,
+            "end": 472488,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 2363069,
+            "end": 2494016,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 224552,
+            "end": 372903,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 2657127,
+            "end": 2940718,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 2582583,
+            "end": 2857782,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 2508433,
+            "end": 2791985,
+            "strand": "-",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 2505621,
+            "end": 2789091,
+            "strand": "-",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 551020,
+            "end": 834670,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 2655287,
+            "end": 2938199,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 2590064,
+            "end": 2875093,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 270153,
+            "end": 554309,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 651757,
+            "end": 923328,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 2742536,
+            "end": 3027935,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 550765,
+            "end": 834039,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 2940783,
+            "end": 3099786,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 2424117,
+            "end": 2582582,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 2349424,
+            "end": 2508432,
+            "strand": "-",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 2346590,
+            "end": 2505620,
+            "strand": "-",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 834671,
+            "end": 994663,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 2938200,
+            "end": 3097385,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 3051941,
+            "end": 3214310,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 110639,
+            "end": 270152,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 923329,
+            "end": 1082784,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 3027936,
+            "end": 3187074,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 834040,
+            "end": 993196,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 3099787,
+            "end": 3210411,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 2313936,
+            "end": 2424116,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 3072532,
+            "end": 3181971,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 3064407,
+            "end": 3173844,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 994664,
+            "end": 1064349,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 3097386,
+            "end": 3208018,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 3214311,
+            "end": 3295561,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 3,
+            "end": 110638,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 1082785,
+            "end": 1192320,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 3187075,
+            "end": 3298201,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 993197,
+            "end": 1115578,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 3210412,
+            "end": 3211161,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 2310226,
+            "end": 2313935,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 3181972,
+            "end": 3185659,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 3173845,
+            "end": 3177533,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 3208019,
+            "end": 3208768,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 3295562,
+            "end": 3297136,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 3323217,
+            "end": 3323324,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 1115579,
+            "end": 1116328,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 3211162,
+            "end": 3214100,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 3208769,
+            "end": 3211707,
+            "strand": "-",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 1194233,
+            "end": 1195452,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 3326634,
+            "end": 3327853,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 1116329,
+            "end": 1119267,
+            "strand": "-",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 3214101,
+            "end": 3315175,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 2209262,
+            "end": 2310225,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 3185660,
+            "end": 3286445,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 3177534,
+            "end": 3278307,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 1064350,
+            "end": 1164220,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 3211708,
+            "end": 3312769,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 2117053,
+            "end": 2213861,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 1096775,
+            "end": 1194224,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 1,
+            "end": 97066,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 3298202,
+            "end": 3399268,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 1119268,
+            "end": 1220319,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1,
+            "end": 574353,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 1408694,
+            "end": 2003350,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1,
+            "end": 595868,
+            "strand": "-",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1,
+            "end": 592165,
+            "strand": "-",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 1164221,
+            "end": 1760057,
+            "strand": "-",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1,
+            "end": 573089,
+            "strand": "-",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 533674,
+            "end": 1113261,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 1515462,
+            "end": 2110642,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 1192322,
+            "end": 1789645,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1,
+            "end": 598456,
+            "strand": "-",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 1220320,
+            "end": 1796903,
+            "strand": "-",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 574354,
+            "end": 838511,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 1147140,
+            "end": 1408693,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 595869,
+            "end": 860198,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 592166,
+            "end": 856476,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 1760058,
+            "end": 2027929,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 573090,
+            "end": 836875,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 1113263,
+            "end": 1378113,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 2110643,
+            "end": 2376583,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 2101782,
+            "end": 2366160,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 598457,
+            "end": 866128,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 1796904,
+            "end": 2062991,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 838512,
+            "end": 842284,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 1143367,
+            "end": 1147139,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 860199,
+            "end": 863971,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 856477,
+            "end": 860249,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2027930,
+            "end": 2031701,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 836876,
+            "end": 840648,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 1378114,
+            "end": 1381886,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 2376584,
+            "end": 2380355,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 2366161,
+            "end": 2369932,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 866129,
+            "end": 869901,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 2062992,
+            "end": 2066764,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 842285,
+            "end": 945290,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 1043034,
+            "end": 1143366,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 863972,
+            "end": 964292,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 860250,
+            "end": 961412,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2031702,
+            "end": 2126141,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 840649,
+            "end": 943740,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 1381887,
+            "end": 1481952,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 2380356,
+            "end": 2483224,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 2369933,
+            "end": 2470426,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 869902,
+            "end": 971007,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 2066765,
+            "end": 2169888,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 945291,
+            "end": 1024003,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 964348,
+            "end": 1043033,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 964293,
+            "end": 1042963,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 961413,
+            "end": 1040083,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2126146,
+            "end": 2197294,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 943741,
+            "end": 1022455,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 1516073,
+            "end": 1595539,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 2483535,
+            "end": 2562071,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 2470737,
+            "end": 2550182,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 971011,
+            "end": 1049762,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 2169889,
+            "end": 2248582,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1024004,
+            "end": 1034550,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 954582,
+            "end": 964347,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1042964,
+            "end": 1051720,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1040084,
+            "end": 1048871,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2197295,
+            "end": 2207828,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1022456,
+            "end": 1033002,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 1505530,
+            "end": 1516072,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 2562072,
+            "end": 2572616,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 2550186,
+            "end": 2560730,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1049763,
+            "end": 1060311,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 2248583,
+            "end": 2259129,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1034551,
+            "end": 1065855,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 922779,
+            "end": 954581,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1051721,
+            "end": 1083200,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1048872,
+            "end": 1080351,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2207829,
+            "end": 2232071,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1033003,
+            "end": 1064747,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 1481960,
+            "end": 1505529,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 2572617,
+            "end": 2604669,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 2560731,
+            "end": 2592624,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1060312,
+            "end": 1092117,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 2259130,
+            "end": 2291712,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1065856,
+            "end": 1429442,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 558694,
+            "end": 922778,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1083201,
+            "end": 1447507,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1080352,
+            "end": 1444661,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2232072,
+            "end": 2601172,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1064748,
+            "end": 1428400,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 1596200,
+            "end": 1962033,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 2604670,
+            "end": 2969826,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 2592625,
+            "end": 2960224,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1092118,
+            "end": 1459454,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 2291713,
+            "end": 2658049,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1429443,
+            "end": 1553431,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 434696,
+            "end": 558693,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1447508,
+            "end": 1571496,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1444662,
+            "end": 1568650,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2601173,
+            "end": 2725079,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1428401,
+            "end": 1552388,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 1962034,
+            "end": 2085924,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 2969827,
+            "end": 3094548,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 3156685,
+            "end": 3281294,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1459455,
+            "end": 1584308,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 2658050,
+            "end": 2782003,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1553432,
+            "end": 1590421,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 397940,
+            "end": 434695,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1571497,
+            "end": 1608236,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1568651,
+            "end": 1605392,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2725928,
+            "end": 2762525,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1552389,
+            "end": 1589253,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 2085928,
+            "end": 2116766,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 3094549,
+            "end": 3125530,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 3281295,
+            "end": 3312044,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1584309,
+            "end": 1621175,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 2782004,
+            "end": 2819096,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1590422,
+            "end": 1782532,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 207463,
+            "end": 397939,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1608237,
+            "end": 1799392,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1605393,
+            "end": 1796520,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2762526,
+            "end": 2953955,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1589254,
+            "end": 1780707,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 10882,
+            "end": 202594,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 3125531,
+            "end": 3315413,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 2960226,
+            "end": 3149542,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1621176,
+            "end": 1813292,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 2819097,
+            "end": 3010862,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1782533,
+            "end": 1786594,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1799393,
+            "end": 1803454,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1796521,
+            "end": 1800582,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2953960,
+            "end": 2954660,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1780708,
+            "end": 1784769,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 202786,
+            "end": 206304,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 3315414,
+            "end": 3319140,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 3149543,
+            "end": 3153737,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1813294,
+            "end": 1817229,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 3010863,
+            "end": 3014924,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1786595,
+            "end": 1791002,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 201195,
+            "end": 207157,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1803455,
+            "end": 1809460,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1800583,
+            "end": 1806588,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2954661,
+            "end": 2960848,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1784770,
+            "end": 1789177,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 207049,
+            "end": 210551,
+            "strand": "+",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 3319295,
+            "end": 3322803,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 3153817,
+            "end": 3156682,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1817230,
+            "end": 1823417,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 3014925,
+            "end": 3019331,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1792465,
+            "end": 1994042,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 5,
+            "end": 201194,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 1809461,
+            "end": 2010704,
+            "strand": "-",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 1806589,
+            "end": 2007823,
+            "strand": "-",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 2960849,
+            "end": 3162079,
+            "strand": "-",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1790640,
+            "end": 1992210,
+            "strand": "-",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 218457,
+            "end": 418590,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 1202028,
+            "end": 1401746,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 1903094,
+            "end": 2101781,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 1823418,
+            "end": 2024424,
+            "strand": "-",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 3020794,
+            "end": 3223358,
+            "strand": "-",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1791003,
+            "end": 1792464,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1789178,
+            "end": 1790639,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 210716,
+            "end": 218332,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 3322969,
+            "end": 3329623,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 3312053,
+            "end": 3318787,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 3019332,
+            "end": 3020793,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 1994043,
+            "end": 2107794,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 2003351,
+            "end": 2117149,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 2010705,
+            "end": 2124239,
+            "strand": "-",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 2007824,
+            "end": 2121357,
+            "strand": "-",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 3162083,
+            "end": 3275590,
+            "strand": "-",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 1992211,
+            "end": 2105968,
+            "strand": "-",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 418591,
+            "end": 533673,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 1401747,
+            "end": 1515461,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 1789646,
+            "end": 1903093,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 2024428,
+            "end": 2138342,
+            "strand": "-",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 3223359,
+            "end": 3337369,
+            "strand": "-",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 2479368,
+            "end": 2653178,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 2861730,
+            "end": 3034524,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 2795919,
+            "end": 2942595,
+            "strand": "-",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 2793025,
+            "end": 2939692,
+            "strand": "-",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 351246,
+            "end": 547078,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 2477471,
+            "end": 2651338,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 2879043,
+            "end": 3051460,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 558258,
+            "end": 726367,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 472495,
+            "end": 646854,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 2494727,
+            "end": 2738588,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 372904,
+            "end": 546816,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 2653179,
+            "end": 2657126,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "224914.11.fna",
+            "start": 2857783,
+            "end": 2861729,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "262698.4.fna",
+            "start": 2791986,
+            "end": 2795918,
+            "strand": "-",
+            "lcb_idx": 3
+        },
+        {
+            "name": "359391.4.fna",
+            "start": 2789092,
+            "end": 2793024,
+            "strand": "-",
+            "lcb_idx": 4
+        },
+        {
+            "name": "444178.3.fna",
+            "start": 547079,
+            "end": 551019,
+            "strand": "-",
+            "lcb_idx": 5
+        },
+        {
+            "name": "483179.4.fna",
+            "start": 2651339,
+            "end": 2655286,
+            "strand": "+",
+            "lcb_idx": 6
+        },
+        {
+            "name": "520448.3.fna",
+            "start": 2875094,
+            "end": 2879042,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 554310,
+            "end": 558257,
+            "strand": "-",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 646855,
+            "end": 651756,
+            "strand": "+",
+            "lcb_idx": 9
+        },
+        {
+            "name": "520461.7.fna",
+            "start": 2738589,
+            "end": 2742535,
+            "strand": "+",
+            "lcb_idx": 10
+        },
+        {
+            "name": "568815.3.fna",
+            "start": 546817,
+            "end": 550764,
+            "strand": "+",
+            "lcb_idx": 11
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fna",
+            "start": 2725211,
+            "end": 2725678,
+            "strand": "+",
+            "lcb_idx": 5
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 3334221,
+            "end": 3334684,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 3965,
+            "end": 5917,
+            "strand": "-",
+            "lcb_idx": 7
+        },
+        {
+            "name": "520456.3.fna",
+            "start": 1200854,
+            "end": 1202015,
+            "strand": "+",
+            "lcb_idx": 8
+        },
+        {
+            "name": "520459.3.fna",
+            "start": 3327857,
+            "end": 3332830,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fna",
+            "start": 2940719,
+            "end": 2940782,
+            "strand": "+",
+            "lcb_idx": 1
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fna",
+            "start": 1,
+            "end": 4,
+            "strand": "+",
+            "lcb_idx": 2
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fna",
+            "start": 207158,
+            "end": 207462,
+            "strand": "+",
+            "lcb_idx": 2
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fna",
+            "start": 1,
+            "end": 1,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fna",
+            "start": 351242,
+            "end": 351245,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fna",
+            "start": 2126142,
+            "end": 2126145,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fna",
+            "start": 2725080,
+            "end": 2725210,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fna",
+            "start": 2725679,
+            "end": 2725927,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fna",
+            "start": 2953956,
+            "end": 2953959,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fna",
+            "start": 3162080,
+            "end": 3162082,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "483179.4.fna",
+            "start": 2105969,
+            "end": 2105969,
+            "strand": "+",
+            "lcb_idx": 6
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 1,
+            "end": 3964,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 5918,
+            "end": 10881,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 202595,
+            "end": 202785,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 206305,
+            "end": 207048,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 210552,
+            "end": 210715,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 218333,
+            "end": 218456,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 1113262,
+            "end": 1113262,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 1481953,
+            "end": 1481959,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 1595540,
+            "end": 1596199,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 2085925,
+            "end": 2085927,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 2116767,
+            "end": 2117052,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 2589858,
+            "end": 2590063,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 3051461,
+            "end": 3051940,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520448.3.fna",
+            "start": 3297137,
+            "end": 3297137,
+            "strand": "+",
+            "lcb_idx": 7
+        }
+    ],
+    [
+        {
+            "name": "520456.3.fna",
+            "start": 1,
+            "end": 2,
+            "strand": "+",
+            "lcb_idx": 8
+        }
+    ],
+    [
+        {
+            "name": "520456.3.fna",
+            "start": 726368,
+            "end": 726368,
+            "strand": "+",
+            "lcb_idx": 8
+        }
+    ],
+    [
+        {
+            "name": "520456.3.fna",
+            "start": 1194225,
+            "end": 1194232,
+            "strand": "+",
+            "lcb_idx": 8
+        }
+    ],
+    [
+        {
+            "name": "520456.3.fna",
+            "start": 1195453,
+            "end": 1200853,
+            "strand": "+",
+            "lcb_idx": 8
+        }
+    ],
+    [
+        {
+            "name": "520456.3.fna",
+            "start": 1202016,
+            "end": 1202027,
+            "strand": "+",
+            "lcb_idx": 8
+        }
+    ],
+    [
+        {
+            "name": "520456.3.fna",
+            "start": 2483225,
+            "end": 2483534,
+            "strand": "+",
+            "lcb_idx": 8
+        }
+    ],
+    [
+        {
+            "name": "520456.3.fna",
+            "start": 3319141,
+            "end": 3319294,
+            "strand": "+",
+            "lcb_idx": 8
+        }
+    ],
+    [
+        {
+            "name": "520456.3.fna",
+            "start": 3322804,
+            "end": 3322968,
+            "strand": "+",
+            "lcb_idx": 8
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 472489,
+            "end": 472494,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 1192321,
+            "end": 1192321,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 2470427,
+            "end": 2470736,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 2550183,
+            "end": 2550185,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 2960225,
+            "end": 2960225,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 3153738,
+            "end": 3153816,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 3156683,
+            "end": 3156684,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 3312045,
+            "end": 3312052,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 3318788,
+            "end": 3323216,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 3323325,
+            "end": 3326633,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 3327854,
+            "end": 3327856,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 3332831,
+            "end": 3334220,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520459.3.fna",
+            "start": 3334685,
+            "end": 3334689,
+            "strand": "+",
+            "lcb_idx": 9
+        }
+    ],
+    [
+        {
+            "name": "520461.7.fna",
+            "start": 971008,
+            "end": 971010,
+            "strand": "+",
+            "lcb_idx": 10
+        }
+    ],
+    [
+        {
+            "name": "520461.7.fna",
+            "start": 1813293,
+            "end": 1813293,
+            "strand": "+",
+            "lcb_idx": 10
+        }
+    ],
+    [
+        {
+            "name": "520461.7.fna",
+            "start": 2024425,
+            "end": 2024427,
+            "strand": "+",
+            "lcb_idx": 10
+        }
+    ],
+    [
+        {
+            "name": "520461.7.fna",
+            "start": 2138343,
+            "end": 2138343,
+            "strand": "+",
+            "lcb_idx": 10
+        }
+    ],
+    [
+        {
+            "name": "520461.7.fna",
+            "start": 2494017,
+            "end": 2494726,
+            "strand": "+",
+            "lcb_idx": 10
+        }
+    ]
+]

@@ -7,13 +7,19 @@
  *
  */
 
-import {schemeCategory20} from './colors';
+import {Track} from './track';
+import {BackBone} from './backbone';
+import {marginTop, trackOffset, yPos, lcbHeight} from './consts';
+
 
 export default class MauveViewer {
+
     constructor(params){
         this.ele = params.ele;
         this.data = params.data;
         this.d3 = params.d3;
+
+        this.tracks = [];
 
         this.init();
     }
@@ -24,7 +30,7 @@ export default class MauveViewer {
                 <div class="mv-header" style="text-align: left;">
                     <h4 class="title">Mauve Viewer (Alpha)</h4>
                     <div class="help-text">
-                        <b>Tips:</b> click and drag to pan; use mouse wheel or double click to zoom.
+                        <b>Tips:</b> click and drag to pan; use ctrl-scroll or double click to zoom.
                     </div><br>
                     <button class="reset-btn">Reset</button><br>
                 </div>
@@ -46,9 +52,8 @@ export default class MauveViewer {
         this.render(this.d3, this.data);
     }
 
-    render(d3, data) {
-        console.log('data', data)
 
+    render(d3, data) {
         const genomeRegions = this.getGenomeRegions(data);
         const trackCount = Object.keys(genomeRegions).length;
 
@@ -57,12 +62,9 @@ export default class MauveViewer {
 
         // get highest end value
         const endMax = Math.max( ...[].concat.apply([], data).map(region => region.end));
-        let xLength = endMax + 100;
+        const xLength = endMax + 100;
 
-
-        // clear svg
-
-        console.log(this.ele.querySelector('svg'))
+        // create svg dom element
         d3.select(this.ele.querySelector('svg')).remove();
         const svg = d3.select(this.ele.querySelector('.mv-chart')).append("svg")
             .attr('width', 1000)
@@ -72,77 +74,62 @@ export default class MauveViewer {
         const width = +svg.attr("width"),
             height = +svg.attr("height");
 
-
+        // ctrl-mousewheel for zoom
         let zoom = d3.zoom()
             .scaleExtent([1, 150])
             .translateExtent([[-2000, 0], [width + 90, height + 100]])
             .on("zoom", zoomed)
+            .filter(() => (
+                d3.event.ctrlKey ||
+                d3.event.type === 'mousedown' ||
+                d3.event.type == 'dblclick')
+            )
 
-        svg.on("dblclick.zoom", null);
+        svg.call(zoom);
 
+        d3.select(this.ele.querySelector('.reset-btn'))
+            .on("click", reset);
 
-        let x;
-        let trackOffset = 140,
-            marginTop = 20;
-
-
-        // create axises
+        /**
+         *  create tracks (axises, scales, gXs)
+         */
         let axises = [],
             gXs = [],
-            xScales = [];
+            xScales = [],
+            tracks = [];
 
         for (let i = 0; i < trackCount; i++) {
-            x = d3.scaleLinear()
-                .domain([0, xLength])
-                .range([0, width + 1]);
+            let pos = (marginTop + i * (trackOffset + 0 )),
+                name = genomeRegions[i+1][0].name
 
-            let xAxis = d3.axisBottom(x)
-                .ticks((width + 2) / (height + 2) * 10)
-                .tickSize(10)
 
-            let gX = svg.append("g")
-                .attr("class", `axis axis-x-${i}`)
-                .call(xAxis)
-                .attr("transform", `translate(0, ${(marginTop + i * (trackOffset + 0 ))})`);
+            let track = new Track({
+                d3, svg, id: i, name,
+                pos, width, height, xLength,
+            })
 
-            // add names
-            svg.append('text')
-                .attr('x', 10)
-                .attr('y', marginTop + i * (trackOffset) - 2) // -2 padding
-                .text(genomeRegions[i+1][0].name)
-                .attr("font-family", "sans-serif")
-                .attr("font-size", "10px")
-                .attr("fill", '#aaaaaa');
+            axises.push(track.xAxis);
+            gXs.push(track.gX);
+            xScales.push(track.x);
 
-            axises.push(xAxis);
-            gXs.push(gX);
-            xScales.push(x);
+            tracks.push(track);
         }
 
+        // x scale is same for all tracks
+        let x = xScales[0];
 
-        let yPos = 50, // distance from x-axis
-            h = 20; // height of rectangles (regions)
 
-        // for each track, generate rectangles
+        /**
+         * add regions
+         */
+        // for each track, add rectangles (lcbs), get midpoint
         for (let trackIdx = 1; trackIdx <= trackCount; trackIdx++) {
             let regions = genomeRegions[trackIdx];
 
-            let g = svg.select('g')
-                .append('g')
-                .attr('class', `track track-${trackIdx}`)
+            let track = tracks[trackIdx - 1];
+            track.addRegions(regions);
 
-            // add regions
-            g.selectAll('rect')
-                .data(regions)
-                .enter()
-                .append('rect')
-                .attr('class', d => `region region-track-${trackIdx} region-${d.id} group-${d.groupID}`)
-                .attr('x', d => x(d.start))
-                .attr('y', d => getRegionYPos(trackIdx, d.strand))
-                .attr('width', d => x(d.end - d.start))
-                .attr('height', h)
-                .attr('stroke', '#fffff')
-                .attr('fill', d =>  schemeCategory20[(d.groupID % numOfLCBs) % 20] )
+            tracks[trackIdx - 1]
         }
 
         // add hover cursor lines, initially without x position
@@ -160,137 +147,10 @@ export default class MauveViewer {
 
         resetHover(x);
 
-        // compute all LCB midpoints as list of objects
-        let midSets = [];
-        data.forEach((lcb) => {
-
-            let lcbMids = []
-            lcb.forEach(l => {
-                let i = l.lcb_idx - 1;  // make indexed
-                lcbMids.push({
-                    start: l.start,
-                    end: l.end,
-                    x:  x(l.start) + ( (x(l.end) - x(l.start))  / 2 ) ,
-                    y: marginTop + getRegionYPos(i+1, l.strand) + (h/2)
-                });
-            })
-
-            midSets.push(lcbMids);
+        // add backbone of lcb lines
+        let backbone = new BackBone({
+            scale: x, data, d3, svg
         })
-
-        // draw connections
-        let lineFunction = d3.line()
-            .x(d => d.x)
-            .y(d => d.y)
-
-        midSets.forEach((set, i) => {
-            svg.datum(set)
-                .insert("path",":first-child")
-                .attr('class', 'lcb-line')
-                .attr("d", lineFunction(set))
-                .attr("stroke-width", 1)
-                .attr('stroke', schemeCategory20[i % 20])
-                .attr('fill', 'none')
-
-        })
-
-        d3.select(this.ele.querySelector('.reset-btn'))
-            .on("click", reset);
-
-
-        svg.call(zoom);
-
-        /*
-        d3.select('#shift-btn').on("click", shift)
-        function shift() {
-            // update axis
-            gXs[0].transition().tween("axis", function(d) {
-                let i = d3.interpolate(
-                    [xScales[0].domain()[0], xScales[0].domain()[1]],
-                    [xScales[0].domain()[0] - 300000, xScales[0].domain()[1] - 300000]
-                );
-
-                return function(t) {
-                    xScales[0].domain(i(t));
-                    gXs[0].call(axises[0]);
-
-                    let newScale = xScales[0];
-
-                    // Need to update contents as well
-                    d3.selectAll('.region-track-1')
-                        .attr("x", (d) => newScale(d.start) );
-
-
-                    // scale lines
-                    d3.selectAll('path.lcb-line')
-                        .attr("d", d => {
-
-                            let old = d[0];
-                            // only rescale first track
-                            d[0] = {
-                                start: old.start,
-                                end: old.end,
-                                x: newScale(old.start) + ( (newScale(old.end) - newScale(old.start))  / 2 ),
-                                y: old.y
-                            }
-
-                            return lineFunction(d)
-                        });
-
-                    resetHover(newScale);
-                }
-            });
-        }
-        */
-
-        function zoomed() {
-
-            let newScale = d3.event.transform.rescaleX(xScales[2]);
-
-            // for each axis, scale
-            for (let i = 0; i < axises.length; i++) {
-                let gX = gXs[i],
-                    xAxis = axises[i],
-                    x = xScales[i];
-                gX.call(xAxis.scale(d3.event.transform.rescaleX(x)));
-            }
-
-            // scale rectangles
-            let srcEvent = d3.event.sourceEvent;
-            if (!srcEvent || srcEvent.type === 'wheel' || srcEvent.type === 'click') {
-                d3.selectAll('.region')
-                    .attr('x', (d) => newScale(d.start))
-                    .attr("width", (d) => newScale(d.end) - newScale(d.start))
-            } else if ((d3.event.sourceEvent.type === 'mousemove')) {
-                d3.selectAll('.region')
-                    .attr("x", (d) => newScale(d.start) );
-            }
-
-            // scale lines
-            d3.selectAll('path.lcb-line')
-                .attr("d", d => {
-                    let set = d.map(p => {
-                        return {
-                            start: p.start,
-                            end: p.end,
-                            x: newScale(p.start) + ( (newScale(p.end) - newScale(p.start))  / 2 ),
-                            y: p.y
-                        }
-                    })
-
-                    return lineFunction(set)
-                });
-
-            // rescale hover events
-            d3.selectAll('.region')
-                .on("mousemove", null)
-                .on("mouseover", null)
-                .on("mouseenter", null)
-                .on("mouseleave", null)
-                .on("mouseout", null)
-            resetHover(newScale);
-        }
-
 
 
         function resetHover(scale) {
@@ -345,50 +205,48 @@ export default class MauveViewer {
         }
 
 
-        svg.selectAll('.hover-line').on('contextmenu', function() {
-            d3.event.preventDefault();
-
-            showContextMenu.bind(this)()
-        })
-
-
-        // show / hide context menu
-        svg.selectAll('.region').on('contextmenu', function(data, index) {
-            d3.event.preventDefault();
-
-            showContextMenu.bind(this)()
-        });
-
-
-        /* content menu
-        d3.select('#nucleotide-align').on('click', (d) => {
-            d3.select('#mv-context-menu').style('display', 'none');
-        })
-
-        function showContextMenu() {
-            let pos = d3.mouse(this);
-            d3.select('#mv-context-menu')
-                .style('position', 'absolute')
-                .style('left', `${pos[0]}px`)
-                .style('top', `${pos[1]}px`)
-                .style('display', 'block');
-
-            // close on click
-            svg.on('click', () => {
-                d3.select('#mv-context-menu').style('display', 'none');
-            })
-        }
-        */
 
         function reset() {
             zoom.transform(svg, d3.zoomIdentity);
         }
 
         function getRegionYPos(trackIdx, strandDirection ) {
-            return (strandDirection === '-' ? yPos + h : yPos) + ((trackIdx-1) * trackOffset);
+            return (strandDirection === '-' ? yPos + lcbHeight : yPos) + ((trackIdx-1) * trackOffset);
         }
 
+        function zoomed() {
+            let srcEvent = d3.event.sourceEvent;
+            let newScale = d3.event.transform.rescaleX(xScales[0]);
+
+            // scale each axis
+            for (let i = 0; i < tracks.length; i++) {
+                tracks[i].rescaleAxis();
+            }
+
+            // scale all rectangles
+            if (!srcEvent || srcEvent.type === 'wheel' || srcEvent.type === 'click') {
+                d3.selectAll('.region')
+                    .attr('x', (d) => newScale(d.start))
+                    .attr("width", (d) => newScale(d.end) - newScale(d.start))
+            } else if ((d3.event.sourceEvent.type === 'mousemove')) {
+                d3.selectAll('.region')
+                  .attr("x", (d) => newScale(d.start) );
+            }
+
+            // scale lines
+            backbone.scale(newScale);
+
+            // rescale hover events
+            d3.selectAll('.region')
+                .on("mousemove", null)
+                .on("mouseover", null)
+                .on("mouseenter", null)
+                .on("mouseleave", null)
+                .on("mouseout", null)
+            resetHover(newScale);
+        }
     }
+
 
     // gets lcbs that have entry for every organism
     // deprecated(?)
@@ -422,5 +280,6 @@ export default class MauveViewer {
 
         return regions;
     }
+
 
 }
