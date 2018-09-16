@@ -8,14 +8,16 @@
  */
 
 import {Track} from './track';
+import {TrackCtrl} from './track-ctrl';
 import {BackBone} from './backbone';
 import {
     container,
     marginTop,
     trackOffset,
-    yPos,
+    yPosOffset,
     lcbHeight
 } from './consts';
+
 
 
 export default class MauveViewer {
@@ -27,20 +29,23 @@ export default class MauveViewer {
 
         this.labels = labels;
 
+        this.genomeRegions = this.getGenomeRegions(data);
+        this.trackCount = Object.keys(this.genomeRegions).length;
+
         this.init();
     }
 
     init() {
         this.ele.innerHTML = container;
-        this.render(this.d3, this.data);
+        this.render();
     }
 
-    render(d3, data) {
-        const genomeRegions = this.getGenomeRegions(data);
-        const trackCount = Object.keys(genomeRegions).length;
+    render() {
+        let d3 = this.d3,
+            data = this.data;
 
-        // number of LCBs; assuming every track has same number of regions
-        const numOfLCBs = genomeRegions[1].length;
+        const genomeRegions = this.genomeRegions;
+        const trackCount = this.trackCount;
 
         // get highest end value
         const endMax = Math.max(...[].concat.apply([], data).map(region => region.end));
@@ -82,13 +87,14 @@ export default class MauveViewer {
             tracks = [];
 
         for (let i = 0; i < trackCount; i++) {
-            let pos = (marginTop + i * (trackOffset + 0 )),
-                name = genomeRegions[i+1][0].name,
+            let id = i + 1,
+                yPos = (marginTop + i * (trackOffset + 0 )),
+                name = genomeRegions[id][0].name,
                 label = this.labels ? this.labels[name] : '';
 
             let track = new Track({
-                d3, svg, id: i, name, label,
-                pos, width, height, xLength,
+                d3, svg, id, name, label,
+                yPos, width, xLength,
             })
 
             axises.push(track.xAxis);
@@ -96,10 +102,17 @@ export default class MauveViewer {
             xScales.push(track.x);
 
             tracks.push(track);
+
+            let trackCtrl = new TrackCtrl({
+                id, yPos, height, container: this.ele,
+                svg: this.ele.querySelector('svg'),
+                onMoveUp: id => { this.moveTrackUp(id) },
+                onMoveDown: id => { this.moveTrackDown(id) }
+            })
+
         }
 
         let x = xScales[0]; // x scale is same for all tracks
-
 
         /**
          * add regions
@@ -111,7 +124,6 @@ export default class MauveViewer {
             let track = tracks[trackIdx - 1];
             track.addRegions(regions);
 
-            tracks[trackIdx - 1]
         }
 
         // add hover cursor lines, initially without x position
@@ -121,8 +133,8 @@ export default class MauveViewer {
             let line = svg.append('line')
                 .attr('class', 'hover-line')
                 .style('stroke', '#222' )
-                .attr('y1', yPos - 20)
-                .attr('y2', yPos + 65)
+                .attr('y1', marginTop + yPos + - 30)
+                .attr('y2', marginTop + yPos + 30)
 
             hoverLines.push(line);
         }
@@ -223,8 +235,59 @@ export default class MauveViewer {
         }
 
         function getRegionYPos(trackIdx, strandDirection ) {
-            return (strandDirection === '-' ? yPos + lcbHeight : yPos) + ((trackIdx-1) * trackOffset);
+            return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackIdx-1) * trackOffset);
         }
+    }
+
+    moveTrackUp(id) {
+        let switchID = id - 1;
+        if (switchID < 1) return;
+
+        let switchTrack = this.genomeRegions[switchID];
+        this.genomeRegions[switchID] = this.genomeRegions[id];
+        this.genomeRegions[id] = switchTrack;
+
+        this.swapBackbones(id, switchID)
+        this.render();
+    }
+
+    moveTrackDown(id) {
+        let switchID = id + 1;
+        if (switchID > this.trackCount) return;
+
+        let switchTrack = this.genomeRegions[switchID];
+        this.genomeRegions[switchID] = this.genomeRegions[id];
+        this.genomeRegions[id] = switchTrack;
+
+        this.swapBackbones(id, switchID)
+        this.render();
+    }
+
+    swapBackbones(oldID, newID) {
+        // note track ids are 1-indexed
+        let oldLCBIdx = oldID - 1,
+            newLCBIdx = newID - 1
+
+        this.data.forEach(lcb => {
+            let oldRegion = null,
+                newRegion = null;
+            lcb.forEach(region => {
+                if (region.lcb_idx == oldID) {
+                    oldRegion = region;
+                    region.lcb_idx = newID
+
+                } else if (region.lcb_idx == newID) {
+                    newRegion = region;
+                    region.lcb_idx = oldID
+                }
+            })
+
+            if (oldRegion && newRegion) {
+                let savedLCB = lcb[newLCBIdx]
+                lcb[newLCBIdx] = lcb[oldLCBIdx];
+                lcb[oldLCBIdx] = savedLCB;
+            }
+        })
     }
 
 

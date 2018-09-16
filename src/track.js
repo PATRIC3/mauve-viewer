@@ -1,5 +1,5 @@
 import {schemeCategory20} from './colors';
-import {trackOffset, yPos, lcbHeight} from './consts';
+import {trackOffset, yPosOffset, lcbHeight} from './consts';
 
 
 export class Track {
@@ -11,9 +11,8 @@ export class Track {
         this.id = params.id;
         this.name = params.name;
         this.label = params.label;
-        this.pos = params.pos;
+        this.yPos = params.yPos;
         this.width = params.width;
-        this.height = params.height;
         this.xLength = params.xLength;
 
         // render and expose axis/scale
@@ -35,18 +34,18 @@ export class Track {
             .range([0, this.width + 1]);
 
         let xAxis = d3.axisBottom(x)
-            .ticks((this.width + 2) / (this.height + 2) * 10)
+            .ticks((this.width + 2) / 1700 * 10)
             .tickSize(10)
 
         let gX = this.svg.append("g")
             .attr("class", `axis axis-x-${this.id}`)
             .call(xAxis)
-            .attr("transform", `translate(0, ${this.pos})`);
+            .attr("transform", `translate(0, ${this.yPos})`);
 
         // add names
         this.svg.append('text')
             .attr('x', 10)
-            .attr('y', this.pos - 2) // -2 padding
+            .attr('y', this.yPos - 2) // -2 padding
             .text(this.label || this.name)
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
@@ -67,9 +66,9 @@ export class Track {
             .data(regions)
             .enter()
             .append('rect')
-            .attr('class', d => `region region-track-${d.lcb_idx} region-${d.id} group-${d.groupID}`)
+            .attr('class', d => `region region-track-${this.id} group-${d.groupID} region-${d.id}`)
             .attr('x', d => this.x(d.start))
-            .attr('y', d => this._getRegionYPos(d.lcb_idx, d.strand))
+            .attr('y', d => this._getRegionYPos(this.id, d.strand))
             .attr('width', d => this.x(d.end - d.start))
             .attr('height', lcbHeight)
             .attr('stroke', '#fffff')
@@ -83,6 +82,7 @@ export class Track {
     }
 
     _getRegionYPos(trackIdx, strandDirection) {
-        return (strandDirection === '-' ? yPos + lcbHeight : yPos) + ((trackIdx-1) * trackOffset);
+        return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset)
+            + ((trackIdx-1) * trackOffset);
     }
 }

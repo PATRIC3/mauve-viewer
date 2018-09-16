@@ -1,18 +1,17 @@
 
 import {schemeCategory20} from './colors';
-import {marginTop, trackOffset, yPos, lcbHeight} from './consts';
+import {marginTop, trackOffset, yPosOffset, lcbHeight} from './consts';
 
 export class BackBone {
 
     constructor(params) {
-        console.log('params', params)
         this.d3 = params.d3;
         this.svg = params.svg;
 
         this.data = params.data;
         this.x = params.scale
 
-        let backbone =  this.render(this.data);
+        this.render(this.data);
 
         return this;
     }
@@ -26,7 +25,7 @@ export class BackBone {
         data.forEach((lcb) => {
             let lcbMids = []
             lcb.forEach(l => {
-                let i = l.lcb_idx - 1;  // make indexed
+                let i = l.lcb_idx - 1;  // make 0-indexed
                 lcbMids.push({
                     start: l.start,
                     end: l.end,
@@ -76,6 +75,6 @@ export class BackBone {
 
 
     _getRegionYPos(trackIdx, strandDirection) {
-        return (strandDirection === '-' ? yPos + lcbHeight : yPos) + ((trackIdx-1) * trackOffset);
+        return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackIdx-1) * trackOffset);
     }
 }

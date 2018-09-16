@@ -25,11 +25,9 @@ function main() {
                     res.data.forEach(org => {
                         mapping[org.genome_id+'.fna'] = org.genome_name;
                     })
-                    console.log('mapping', mapping)
+
                     new MauveViewer({ele, data, d3, labels: mapping});
-                }).catch(e => {
-                    alert(`Could not fetch organism names: ${e.message}`)
-                });
+                })
 
         }).catch(e => {
             alert(`Could not fetch alignment json: ${e.message}`)

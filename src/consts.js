@@ -1,14 +1,14 @@
 
 
 
-export const trackOffset = 140;
-export const marginTop = 20;
-export const yPos = 50;     // distance of regions from x-axis
-export const lcbHeight = 20;        // height of regions (rectangles)
+export const marginTop = 20;     // margin of canvas top
+export const trackOffset = 100; // distance between axises
+export const yPosOffset = 30;   // distance of regions from x-axis
+export const lcbHeight = 20;    // height of regions (rectangles)
 
 
 export const container = `
-    <div class="mauve-viewer">
+    <div class="mauve-viewer" style="position: relative;">
         <div class="mv-header" style="text-align: left;">
             <h4 class="title">Mauve Viewer (Alpha)</h4>
             <div class="help-text">
