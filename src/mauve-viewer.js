@@ -14,6 +14,7 @@ import {
     container,
     marginTop,
     trackOffset,
+    hideTrackOffset,
     yPosOffset,
     lcbHeight
 } from './consts';
@@ -21,7 +22,6 @@ import {
 
 
 export default class MauveViewer {
-
     constructor({d3, ele, data, labels}){
         this.ele = ele;
         this.data = data;
@@ -29,15 +29,24 @@ export default class MauveViewer {
 
         this.labels = labels;
 
-        this.genomeRegions = this.getGenomeRegions(data);
-        this.trackCount = Object.keys(this.genomeRegions).length;
+        this.hiddenTracks = [];
 
         this.init();
     }
 
     init() {
+        let {regions, regCount, lcbCount} = this.getGenomeRegions(this.data);
+
+        this.genomeRegions = regions;
+        this.trackCount = Object.keys(this.genomeRegions).length;
+
+        // set first genome as reference
+        this.setReference(1, true);
+
         this.ele.innerHTML = container;
         this.render();
+
+        this.rendered = true;
     }
 
     render() {
@@ -70,8 +79,8 @@ export default class MauveViewer {
             .filter(() => (
                 d3.event.ctrlKey ||
                 d3.event.type === 'mousedown' ||
-                d3.event.type == 'dblclick')
-            )
+                d3.event.type == 'dblclick'
+            ))
 
         svg.call(zoom);
 
@@ -86,15 +95,19 @@ export default class MauveViewer {
             xScales = [],
             tracks = [];
 
-        for (let i = 0; i < trackCount; i++) {
-            let id = i + 1,
-                yPos = (marginTop + i * (trackOffset + 0 )),
-                name = genomeRegions[id][0].name,
+        let yPos = marginTop;
+        for (let id = 1; id <= trackCount; id++) {
+            let isHidden = this.hiddenTracks.includes(id);
+            yPos += id === 1 ? 0 : (isHidden ? hideTrackOffset : trackOffset);
+
+            let name = genomeRegions[id][0].name,
                 label = this.labels ? this.labels[name] : '';
 
             let track = new Track({
-                d3, svg, id, name, label,
-                yPos, width, xLength,
+                d3, yPos, svg, id, name, label,
+                width, xLength,
+                hidden: isHidden,
+                regions: genomeRegions[id]
             })
 
             axises.push(track.xAxis);
@@ -103,28 +116,24 @@ export default class MauveViewer {
 
             tracks.push(track);
 
-            let trackCtrl = new TrackCtrl({
+            // only create track ctrls once
+            if (this.rendered) continue;
+
+            new TrackCtrl({
                 id, yPos, height, container: this.ele,
                 svg: this.ele.querySelector('svg'),
+                trackCount: this.trackCount,
+                isReference: id === 1,
                 onMoveUp: id => { this.moveTrackUp(id) },
-                onMoveDown: id => { this.moveTrackDown(id) }
+                onMoveDown: id => { this.moveTrackDown(id) },
+                onSetReference: id => { this.setReference(id) },
+                onHide: id => { this.hideTrack(id) },
+                onShow: id => { this.showTrack(id) }
             })
-
         }
 
         let x = xScales[0]; // x scale is same for all tracks
 
-        /**
-         * add regions
-         */
-        // for each track, add rectangles (lcbs), get midpoint
-        for (let trackIdx = 1; trackIdx <= trackCount; trackIdx++) {
-            let regions = genomeRegions[trackIdx];
-
-            let track = tracks[trackIdx - 1];
-            track.addRegions(regions);
-
-        }
 
         // add hover cursor lines, initially without x position
         let hoverLines = [];
@@ -133,7 +142,7 @@ export default class MauveViewer {
             let line = svg.append('line')
                 .attr('class', 'hover-line')
                 .style('stroke', '#222' )
-                .attr('y1', marginTop + yPos + - 30)
+                .attr('y1', marginTop + yPos - 30)
                 .attr('y2', marginTop + yPos + 30)
 
             hoverLines.push(line);
@@ -240,55 +249,104 @@ export default class MauveViewer {
     }
 
     moveTrackUp(id) {
-        let switchID = id - 1;
-        if (switchID < 1) return;
+        let swapID = id - 1;
+        if (swapID < 1) return;
 
-        let switchTrack = this.genomeRegions[switchID];
-        this.genomeRegions[switchID] = this.genomeRegions[id];
-        this.genomeRegions[id] = switchTrack;
-
-        this.swapBackbones(id, switchID)
+        this.swapTrack(id, swapID);
+        this.swapBackbones(id, swapID)
         this.render();
     }
 
     moveTrackDown(id) {
-        let switchID = id + 1;
-        if (switchID > this.trackCount) return;
+        let swapID = id + 1;
+        if (swapID > this.trackCount) return;
 
-        let switchTrack = this.genomeRegions[switchID];
-        this.genomeRegions[switchID] = this.genomeRegions[id];
-        this.genomeRegions[id] = switchTrack;
-
-        this.swapBackbones(id, switchID)
+        this.swapTrack(id, swapID);
+        this.swapBackbones(id, swapID)
         this.render();
     }
 
+    swapTrack(id, newID) {
+        let swapTrack = this.genomeRegions[newID];
+        this.genomeRegions[newID] = this.genomeRegions[id];
+        this.genomeRegions[id] = swapTrack;
+    }
+
     swapBackbones(oldID, newID) {
-        // note track ids are 1-indexed
-        let oldLCBIdx = oldID - 1,
-            newLCBIdx = newID - 1
-
         this.data.forEach(lcb => {
-            let oldRegion = null,
-                newRegion = null;
+            let foundOldRegion = null,
+                foundSwapRegion = null;
             lcb.forEach(region => {
-                if (region.lcb_idx == oldID) {
-                    oldRegion = region;
-                    region.lcb_idx = newID
+                if (region.lcb_idx === oldID)
+                    region.lcb_idx = newID;
+                else if (region.lcb_idx === newID)
+                    region.lcb_idx = oldID;
+            })
 
-                } else if (region.lcb_idx == newID) {
-                    newRegion = region;
-                    region.lcb_idx = oldID
+            lcb.sort((a, b) => a.lcb_idx - b.lcb_idx)
+        })
+    }
+
+    setReference(id, noRerender) {
+        this.data.forEach(lcb => {
+            let flipped = false;
+
+            // first determine if reference's (region)
+            // strand direction is made positive
+            lcb.forEach(region => {
+                if (region.lcb_idx !== id) return;
+
+                if (region.strand !== '+') {
+                    region.strand = '+';
+                    flipped = true
                 }
             })
 
-            if (oldRegion && newRegion) {
-                let savedLCB = lcb[newLCBIdx]
-                lcb[newLCBIdx] = lcb[oldLCBIdx];
-                lcb[oldLCBIdx] = savedLCB;
-            }
+            if (!flipped) return;
+
+            // otherwise, need to flip corresponding regions
+            lcb.forEach(region => {
+                if (region.lcb_idx === id) return;
+                region.strand = region.strand === '-' ? '+' : '-';
+            })
         })
+
+        if (noRerender) return;
+
+        this.render();
     }
+
+    hideTrack(id) {
+        console.log('called hide track', id)
+
+        this.data.forEach(lcbs => {
+            lcbs.forEach(region => {
+                if (region.lcb_idx == id)
+                    region.hidden = true;
+            })
+        })
+
+        this.hiddenTracks.push(id);
+        this.render();
+    }
+
+
+    showTrack(id) {
+        console.log('called show track', id)
+        console.log('this.hiddentTracks', this.hiddenTracks)
+
+        this.data.forEach(lcbs => {
+            lcbs.forEach(region => {
+                if (region.lcb_idx == id)
+                    delete region.hidden;
+            })
+        })
+
+        this.hiddenTracks.splice( this.hiddenTracks.indexOf(id));
+        console.log('this.hiddentTracks', this.hiddenTracks)
+        this.render();
+    }
+
 
 
     // gets lcbs that have entry for every organism
@@ -304,9 +362,10 @@ export default class MauveViewer {
     getGenomeRegions(lcbs) {
         let regions = {};
         let regionID = 0;
+        let lcbID = 0;
         lcbs.forEach((lcb, groupID) => {
             //lcb.reverse(); // consider last index reference genome
-
+            lcbID += 1;
             lcb.forEach((region) => {
                 // increment/add ids to regions
                 regionID += 1;
@@ -321,7 +380,7 @@ export default class MauveViewer {
             })
         })
 
-        return regions;
+        return {regions, regionCount: regionID, lcbCount: lcbID};
     }
 
 

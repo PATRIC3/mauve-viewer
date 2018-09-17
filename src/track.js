@@ -1,5 +1,5 @@
 import {schemeCategory20} from './colors';
-import {trackOffset, yPosOffset, lcbHeight} from './consts';
+import {marginTop, trackOffset, yPosOffset, lcbHeight} from './consts';
 
 
 export class Track {
@@ -8,50 +8,57 @@ export class Track {
         this.d3 = params.d3;
         this.svg = params.svg;
 
+        this.hidden = params.hidden;
         this.id = params.id;
         this.name = params.name;
         this.label = params.label;
-        this.yPos = params.yPos;
         this.width = params.width;
         this.xLength = params.xLength;
+        this.regions = params.regions;
+        this.yPos = params.yPos || marginTop + (this.id - 1) * trackOffset;
 
         // render and expose axis/scale
-        let parts = this.render();
-        this.x = parts.x;
-        this.xAxis = parts.xAxis;
-        this.gX = parts.gX;
-
-        this.regions;
+        this.render();
+        this.x;
+        this.xAxis;
+        this.gX
 
         return this;
     }
 
     render() {
+        if (this.hidden) {
+            this.hiddenTrack();
+            return;
+        }
+
         let d3 = this.d3;
 
-        let x = d3.scaleLinear()
+        this.x = d3.scaleLinear()
             .domain([0, this.xLength])
             .range([0, this.width + 1]);
 
-        let xAxis = d3.axisBottom(x)
+        this.xAxis = d3.axisBottom(this.x)
             .ticks((this.width + 2) / 1700 * 10)
             .tickSize(10)
 
-        let gX = this.svg.append("g")
+        this.gX = this.svg.append("g")
             .attr("class", `axis axis-x-${this.id}`)
-            .call(xAxis)
+            .call(this.xAxis)
             .attr("transform", `translate(0, ${this.yPos})`);
 
         // add names
         this.svg.append('text')
-            .attr('x', 10)
-            .attr('y', this.yPos - 2) // -2 padding
+            .attr('x', 0)
+            .attr('y', this.yPos + trackOffset - 5) // -2 padding
             .text(this.label || this.name)
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
-            .attr("fill", '#aaaaaa');
+            .attr("fill", '#888');
 
-        return {x, gX, xAxis};
+
+        if (this.regions)
+            this.addRegions(this.regions);
     }
 
     addRegions(regions) {
@@ -77,12 +84,35 @@ export class Track {
         this.regions = regions;
     }
 
+    hiddenTrack() {
+        let g = this.svg.select('g')
+            .append('g')
+            .attr('class', d => `hidden-track`)
+
+        g.append('rect')
+            .attr('class', d => `hidden-track track-${this.id}`)
+            .attr('x', 0)
+            .attr('y', d => (this.id-1) * trackOffset )
+            .attr('width', d => 10000)
+            .attr('height', 20)
+            .attr('stroke', '#fffff')
+            .attr('fill', d =>  '#aaa')
+
+        g.append('text')
+            .attr('x', 10)
+            .attr('y', this.yPos - 2) // -2 padding
+            .text(this.label || this.name)
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", '#222');
+    }
+
     rescaleAxis() {
+        if (this.hidden) return;
         this.gX.call(this.xAxis.scale(this.d3.event.transform.rescaleX(this.x)));
     }
 
     _getRegionYPos(trackIdx, strandDirection) {
-        return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset)
-            + ((trackIdx-1) * trackOffset);
+        return this.yPos + (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) - marginTop;
     }
 }

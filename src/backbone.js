@@ -22,15 +22,16 @@ export class BackBone {
 
         // compute all LCB midpoints as list of objects through backbone
         let midSets = [];
-        data.forEach((lcb) => {
-            let lcbMids = []
-            lcb.forEach(l => {
-                let i = l.lcb_idx - 1;  // make 0-indexed
+        data.forEach((lcbs) => {
+            let lcbMids = [];
+            lcbs.forEach(l => {
+                if (l.hidden) return;
+
                 lcbMids.push({
                     start: l.start,
                     end: l.end,
                     x:  x(l.start) + ( (x(l.end) - x(l.start))  / 2 ) ,
-                    y: marginTop + this._getRegionYPos(i+1, l.strand) + (lcbHeight/2)
+                    y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2)
                 });
             })
 

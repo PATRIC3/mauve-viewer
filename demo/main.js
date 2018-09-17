@@ -13,17 +13,20 @@ function main() {
 
             // use different labels for each track (optional)
             // Todo: store list of names in alginment file
-            let ids = [
-                ...new Set(...data.map(
-                    lcbs => lcbs.map(lcb => lcb.name.replace('.fna', '')))
-                )];
+            let ext;
+            let ids = [...data.map(
+                lcbs => lcbs.map(lcb => {
+                    ext = lcb.name.split('.').pop();
+                    return lcb.name.replace(`.${ext}`, '');
+                })
+            )].filter((val, i, a) => a.indexOf(val) === i)
 
             let url = `${api}?in(genome_id,(${ids.join(',')}))&select(genome_id,genome_name)`;
             axios.get(url)
                 .then(res => {
                     let mapping = {};
                     res.data.forEach(org => {
-                        mapping[org.genome_id+'.fna'] = org.genome_name;
+                        mapping[`${org.genome_id}.${ext}`] = org.genome_name;
                     })
 
                     new MauveViewer({ele, data, d3, labels: mapping});

@@ -1,0 +1,19 @@
+
+
+.mauve-viewer .track-ctrl button {
+    font-weight: 800;
+}
+
+.mauve-viewer .track-ctrl button.ref-btn {
+    color: #b50707;
+}
+
+.mauve-viewer .track-ctrl button:focus {
+    outline: none;
+
+}
+
+.mauve-viewer .track-ctrl button.active {
+    background: #b50707;
+    color: #fff;
+}
