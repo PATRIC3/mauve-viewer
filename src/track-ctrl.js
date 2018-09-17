@@ -1,5 +1,5 @@
 
-import {marginTop, trackOffset, yPos} from './consts';
+import {marginTop, trackOffset, ctrlPadding} from './consts';
 
 
 const btnStyle = 'width: 26px; height: 23px;';
@@ -44,7 +44,7 @@ export class TrackCtrl {
         let ele = this.node = document.createElement('div');
         ele.setAttribute('class', `track-ctrl ctrl-${this.id}`);
         //ele.style.border = "1px solid black";
-        ele.style.top = relativeTop  + this.yPos + 5 + 'px';
+        ele.style.top = relativeTop  + this.yPos + ctrlPadding + 'px';
         ele.style.left = '-35px';
         ele.style.width = '25px';
         ele.style.height = trackOffset + 'px';

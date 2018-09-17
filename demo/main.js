@@ -14,12 +14,14 @@ function main() {
             // use different labels for each track (optional)
             // Todo: store list of names in alginment file
             let ext;
-            let ids = [...data.map(
-                lcbs => lcbs.map(lcb => {
-                    ext = lcb.name.split('.').pop();
-                    return lcb.name.replace(`.${ext}`, '');
+            let ids = []
+            data.forEach(lcbs => {
+                lcbs.forEach(r => {
+                    ext = r.name.split('.').pop();
+                    let name = r.name.replace(`.${ext}`, '');
+                    if (!ids.includes(name)) ids.push(name);
                 })
-            )].filter((val, i, a) => a.indexOf(val) === i)
+            })
 
             let url = `${api}?in(genome_id,(${ids.join(',')}))&select(genome_id,genome_name)`;
             axios.get(url)
