@@ -1,5 +1,9 @@
 
 
+/**
+  * track control
+  */
+
 .mauve-viewer .track-ctrl button {
     font-weight: 800;
 }
@@ -10,10 +14,58 @@
 
 .mauve-viewer .track-ctrl button:focus {
     outline: none;
-
 }
 
 .mauve-viewer .track-ctrl button.active {
     background: #b50707;
     color: #fff;
 }
+
+.mauve-viewer.caret-down {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #222;
+    display:inline-block;
+}
+
+/**
+ * buttons
+ */
+
+.mauve-viewer button:hover {
+    background-color: #f2f2f2;
+}
+
+
+/**
+ *  dropdowns
+ */
+
+.mauve-viewer .dropdown {
+    position: relative;
+    display: inline;
+}
+
+.mauve-viewer .dd-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.mauve-viewer .dd-content div {
+    display: block;
+    color: #222;
+    user-select: none;
+    padding: 5px 10px;
+}
+
+.mauve-viewer .show {
+    display: block;
+}
+

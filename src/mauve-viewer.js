@@ -10,8 +10,8 @@
 import {Track} from './track';
 import {TrackCtrl} from './track-ctrl';
 import {BackBone} from './backbone';
+import template from './container.html';
 import {
-    container,
     marginTop,
     trackOffset,
     hideTrackOffset,
@@ -35,22 +35,21 @@ export default class MauveViewer {
     }
 
     init() {
-        let {regions, regCount, lcbCount} = this.getGenomeRegions(this.data);
-
+        let {regions} = this.getGenomeRegions(this.data);
         this.genomeRegions = regions;
         this.trackCount = Object.keys(this.genomeRegions).length;
 
-        // set first genome as reference
-        this.setReference(1, true);
+        this.setReference(1, true);  // set first genome as reference
 
-        this.ele.innerHTML = container;
+        this.ele.innerHTML = template;
         this.render();
-
         this.rendered = true;
+
+        this.initControls(); // add global controls
     }
 
     render() {
-        let d3 = this.d3,
+        const d3 = this.d3,
             data = this.data;
 
         const genomeRegions = this.genomeRegions;
@@ -330,7 +329,6 @@ export default class MauveViewer {
         this.render();
     }
 
-
     showTrack(id) {
         console.log('called show track', id)
         console.log('this.hiddentTracks', this.hiddenTracks)
@@ -346,8 +344,6 @@ export default class MauveViewer {
         console.log('this.hiddentTracks', this.hiddenTracks)
         this.render();
     }
-
-
 
     // gets lcbs that have entry for every organism
     // deprecated(?)
@@ -383,5 +379,20 @@ export default class MauveViewer {
         return {regions, regionCount: regionID, lcbCount: lcbID};
     }
 
+    initControls() {
+        this.ele.querySelector('.opts-btn').onclick = () => {
+            this.ele.querySelector(".dd-content").classList.toggle("show");
+        }
+
+        window.onclick = (evt) => {
+            let dd = this.ele.querySelector('.dropdown');
+            if (dd.contains(evt.target)) return;
+
+            if (!evt.target.matches('.dd-btn')) {
+                var dds = this.ele.getElementsByClassName("dd-content");
+                Array.from(dds).forEach(dd => { dd.classList.remove('show') });
+            }
+        }
+    }
 
 }
