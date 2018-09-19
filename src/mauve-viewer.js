@@ -10,6 +10,7 @@
 import {Track} from './track';
 import {TrackCtrl} from './track-ctrl';
 import {BackBone} from './backbone';
+import {Cursor} from './cursor';
 import template from './container.html';
 import {
     marginTop,
@@ -135,76 +136,14 @@ export default class MauveViewer {
 
 
         // add hover cursor lines, initially without x position
-        let hoverLines = [];
-        for (let i=1; i <= trackCount; i++) {
-            let yPos = getRegionYPos(i, '-');
-            let line = svg.append('line')
-                .attr('class', 'hover-line')
-                .style('stroke', '#222' )
-                .attr('y1', marginTop + yPos - 30)
-                .attr('y2', marginTop + yPos + 30)
-
-            hoverLines.push(line);
-        }
-
-        resetHover(x);
+        let cursor = new Cursor({
+            d3, svg, scale: x, trackCount
+        })
 
         // add backbone of lcb lines
         let backbone = new BackBone({
             scale: x, data, d3, svg
         })
-
-
-        function resetHover(scale) {
-            let x = scale;
-            let lines = hoverLines;
-
-            svg.selectAll('.region').on("mousemove", function(d) {
-                let groupID = d.groupID;
-
-                let xPos = d3.mouse(this)[0],
-                    trackIdx = d.lcb_idx,
-                    hoverStrand = d.strand;
-
-                // need relative position for other tracks
-                let relXPos = xPos - x(d.start);
-
-                // draw cursor line for rect being hovered
-                lines[trackIdx-1]
-                    .attr('x1', xPos)
-                    .attr('x2', xPos)
-
-                // draw cursor line for other rects
-                svg.selectAll(`.group-${groupID}`).each(d => {
-                    // need to skip rect that is being hovered on
-                    if (d.lcb_idx === trackIdx) return;
-
-                    // need to compute relative position based on strand
-                    let nextXPos;
-                    if (hoverStrand !== d.strand) {
-                        nextXPos = x(d.end) - relXPos; // start + positition relative to other blocks
-                    } else {
-                        nextXPos = x(d.start) + relXPos; // start + positition relative to other blocks
-                    }
-
-                    lines[d.lcb_idx-1]
-                        .attr('x1', nextXPos)
-                        .attr('x2', nextXPos)
-                })
-            })
-
-            svg.selectAll('.region')
-                .on("mouseover", function(d) {
-                    for (let i=0; i < lines.length; i++) {
-                        lines[i].attr("opacity", 1.0);
-                    }
-                })
-                .on("mouseout", function(d) {
-                    for (let i=0; i < lines.length; i++) {
-                        lines[i].attr("opacity", 0);
-                    }
-                });
-        }
 
         function zoomed() {
             let srcEvent = d3.event.sourceEvent;
@@ -235,7 +174,8 @@ export default class MauveViewer {
                 .on("mouseenter", null)
                 .on("mouseleave", null)
                 .on("mouseout", null)
-            resetHover(newScale);
+
+            cursor.resetHover(newScale);
         }
 
         function reset() {
@@ -316,8 +256,6 @@ export default class MauveViewer {
     }
 
     hideTrack(id) {
-        console.log('called hide track', id)
-
         this.data.forEach(lcbs => {
             lcbs.forEach(region => {
                 if (region.lcb_idx == id)
@@ -330,9 +268,6 @@ export default class MauveViewer {
     }
 
     showTrack(id) {
-        console.log('called show track', id)
-        console.log('this.hiddentTracks', this.hiddenTracks)
-
         this.data.forEach(lcbs => {
             lcbs.forEach(region => {
                 if (region.lcb_idx == id)
@@ -341,7 +276,6 @@ export default class MauveViewer {
         })
 
         this.hiddenTracks.splice( this.hiddenTracks.indexOf(id));
-        console.log('this.hiddentTracks', this.hiddenTracks)
         this.render();
     }
 
@@ -384,7 +318,7 @@ export default class MauveViewer {
             this.ele.querySelector(".dd-content").classList.toggle("show");
         }
 
-        window.onclick = (evt) => {
+        document.onclick = (evt) => {
             let dd = this.ele.querySelector('.dropdown');
             if (dd.contains(evt.target)) return;
 

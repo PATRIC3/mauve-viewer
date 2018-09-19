@@ -1,6 +1,24 @@
 
 
 /**
+ * general utils
+ */
+
+.pull-left { float: left; }
+.pull-right { float: right; }
+
+
+/**
+ * mv ele styling
+ */
+
+ .cursor-info {
+     font-size: .9em;
+ }
+
+
+
+/**
   * track control
   */
 
