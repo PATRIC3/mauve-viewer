@@ -1,0 +1,37 @@
+<div class="mauve-viewer" style="position: relative;">
+    <div class="mv-header" style="text-align: left;">
+        <h4 class="title">Mauve Viewer (Alpha)</h4>
+        <div class="help-text">
+            <b>Tips:</b> click and drag to pan; use ctrl-scroll or double click to zoom.
+        </div><br>
+        <button class="reset-btn">Reset</button>
+
+        <div class="dropdown">
+            <button class="opts-btn dd-btn">Options <i class="caret-down"></i></button>
+            <div class="dd-content">
+                <div>
+                    <label>
+                        <input type="checkbox" name="fileNames" value="fileNames" />
+                        Show File Names
+                    </label>
+                </div>
+                <div>Hide track controls</div>
+            </div>
+        </div>
+
+        <br>
+    </div>
+    <br>
+    <div class="mv-chart">
+        <svg></svg>
+
+        <div style="position: relative;">
+            <div class="mv-context-menu" style="display: none;">
+                <ul>
+                    <li id="nucleotide-align">Align by nucleotide</li>
+                    <li>Another item</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

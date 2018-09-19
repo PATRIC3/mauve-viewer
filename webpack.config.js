@@ -1,7 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: {
         'app': ['./demo/main.js'],
         'mauve-viewer': ['./src/mauve-viewer.js']
@@ -18,6 +18,11 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
+            },
+            {
+                test: /\.html$/,
+                exclude: /node_modules/,
+                use: {loader: 'html-loader'}
             }
         ]
     },
