@@ -47,7 +47,7 @@ export class BackBone {
         midSets.forEach((set, i) => {
             this.svg.datum(set)
                 .insert("path",":first-child")
-                .attr('class', 'lcb-line')
+                .attr('class', `lcb-line id-${i}`)
                 .attr("d", this.lineFunction(set))
                 .attr("stroke-width", 1)
                 .attr('stroke', schemeCategory20[i % 20])

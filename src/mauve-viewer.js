@@ -16,8 +16,6 @@ import {
     marginTop,
     trackOffset,
     hideTrackOffset,
-    yPosOffset,
-    lcbHeight
 } from './consts';
 
 
@@ -29,7 +27,6 @@ export default class MauveViewer {
         this.d3 = d3;
 
         this.labels = labels;
-
         this.hiddenTracks = [];
 
         this.init();
@@ -59,7 +56,6 @@ export default class MauveViewer {
         // get highest end value
         const endMax = Math.max(...[].concat.apply([], data).map(region => region.end));
         const xLength = endMax + 100;
-        console.log('xLength', xLength)
 
         // create svg dom element
         d3.select(this.ele.querySelector('svg')).remove();

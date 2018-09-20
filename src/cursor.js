@@ -1,6 +1,7 @@
 // Todo: listen for mousemove on track container
 
 import {marginTop, yPosOffset, lcbHeight, trackOffset} from './consts';
+import { runInThisContext } from 'vm';
 
 export class Cursor {
 
@@ -50,8 +51,9 @@ export class Cursor {
 
         let x = scale;
 
+        let self = this;
         svg.selectAll('.track')
-            .on("mouseover", function(d) {
+            .on("mouseover", () => {
                 for (let i=0; i < lines.length; i++) {
                     lines[i].attr("opacity", 1.0)
                 }
@@ -112,6 +114,18 @@ export class Cursor {
                         .attr('x2', nextXPos)
                 })
 
+                // highlight lcbs
+                svg.selectAll(`.group-${groupID}`).each(function(d) {
+                    this.parentNode.appendChild(this);
+                    d3.select(this)
+                        .attr('stroke', '#222')
+                        .attr('stroke-width', 2)
+                })
+
+                // highlight backbone
+                svg.selectAll(`.lcb-line.id-${groupID}`)
+                    .attr('stroke-width', 2)
+
                 // set cursor-info
                 lengthNode.innerHTML = d.end - d.start + 1;
                 ntPosNode.innerHTML = Math.round(x.invert(xPos));
@@ -127,10 +141,18 @@ export class Cursor {
                     lines[i].attr("opacity", 0);
                 }
 
+                // remove highlighting
+                svg.selectAll(`.region`)
+                    .attr('stroke', null)
+                svg.selectAll(`.lcb-line`)
+                    .attr('stroke-width', 1)
+
                 lengthNode.innerHTML = '-';
                 ntPosNode.innerHTML = '-';
             });
     }
+
+
 
     _getRegionYPos(trackIdx, strandDirection) {
         return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackIdx-1) * trackOffset);
