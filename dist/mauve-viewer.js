@@ -1,2 +1,1107 @@
-!function(t,e){if("object"==typeof exports&&"object"==typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var n=e();for(var i in n)("object"==typeof exports?exports:t)[i]=n[i]}}(window,function(){return function(t){var e={};function n(i){if(e[i])return e[i].exports;var r=e[i]={i:i,l:!1,exports:{}};return t[i].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=t,n.c=e,n.d=function(t,e,i){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:i})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var i=Object.create(null);if(n.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)n.d(i,r,function(e){return t[e]}.bind(null,r));return i},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/dist/",n(n.s=4)}([function(t,e){t.exports={schemeCategory20:["#1f77b4","#aec7e8","#ff7f0e","#ffbb78","#2ca02c","#98df8a","#d62728","#ff9896","#9467bd","#c5b0d5","#8c564b","#c49c94","#e377c2","#f7b6d2","#7f7f7f","#c7c7c7","#bcbd22","#dbdb8d","#17becf","#9edae5"]}},function(t,e,n){"use strict";n.r(e);var i=n(0),r=20,o=105,s=30,a=22;function c(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}var l=function(){function t(e){return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.d3=e.d3,this.svg=e.svg,this.hidden=e.hidden,this.id=e.id,this.name=e.name,this.label=e.label,this.width=e.width,this.xLength=e.xLength,this.regions=e.regions,this.yPos=e.yPos||r+(this.id-1)*o,this.render(),this.x,this.xAxis,this.gX,this}return function(t,e,n){e&&c(t.prototype,e),n&&c(t,n)}(t,[{key:"render",value:function(){if(this.hidden)this.hiddenTrack();else{var t=this.d3;this.x=t.scaleLinear().domain([0,this.xLength]).range([0,this.width+1]),this.xAxis=t.axisBottom(this.x).ticks((this.width+2)/1700*10).tickSize(10),this.gX=this.svg.append("g").attr("class","axis axis-x-".concat(this.id)).call(this.xAxis).attr("transform","translate(0, ".concat(this.yPos,")")),this.svg.append("text").attr("x",0).attr("y",this.yPos+o-5).text(this.label||this.name).attr("font-family","sans-serif").attr("font-size","10px").attr("fill","#888"),this.regions&&this.addRegions(this.regions)}}},{key:"addRegions",value:function(t){var e=this,n=t.length;this.svg.select("g").append("g").attr("class",function(t){return"track"}).selectAll("rect").data(t).enter().append("rect").attr("class",function(t){return"region region-track-".concat(e.id," group-").concat(t.groupID," region-").concat(t.id)}).attr("x",function(t){return e.x(t.start)}).attr("y",function(t){return e._getRegionYPos(e.id,t.strand)}).attr("width",function(t){return e.x(t.end-t.start)}).attr("height",a).attr("stroke","#fffff").attr("fill",function(t){return i.schemeCategory20[t.groupID%n%20]}),this.regions=t}},{key:"hiddenTrack",value:function(){var t=this,e=this.svg.select("g").append("g").attr("class",function(t){return"hidden-track"});e.append("rect").attr("class",function(e){return"hidden-track track-".concat(t.id)}).attr("x",0).attr("y",function(e){return(t.id-1)*o}).attr("width",function(t){return 1e4}).attr("height",20).attr("stroke","#fffff").attr("fill",function(t){return"#aaa"}),e.append("text").attr("x",10).attr("y",this.yPos-2).text(this.label||this.name).attr("font-family","sans-serif").attr("font-size","10px").attr("fill","#222")}},{key:"rescaleAxis",value:function(){this.hidden||this.gX.call(this.xAxis.scale(this.d3.event.transform.rescaleX(this.x)))}},{key:"_getRegionYPos",value:function(t,e){return this.yPos+("-"===e?s+a:s)-r}}]),t}();function h(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}var u="width: 26px; height: 23px;",d=function(){function t(e){return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.id=e.id,this.container=e.container,this.svg=e.svg,this.trackCount=e.trackCount,this.yPos=e.yPos||r+(this.id-1)*o,this.ctrls,this.isReference=e.isReference||!1,this.hidden,this.onMoveUp=e.onMoveUp,this.onMoveDown=e.onMoveDown,this.onSetReference=e.onSetReference,this.onHide=e.onHide,this.onShow=e.onShow,this.init(),this}return function(t,e,n){e&&h(t.prototype,e),n&&h(t,n)}(t,[{key:"init",value:function(){this.destroy(),this.render()}},{key:"render",value:function(){var t=this.container.querySelector(".mauve-viewer").getBoundingClientRect(),e=this.svg.getBoundingClientRect().top-t.top,n=this.node=document.createElement("div");n.setAttribute("class","track-ctrl ctrl-".concat(this.id)),n.style.top=e+this.yPos+6+"px",n.style.left="-35px",n.style.width="25px",n.style.height=o+"px",n.style.position="absolute",this._addMainButtons(),this.container.querySelector(".mauve-viewer").appendChild(n)}},{key:"_addMainButtons",value:function(){var t=this.ctrls=this._getButtons(),e=t.upBtn,n=t.downBtn,i=(t.hideBtn,t.refBtn);this.node.appendChild(e),this.node.appendChild(i),this.node.appendChild(n),this.isReference&&i.classList.add("active")}},{key:"_getButtons",value:function(){var t=document.createElement("button");t.title="Move this genome up",t.style=u,t.innerHTML="▲",t.disabled=1===this.id||!1,t.onclick=this.moveTrackUp.bind(this);var e=document.createElement("button");e.title="Hide this genome",e.style=u,e.innerHTML="−",e.onclick=this.hideTrack.bind(this);var n=document.createElement("button");n.title="Set reference genome",n.classList.add("ref-btn"),n.style=u,n.innerHTML="R",n.onclick=this.refTrack.bind(this);var i=document.createElement("button");return i.title="Move this genome down",i.style=u,i.innerHTML="▼",i.disabled=this.id===this.trackCount||!1,i.onclick=this.moveTrackDown.bind(this),{upBtn:t,downBtn:i,hideBtn:e,refBtn:n}}},{key:"_getShowButton",value:function(){var t=document.createElement("button");return t.title="Show this genome",t.classList.add("show-btn"),t.style=u,t.innerHTML="+",t.onclick=this.showTrack.bind(this),t}},{key:"moveTrackUp",value:function(){this._selectNewRef(this.id,this.id-1),this.onMoveUp(this.id)}},{key:"moveTrackDown",value:function(){this._selectNewRef(this.id,this.id+1),this.onMoveDown(this.id)}},{key:"hideTrack",value:function(){this.node.innerHTML="";var t=this._getShowButton();this.node.appendChild(t),this.hidden=!0,this.onHide(this.id)}},{key:"showTrack",value:function(){console.log("called show"),this.node.innerHTML="",this._addMainButtons(),this.hidden=!1,this.onShow(this.id)}},{key:"refTrack",value:function(){this.container.querySelectorAll(".ref-btn").forEach(function(t){t.classList.remove("active")}),this.ctrls.refBtn.classList.add("active"),this.onSetReference(this.id),this.isReference=!0}},{key:"_selectNewRef",value:function(t,e){var n,i=this.container.querySelector(".ctrl-".concat(t," .ref-btn")),r=this.container.querySelector(".ctrl-".concat(e," .ref-btn"));r.classList.contains("active")&&(r.classList.remove("active"),i.classList.add("active"),n=!0),i.classList.contains("active")&&!n&&(i.classList.remove("active"),r.classList.add("active"))}},{key:"destroy",value:function(){var t=this.container.querySelector(".ctrl-".concat(this.id));t&&t.remove()}}]),t}();function f(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}var v=function(){function t(e){return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.d3=e.d3,this.svg=e.svg,this.data=e.data,this.x=e.scale,this.render(this.data),this}return function(t,e,n){e&&f(t.prototype,e),n&&f(t,n)}(t,[{key:"render",value:function(t){var e=this,n=this.x,o=[];return t.forEach(function(t){var i=[];t.forEach(function(t){t.hidden||i.push({start:t.start,end:t.end,x:n(t.start)+(n(t.end)-n(t.start))/2,y:r+e._getRegionYPos(t.lcb_idx,t.strand)+a/2})}),o.push(i)}),this.lineFunction=this.d3.line().x(function(t){return t.x}).y(function(t){return t.y}),o.forEach(function(t,n){e.svg.datum(t).insert("path",":first-child").attr("class","lcb-line").attr("d",e.lineFunction(t)).attr("stroke-width",1).attr("stroke",i.schemeCategory20[n%20]).attr("fill","none")}),o}},{key:"scale",value:function(t){var e=this;this.svg.selectAll("path.lcb-line").attr("d",function(n){var i=n.map(function(e){return{start:e.start,end:e.end,x:t(e.start)+(t(e.end)-t(e.start))/2,y:e.y}});return e.lineFunction(i)})}},{key:"_getRegionYPos",value:function(t,e){return("-"===e?s+a:s)+(t-1)*o}}]),t}();function g(t){return function(t){if(Array.isArray(t)){for(var e=0,n=new Array(t.length);e<t.length;e++)n[e]=t[e];return n}}(t)||function(t){if(Symbol.iterator in Object(t)||"[object Arguments]"===Object.prototype.toString.call(t))return Array.from(t)}(t)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance")}()}function p(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}n.d(e,"default",function(){return y});var y=function(){function t(e){var n=e.d3,i=e.ele,r=e.data,o=e.labels;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.ele=i,this.data=r,this.d3=n,this.labels=o,this.hiddenTracks=[],this.init()}return function(t,e,n){e&&p(t.prototype,e),n&&p(t,n)}(t,[{key:"init",value:function(){var t=this.getGenomeRegions(this.data),e=t.regions;t.regCount,t.lcbCount;this.genomeRegions=e,this.trackCount=Object.keys(this.genomeRegions).length,this.setReference(1,!0),this.ele.innerHTML='\n    <div class="mauve-viewer" style="position: relative;">\n        <div class="mv-header" style="text-align: left;">\n            <h4 class="title">Mauve Viewer (Alpha)</h4>\n            <div class="help-text">\n                <b>Tips:</b> click and drag to pan; use ctrl-scroll or double click to zoom.\n            </div><br>\n            <button class="reset-btn">Reset</button><br>\n        </div>\n        <br>\n        <div class="mv-chart">\n            <svg></svg>\n\n            <div style="position: relative;">\n                <div class="mv-context-menu" style="display: none;">\n                    <ul>\n                        <li id="nucleotide-align">Align by nucleotide</li>\n                        <li>Another item</li>\n                    </ul>\n                </div>\n            </div>\n        </div>\n    </div>',this.render(),this.rendered=!0}},{key:"render",value:function(){var t=this,e=this.d3,n=this.data,i=this.genomeRegions,c=this.trackCount,h=Math.max.apply(Math,g([].concat.apply([],n).map(function(t){return t.end})))+100;e.select(this.ele.querySelector("svg")).remove();var u=e.select(this.ele.querySelector(".mv-chart")).append("svg").attr("width",1e3).attr("height",165*c),f=+u.attr("width"),p=+u.attr("height"),y=e.zoom().scaleExtent([1,150]).translateExtent([[-2e3,0],[f+90,p+100]]).on("zoom",function(){for(var t=e.event.sourceEvent,n=e.event.transform.rescaleX(k[0]),i=0;i<x.length;i++)x[i].rescaleAxis();t&&"wheel"!==t.type&&"click"!==t.type?"mousemove"===e.event.sourceEvent.type&&u.selectAll(".region").attr("x",function(t){return n(t.start)}):u.selectAll(".region").attr("x",function(t){return n(t.start)}).attr("width",function(t){return n(t.end)-n(t.start)});B.scale(n),u.selectAll(".region").on("mousemove",null).on("mouseover",null).on("mouseenter",null).on("mouseleave",null).on("mouseout",null),j(n)}).filter(function(){return e.event.ctrlKey||"mousedown"===e.event.type||"dblclick"==e.event.type});u.call(y),e.select(this.ele.querySelector(".reset-btn")).on("click",function(){y.transform(u,e.zoomIdentity)});for(var b=[],m=[],k=[],x=[],w=r,T=1;T<=c;T++){var _=this.hiddenTracks.includes(T);w+=1===T?0:_?35:o;var R=i[T][0].name,S=this.labels?this.labels[R]:"",E=new l({d3:e,yPos:w,svg:u,id:T,name:R,label:S,width:f,xLength:h,hidden:_,regions:i[T]});b.push(E.xAxis),m.push(E.gX),k.push(E.x),x.push(E),this.rendered||new d({id:T,yPos:w,height:p,container:this.ele,svg:this.ele.querySelector("svg"),trackCount:this.trackCount,isReference:1===T,onMoveUp:function(e){t.moveTrackUp(e)},onMoveDown:function(e){t.moveTrackDown(e)},onSetReference:function(e){t.setReference(e)},onHide:function(e){t.hideTrack(e)},onShow:function(e){t.showTrack(e)}})}for(var M=k[0],C=[],A=1;A<=c;A++){var L=O(A,"-"),P=u.append("line").attr("class","hover-line").style("stroke","#222").attr("y1",r+L-30).attr("y2",r+L+30);C.push(P)}j(M);var B=new v({scale:M,data:n,d3:e,svg:u});function j(t){var n=t,i=C;u.selectAll(".region").on("mousemove",function(t){var r=t.groupID,o=e.mouse(this)[0],s=t.lcb_idx,a=t.strand,c=o-n(t.start);i[s-1].attr("x1",o).attr("x2",o),u.selectAll(".group-".concat(r)).each(function(t){var e;t.lcb_idx!==s&&(e=a!==t.strand?n(t.end)-c:n(t.start)+c,i[t.lcb_idx-1].attr("x1",e).attr("x2",e))})}),u.selectAll(".region").on("mouseover",function(t){for(var e=0;e<i.length;e++)i[e].attr("opacity",1)}).on("mouseout",function(t){for(var e=0;e<i.length;e++)i[e].attr("opacity",0)})}function O(t,e){return("-"===e?s+a:s)+(t-1)*o}}},{key:"moveTrackUp",value:function(t){var e=t-1;e<1||(this.swapTrack(t,e),this.swapBackbones(t,e),this.render())}},{key:"moveTrackDown",value:function(t){var e=t+1;e>this.trackCount||(this.swapTrack(t,e),this.swapBackbones(t,e),this.render())}},{key:"swapTrack",value:function(t,e){var n=this.genomeRegions[e];this.genomeRegions[e]=this.genomeRegions[t],this.genomeRegions[t]=n}},{key:"swapBackbones",value:function(t,e){this.data.forEach(function(n){n.forEach(function(n){n.lcb_idx===t?n.lcb_idx=e:n.lcb_idx===e&&(n.lcb_idx=t)}),n.sort(function(t,e){return t.lcb_idx-e.lcb_idx})})}},{key:"setReference",value:function(t,e){this.data.forEach(function(e){var n=!1;e.forEach(function(e){e.lcb_idx===t&&"+"!==e.strand&&(e.strand="+",n=!0)}),n&&e.forEach(function(e){e.lcb_idx!==t&&(e.strand="-"===e.strand?"+":"-")})}),e||this.render()}},{key:"hideTrack",value:function(t){console.log("called hide track",t),this.data.forEach(function(e){e.forEach(function(e){e.lcb_idx==t&&(e.hidden=!0)})}),this.hiddenTracks.push(t),this.render()}},{key:"showTrack",value:function(t){console.log("called show track",t),console.log("this.hiddentTracks",this.hiddenTracks),this.data.forEach(function(e){e.forEach(function(e){e.lcb_idx==t&&delete e.hidden})}),this.hiddenTracks.splice(this.hiddenTracks.indexOf(t)),console.log("this.hiddentTracks",this.hiddenTracks),this.render()}},{key:"getSharedLCBs",value:function(t){var e=Math.max.apply(Math,g(t.map(function(t){return t.length})));return t.filter(function(t){return t.length===e})}},{key:"getGenomeRegions",value:function(t){var e={},n=0,i=0;return t.forEach(function(t,r){i+=1,t.forEach(function(t){n+=1,t.id=n,t.groupID=r;var i=t.lcb_idx;i in e?e[i].push(t):e[i]=[t]})}),{regions:e,regionCount:n,lcbCount:i}}}]),t}()},,,function(t,e,n){t.exports=n(1)}])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/dist/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./src/backbone.js":
+/*!*************************!*\
+  !*** ./src/backbone.js ***!
+  \*************************/
+/*! exports provided: BackBone */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BackBone", function() { return BackBone; });
+/* harmony import */ var _colors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./colors */ "./src/colors.js");
+/* harmony import */ var _colors__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_colors__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./consts */ "./src/consts.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var BackBone =
+/*#__PURE__*/
+function () {
+  function BackBone(params) {
+    _classCallCheck(this, BackBone);
+
+    this.d3 = params.d3;
+    this.svg = params.svg;
+    this.data = params.data;
+    this.x = params.scale;
+    this.render(this.data);
+    return this;
+  }
+
+  _createClass(BackBone, [{
+    key: "render",
+    value: function render(data) {
+      var _this = this;
+
+      // local (not const)
+      var x = this.x; // compute all LCB midpoints as list of objects through backbone
+
+      var midSets = [];
+      data.forEach(function (lcbs) {
+        var lcbMids = [];
+        lcbs.forEach(function (l) {
+          if (l.hidden) return;
+          lcbMids.push({
+            start: l.start,
+            end: l.end,
+            x: x(l.start) + (x(l.end) - x(l.start)) / 2,
+            y: _consts__WEBPACK_IMPORTED_MODULE_1__["marginTop"] + _this._getRegionYPos(l.lcb_idx, l.strand) + _consts__WEBPACK_IMPORTED_MODULE_1__["lcbHeight"] / 2
+          });
+        });
+        midSets.push(lcbMids);
+      }); // draw connections using lineFunction
+      // keep line function for scaling
+
+      this.lineFunction = this.d3.line().x(function (d) {
+        return d.x;
+      }).y(function (d) {
+        return d.y;
+      });
+      midSets.forEach(function (set, i) {
+        _this.svg.datum(set).insert("path", ":first-child").attr('class', 'lcb-line').attr("d", _this.lineFunction(set)).attr("stroke-width", 1).attr('stroke', _colors__WEBPACK_IMPORTED_MODULE_0__["schemeCategory20"][i % 20]).attr('fill', 'none');
+      });
+      return midSets;
+    }
+  }, {
+    key: "scale",
+    value: function scale(newScale) {
+      var _this2 = this;
+
+      this.svg.selectAll('path.lcb-line').attr("d", function (d) {
+        var set = d.map(function (p) {
+          return {
+            start: p.start,
+            end: p.end,
+            x: newScale(p.start) + (newScale(p.end) - newScale(p.start)) / 2,
+            y: p.y
+          };
+        });
+        return _this2.lineFunction(set);
+      });
+    }
+  }, {
+    key: "_getRegionYPos",
+    value: function _getRegionYPos(trackIdx, strandDirection) {
+      return (strandDirection === '-' ? _consts__WEBPACK_IMPORTED_MODULE_1__["yPosOffset"] + _consts__WEBPACK_IMPORTED_MODULE_1__["lcbHeight"] : _consts__WEBPACK_IMPORTED_MODULE_1__["yPosOffset"]) + (trackIdx - 1) * _consts__WEBPACK_IMPORTED_MODULE_1__["trackOffset"];
+    }
+  }]);
+
+  return BackBone;
+}();
+
+/***/ }),
+
+/***/ "./src/colors.js":
+/*!***********************!*\
+  !*** ./src/colors.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var schemeCategory20 = ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5'];
+module.exports = {
+  schemeCategory20: schemeCategory20
+};
+
+/***/ }),
+
+/***/ "./src/consts.js":
+/*!***********************!*\
+  !*** ./src/consts.js ***!
+  \***********************/
+/*! exports provided: marginTop, trackOffset, hideTrackOffset, yPosOffset, lcbHeight, ctrlPadding */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marginTop", function() { return marginTop; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "trackOffset", function() { return trackOffset; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hideTrackOffset", function() { return hideTrackOffset; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "yPosOffset", function() { return yPosOffset; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lcbHeight", function() { return lcbHeight; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ctrlPadding", function() { return ctrlPadding; });
+var marginTop = 20; // margin of canvas top
+
+var trackOffset = 105; // distance between axises
+
+var hideTrackOffset = 35;
+var yPosOffset = 30; // distance of regions from x-axis
+
+var lcbHeight = 22; // height of regions (rectangles)
+
+var ctrlPadding = 6;
+
+/***/ }),
+
+/***/ "./src/container.html":
+/*!****************************!*\
+  !*** ./src/container.html ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n\n<div class=\"mauve-viewer\" style=\"position: relative;\">\n    <div class=\"mv-header\" style=\"text-align: left;\">\n        <h4 class=\"title\">Mauve Viewer (Alpha)</h4>\n        <div class=\"help-text\">\n            <b>Tips:</b> click and drag to pan; use ctrl-scroll or double click to zoom.\n        </div><br>\n        <button class=\"reset-btn\">Reset</button>\n\n        <div class=\"dropdown\">\n            <button class=\"opts-btn dd-btn\">Options <i class=\"caret-down\"></i></button>\n            <div class=\"dd-content\">\n                <div>\n                    <label>\n                        <input type=\"checkbox\" name=\"fileNames\" value=\"fileNames\" />\n                        Show File Names\n                    </label>\n                </div>\n                <div>Hide track controls</div>\n            </div>\n        </div>\n\n        <div class=\"cursor-info pull-right\">\n            <span class=\"nt-pos\">-</span>\n            LCB Length: <span class=\"lcb-length\">-</span>\n        </div>\n\n\n        <br>\n    </div>\n    <br>\n    <div class=\"mv-chart\">\n        <svg></svg>\n\n        <div style=\"position: relative;\">\n            <div class=\"mv-context-menu\" style=\"display: none;\">\n                <ul>\n                    <li id=\"nucleotide-align\">Align by nucleotide</li>\n                    <li>Another item</li>\n                </ul>\n            </div>\n        </div>\n    </div>\n</div>";
+
+/***/ }),
+
+/***/ "./src/cursor.js":
+/*!***********************!*\
+  !*** ./src/cursor.js ***!
+  \***********************/
+/*! exports provided: Cursor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Cursor", function() { return Cursor; });
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./consts */ "./src/consts.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+// Todo: listen for mousemove on track container
+
+var Cursor =
+/*#__PURE__*/
+function () {
+  function Cursor(params) {
+    _classCallCheck(this, Cursor);
+
+    this.container = params.container;
+    this.d3 = params.d3;
+    this.svg = params.svg;
+    this.scale = params.scale;
+    this.trackCount = params.trackCount;
+    this.hoverLines = [];
+    this.render();
+    return this;
+  }
+
+  _createClass(Cursor, [{
+    key: "render",
+    value: function render() {
+      // draw the track cursor once and update
+      // position for better performance
+      for (var i = 1; i <= this.trackCount; i++) {
+        var yPos = this._getRegionYPos(i, '-');
+
+        var line = this.svg.append('line').attr('class', 'hover-line').style('stroke', '#222').attr('y1', _consts__WEBPACK_IMPORTED_MODULE_0__["marginTop"] + yPos - 30).attr('y2', _consts__WEBPACK_IMPORTED_MODULE_0__["marginTop"] + yPos + 30);
+        this.hoverLines.push(line);
+      }
+
+      this.resetHover(this.scale);
+    }
+  }, {
+    key: "resetHover",
+    value: function resetHover(scale) {
+      var svg = this.svg,
+          d3 = this.d3,
+          lines = this.hoverLines;
+      svg.selectAll('.track').on("mouseover", null).on("mousemove", null).on("mouseout", null);
+      var lengthNode = this.container.querySelector('.lcb-length'),
+          ntPosNode = this.container.querySelector('.nt-pos');
+      var x = scale;
+      svg.selectAll('.track').on("mouseover", function (d) {
+        for (var i = 0; i < lines.length; i++) {
+          lines[i].attr("opacity", 1.0);
+        }
+      }).on("mousemove", function () {
+        var clientX = d3.event.clientX,
+            clientY = d3.event.clientY;
+        var ele = document.elementFromPoint(clientX, clientY);
+        var d = d3.select(ele).data()[0];
+        if (!ele) return; // ignore non-regions
+
+        if (ele.tagName !== 'rect' || !d || !('lcb_idx' in d)) {
+          if (ele.classList.contains('cursor-line')) {
+            return;
+          } // if not region, hide cursors
+
+
+          for (var i = 0; i < lines.length; i++) {
+            lines[i].attr("opacity", 0);
+          }
+
+          return;
+        }
+
+        var xPos = d3.mouse(this)[0],
+            trackIdx = d.lcb_idx,
+            hoverStrand = d.strand; // base xPos on nearest integer in range
+
+        xPos = x(Math.round(x.invert(xPos))); // position relative to lcb
+
+        var relXPos = xPos - x(d.start); // draw cursor line for rect being hovered
+
+        lines[trackIdx - 1].attr('class', 'cursor-line').attr('x1', xPos).attr('x2', xPos); // draw cursor line for other rects
+
+        var groupID = d.groupID;
+        svg.selectAll(".group-".concat(groupID)).each(function (d) {
+          // need to skip rect that is being hovered on
+          if (d.lcb_idx === trackIdx) return; // need to compute relative position based on strand
+
+          var nextXPos;
+
+          if (hoverStrand !== d.strand) {
+            nextXPos = x(d.end) - relXPos; // start + positition relative to other blocks
+          } else {
+            nextXPos = x(d.start) + relXPos; // start + positition relative to other blocks
+          }
+
+          lines[d.lcb_idx - 1].attr('x1', nextXPos).attr('x2', nextXPos);
+        }); // set cursor-info
+
+        lengthNode.innerHTML = d.end - d.start + 1;
+        ntPosNode.innerHTML = Math.round(x.invert(xPos));
+      }).on("mouseout", function (d) {
+        // ignore hover on line
+        if (d3.event.relatedTarget && d3.event.relatedTarget.classList.contains('cursor-line')) {
+          return;
+        }
+
+        for (var i = 0; i < lines.length; i++) {
+          lines[i].attr("opacity", 0);
+        }
+
+        lengthNode.innerHTML = '-';
+        ntPosNode.innerHTML = '-';
+      });
+    }
+  }, {
+    key: "_getRegionYPos",
+    value: function _getRegionYPos(trackIdx, strandDirection) {
+      return (strandDirection === '-' ? _consts__WEBPACK_IMPORTED_MODULE_0__["yPosOffset"] + _consts__WEBPACK_IMPORTED_MODULE_0__["lcbHeight"] : _consts__WEBPACK_IMPORTED_MODULE_0__["yPosOffset"]) + (trackIdx - 1) * _consts__WEBPACK_IMPORTED_MODULE_0__["trackOffset"];
+    }
+  }]);
+
+  return Cursor;
+}();
+
+/***/ }),
+
+/***/ "./src/mauve-viewer.js":
+/*!*****************************!*\
+  !*** ./src/mauve-viewer.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MauveViewer; });
+/* harmony import */ var _track__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./track */ "./src/track.js");
+/* harmony import */ var _track_ctrl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./track-ctrl */ "./src/track-ctrl.js");
+/* harmony import */ var _backbone__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./backbone */ "./src/backbone.js");
+/* harmony import */ var _cursor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cursor */ "./src/cursor.js");
+/* harmony import */ var _container_html__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./container.html */ "./src/container.html");
+/* harmony import */ var _container_html__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_container_html__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./consts */ "./src/consts.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * mauve-viewer.js
+ *
+ * A JS/d3.js Mauve Viewer
+ *
+ * Author(s): nconrad
+ *
+ */
+
+
+
+
+
+
+
+var MauveViewer =
+/*#__PURE__*/
+function () {
+  function MauveViewer(_ref) {
+    var d3 = _ref.d3,
+        ele = _ref.ele,
+        data = _ref.data,
+        labels = _ref.labels;
+
+    _classCallCheck(this, MauveViewer);
+
+    this.ele = ele;
+    this.data = data;
+    this.d3 = d3;
+    this.labels = labels;
+    this.hiddenTracks = [];
+    this.init();
+  }
+
+  _createClass(MauveViewer, [{
+    key: "init",
+    value: function init() {
+      var _this$getGenomeRegion = this.getGenomeRegions(this.data),
+          regions = _this$getGenomeRegion.regions;
+
+      this.genomeRegions = regions;
+      this.trackCount = Object.keys(this.genomeRegions).length;
+      this.setReference(1, true); // set first genome as reference
+
+      this.ele.innerHTML = _container_html__WEBPACK_IMPORTED_MODULE_4___default.a;
+      this.render();
+      this.rendered = true;
+      this.initControls(); // add global controls
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var d3 = this.d3,
+          data = this.data;
+      var genomeRegions = this.genomeRegions;
+      var trackCount = this.trackCount; // get highest end value
+
+      var endMax = Math.max.apply(Math, _toConsumableArray([].concat.apply([], data).map(function (region) {
+        return region.end;
+      })));
+      var xLength = endMax + 100;
+      console.log('xLength', xLength); // create svg dom element
+
+      d3.select(this.ele.querySelector('svg')).remove();
+      var svg = d3.select(this.ele.querySelector('.mv-chart')).append("svg").attr('width', 1000).attr('height', trackCount * 165);
+      var width = +svg.attr("width"),
+          height = +svg.attr("height");
+      /**
+       *  ctrl-mousewheel for zoom
+       */
+
+      var zoom = d3.zoom().scaleExtent([0, xLength / 10]).translateExtent([[-width, 0], [width + 100, 0]]).on("zoom", zoomed).filter(function () {
+        return d3.event.ctrlKey || d3.event.type === 'mousedown' || d3.event.type == 'dblclick';
+      });
+      svg.call(zoom);
+      d3.select(this.ele.querySelector('.reset-btn')).on("click", reset);
+      /**
+       *  create tracks (axises, scales, gXs)
+       */
+
+      var axises = [],
+          gXs = [],
+          xScales = [],
+          tracks = [];
+      var yPos = _consts__WEBPACK_IMPORTED_MODULE_5__["marginTop"];
+
+      for (var id = 1; id <= trackCount; id++) {
+        var isHidden = this.hiddenTracks.includes(id);
+        yPos += id === 1 ? 0 : isHidden ? _consts__WEBPACK_IMPORTED_MODULE_5__["hideTrackOffset"] : _consts__WEBPACK_IMPORTED_MODULE_5__["trackOffset"];
+        var name = genomeRegions[id][0].name,
+            label = this.labels ? this.labels[name] : '';
+        var track = new _track__WEBPACK_IMPORTED_MODULE_0__["Track"]({
+          d3: d3,
+          yPos: yPos,
+          svg: svg,
+          id: id,
+          name: name,
+          label: label,
+          width: width,
+          xLength: xLength,
+          hidden: isHidden,
+          regions: genomeRegions[id]
+        });
+        axises.push(track.xAxis);
+        gXs.push(track.gX);
+        xScales.push(track.x);
+        tracks.push(track); // only create track ctrls once
+
+        if (this.rendered) continue;
+        new _track_ctrl__WEBPACK_IMPORTED_MODULE_1__["TrackCtrl"]({
+          id: id,
+          yPos: yPos,
+          height: height,
+          container: this.ele,
+          svg: this.ele.querySelector('svg'),
+          trackCount: this.trackCount,
+          isReference: id === 1,
+          onMoveUp: function onMoveUp(id) {
+            _this.moveTrackUp(id);
+          },
+          onMoveDown: function onMoveDown(id) {
+            _this.moveTrackDown(id);
+          },
+          onSetReference: function onSetReference(id) {
+            _this.setReference(id);
+          },
+          onHide: function onHide(id) {
+            _this.hideTrack(id);
+          },
+          onShow: function onShow(id) {
+            _this.showTrack(id);
+          }
+        });
+      }
+
+      var x = xScales[0]; // x scale is same for all tracks
+      // add hover cursor lines, initially without x position
+
+      var cursor = new _cursor__WEBPACK_IMPORTED_MODULE_3__["Cursor"]({
+        d3: d3,
+        trackCount: trackCount,
+        svg: svg,
+        scale: x,
+        container: this.ele
+      }); // add backbone of lcb lines
+
+      var backbone = new _backbone__WEBPACK_IMPORTED_MODULE_2__["BackBone"]({
+        scale: x,
+        data: data,
+        d3: d3,
+        svg: svg
+      });
+
+      function zoomed() {
+        var srcEvent = d3.event.sourceEvent;
+        var newScale = d3.event.transform.rescaleX(xScales[0]); // scale each axis
+
+        for (var i = 0; i < tracks.length; i++) {
+          tracks[i].rescaleAxis();
+        } // scale all rectangles
+
+
+        if (!srcEvent || srcEvent.type === 'wheel' || srcEvent.type === 'click') {
+          svg.selectAll('.region').attr('x', function (d) {
+            return newScale(d.start);
+          }).attr("width", function (d) {
+            return newScale(d.end) - newScale(d.start);
+          });
+        } else if (d3.event.sourceEvent.type === 'mousemove') {
+          svg.selectAll('.region').attr("x", function (d) {
+            return newScale(d.start);
+          });
+        } // scale lines
+
+
+        backbone.scale(newScale);
+        cursor.resetHover(newScale);
+      }
+
+      function reset() {
+        zoom.transform(svg, d3.zoomIdentity);
+      }
+    }
+  }, {
+    key: "moveTrackUp",
+    value: function moveTrackUp(id) {
+      var swapID = id - 1;
+      if (swapID < 1) return;
+      this.swapTrack(id, swapID);
+      this.swapBackbones(id, swapID);
+      this.render();
+    }
+  }, {
+    key: "moveTrackDown",
+    value: function moveTrackDown(id) {
+      var swapID = id + 1;
+      if (swapID > this.trackCount) return;
+      this.swapTrack(id, swapID);
+      this.swapBackbones(id, swapID);
+      this.render();
+    }
+  }, {
+    key: "swapTrack",
+    value: function swapTrack(id, newID) {
+      var swapTrack = this.genomeRegions[newID];
+      this.genomeRegions[newID] = this.genomeRegions[id];
+      this.genomeRegions[id] = swapTrack;
+    }
+  }, {
+    key: "swapBackbones",
+    value: function swapBackbones(oldID, newID) {
+      this.data.forEach(function (lcb) {
+        var foundOldRegion = null,
+            foundSwapRegion = null;
+        lcb.forEach(function (region) {
+          if (region.lcb_idx === oldID) region.lcb_idx = newID;else if (region.lcb_idx === newID) region.lcb_idx = oldID;
+        });
+        lcb.sort(function (a, b) {
+          return a.lcb_idx - b.lcb_idx;
+        });
+      });
+    }
+  }, {
+    key: "setReference",
+    value: function setReference(id, noRerender) {
+      this.data.forEach(function (lcb) {
+        var flipped = false; // first determine if reference's (region)
+        // strand direction is made positive
+
+        lcb.forEach(function (region) {
+          if (region.lcb_idx !== id) return;
+
+          if (region.strand !== '+') {
+            region.strand = '+';
+            flipped = true;
+          }
+        });
+        if (!flipped) return; // otherwise, need to flip corresponding regions
+
+        lcb.forEach(function (region) {
+          if (region.lcb_idx === id) return;
+          region.strand = region.strand === '-' ? '+' : '-';
+        });
+      });
+      if (noRerender) return;
+      this.render();
+    }
+  }, {
+    key: "hideTrack",
+    value: function hideTrack(id) {
+      this.data.forEach(function (lcbs) {
+        lcbs.forEach(function (region) {
+          if (region.lcb_idx == id) region.hidden = true;
+        });
+      });
+      this.hiddenTracks.push(id);
+      this.render();
+    }
+  }, {
+    key: "showTrack",
+    value: function showTrack(id) {
+      this.data.forEach(function (lcbs) {
+        lcbs.forEach(function (region) {
+          if (region.lcb_idx == id) delete region.hidden;
+        });
+      });
+      this.hiddenTracks.splice(this.hiddenTracks.indexOf(id));
+      this.render();
+    } // gets lcbs that have entry for every organism
+    // deprecated(?)
+
+  }, {
+    key: "getSharedLCBs",
+    value: function getSharedLCBs(data) {
+      var maxRows = Math.max.apply(Math, _toConsumableArray(data.map(function (lcb) {
+        return lcb.length;
+      })));
+      var filtered = data.filter(function (lcbs) {
+        return lcbs.length === maxRows;
+      });
+      return filtered;
+    } // gets regions for each organism (index); adding ids
+    // also returns connections of regions
+
+  }, {
+    key: "getGenomeRegions",
+    value: function getGenomeRegions(lcbs) {
+      var regions = {};
+      var regionID = 0;
+      var lcbID = 0;
+      lcbs.forEach(function (lcb, groupID) {
+        //lcb.reverse(); // consider last index reference genome
+        lcbID += 1;
+        lcb.forEach(function (region) {
+          // increment/add ids to regions
+          regionID += 1;
+          region.id = regionID;
+          region.groupID = groupID;
+          var index = region.lcb_idx;
+          if (index in regions) regions[index].push(region);else regions[index] = [region];
+        });
+      });
+      return {
+        regions: regions,
+        regionCount: regionID,
+        lcbCount: lcbID
+      };
+    }
+  }, {
+    key: "initControls",
+    value: function initControls() {
+      var _this2 = this;
+
+      this.ele.querySelector('.opts-btn').onclick = function () {
+        _this2.ele.querySelector(".dd-content").classList.toggle("show");
+      };
+
+      document.onclick = function (evt) {
+        var dd = _this2.ele.querySelector('.dropdown');
+
+        if (dd.contains(evt.target)) return;
+
+        if (!evt.target.matches('.dd-btn')) {
+          var dds = _this2.ele.getElementsByClassName("dd-content");
+
+          Array.from(dds).forEach(function (dd) {
+            dd.classList.remove('show');
+          });
+        }
+      };
+    }
+  }]);
+
+  return MauveViewer;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/track-ctrl.js":
+/*!***************************!*\
+  !*** ./src/track-ctrl.js ***!
+  \***************************/
+/*! exports provided: TrackCtrl */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TrackCtrl", function() { return TrackCtrl; });
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./consts */ "./src/consts.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+var btnStyle = 'width: 26px; height: 23px;';
+var TrackCtrl =
+/*#__PURE__*/
+function () {
+  function TrackCtrl(params) {
+    _classCallCheck(this, TrackCtrl);
+
+    this.id = params.id;
+    this.container = params.container;
+    this.svg = params.svg;
+    this.trackCount = params.trackCount;
+    this.yPos = params.yPos || _consts__WEBPACK_IMPORTED_MODULE_0__["marginTop"] + (this.id - 1) * _consts__WEBPACK_IMPORTED_MODULE_0__["trackOffset"];
+    this.ctrls;
+    this.isReference = params.isReference || false;
+    this.hidden; // control callbacks
+
+    this.onMoveUp = params.onMoveUp;
+    this.onMoveDown = params.onMoveDown;
+    this.onSetReference = params.onSetReference;
+    this.onHide = params.onHide;
+    this.onShow = params.onShow;
+    this.init();
+    return this;
+  }
+
+  _createClass(TrackCtrl, [{
+    key: "init",
+    value: function init() {
+      this.destroy(); // don't allow more than one controller
+
+      this.render();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var mvPos = this.container.querySelector('.mauve-viewer').getBoundingClientRect(),
+          svgPos = this.svg.getBoundingClientRect(),
+          relativeTop = svgPos.top - mvPos.top; // add container
+
+      var ele = this.node = document.createElement('div');
+      ele.setAttribute('class', "track-ctrl ctrl-".concat(this.id)); //ele.style.border = "1px solid black";
+
+      ele.style.top = relativeTop + this.yPos + _consts__WEBPACK_IMPORTED_MODULE_0__["ctrlPadding"] + 'px';
+      ele.style.left = '-35px';
+      ele.style.width = '25px';
+      ele.style.height = _consts__WEBPACK_IMPORTED_MODULE_0__["trackOffset"] + 'px';
+      ele.style.position = 'absolute';
+
+      this._addMainButtons();
+
+      this.container.querySelector('.mauve-viewer').appendChild(ele);
+    }
+  }, {
+    key: "_addMainButtons",
+    value: function _addMainButtons() {
+      var _this$ctrls = this.ctrls = this._getButtons(),
+          upBtn = _this$ctrls.upBtn,
+          downBtn = _this$ctrls.downBtn,
+          hideBtn = _this$ctrls.hideBtn,
+          refBtn = _this$ctrls.refBtn;
+
+      this.node.appendChild(upBtn); //this.node.appendChild(hideBtn);
+
+      this.node.appendChild(refBtn);
+      this.node.appendChild(downBtn);
+      if (this.isReference) refBtn.classList.add('active');
+    }
+  }, {
+    key: "_getButtons",
+    value: function _getButtons() {
+      var upBtn = document.createElement('button');
+      upBtn.title = 'Move this genome up';
+      upBtn.style = btnStyle;
+      upBtn.innerHTML = '▲';
+      upBtn.disabled = this.id === 1 || false;
+      upBtn.onclick = this.moveTrackUp.bind(this);
+      var hideBtn = document.createElement('button');
+      hideBtn.title = 'Hide this genome';
+      hideBtn.style = btnStyle;
+      hideBtn.innerHTML = '−';
+      hideBtn.onclick = this.hideTrack.bind(this);
+      var refBtn = document.createElement('button');
+      refBtn.title = 'Set reference genome';
+      refBtn.classList.add('ref-btn');
+      refBtn.style = btnStyle;
+      refBtn.innerHTML = 'R';
+      refBtn.onclick = this.refTrack.bind(this);
+      var downBtn = document.createElement('button');
+      downBtn.title = 'Move this genome down';
+      downBtn.style = btnStyle;
+      downBtn.innerHTML = '▼';
+      downBtn.disabled = this.id === this.trackCount || false;
+      downBtn.onclick = this.moveTrackDown.bind(this);
+      return {
+        upBtn: upBtn,
+        downBtn: downBtn,
+        hideBtn: hideBtn,
+        refBtn: refBtn
+      };
+    }
+  }, {
+    key: "_getShowButton",
+    value: function _getShowButton() {
+      var showBtn = document.createElement('button');
+      showBtn.title = 'Show this genome';
+      showBtn.classList.add('show-btn');
+      showBtn.style = btnStyle;
+      showBtn.innerHTML = '+';
+      showBtn.onclick = this.showTrack.bind(this);
+      return showBtn;
+    }
+  }, {
+    key: "moveTrackUp",
+    value: function moveTrackUp() {
+      this._selectNewRef(this.id, this.id - 1);
+
+      this.onMoveUp(this.id);
+    }
+  }, {
+    key: "moveTrackDown",
+    value: function moveTrackDown() {
+      this._selectNewRef(this.id, this.id + 1);
+
+      this.onMoveDown(this.id);
+    }
+  }, {
+    key: "hideTrack",
+    value: function hideTrack() {
+      this.node.innerHTML = '';
+
+      var showBtn = this._getShowButton();
+
+      this.node.appendChild(showBtn);
+      this.hidden = true;
+      this.onHide(this.id);
+    }
+  }, {
+    key: "showTrack",
+    value: function showTrack() {
+      console.log('called show');
+      this.node.innerHTML = '';
+
+      this._addMainButtons();
+
+      this.hidden = false;
+      this.onShow(this.id);
+    }
+  }, {
+    key: "refTrack",
+    value: function refTrack() {
+      var eles = this.container.querySelectorAll('.ref-btn');
+      eles.forEach(function (ele) {
+        ele.classList.remove("active");
+      });
+      this.ctrls.refBtn.classList.add('active');
+      this.onSetReference(this.id);
+      this.isReference = true;
+    }
+  }, {
+    key: "_selectNewRef",
+    value: function _selectNewRef(oldID, newID) {
+      var oldCtrl = this.container.querySelector(".ctrl-".concat(oldID, " .ref-btn")),
+          newCtrl = this.container.querySelector(".ctrl-".concat(newID, " .ref-btn"));
+      var newCtrlWasActive;
+
+      if (newCtrl.classList.contains('active')) {
+        newCtrl.classList.remove('active');
+        oldCtrl.classList.add('active');
+        newCtrlWasActive = true;
+      }
+
+      if (oldCtrl.classList.contains('active') && !newCtrlWasActive) {
+        oldCtrl.classList.remove('active');
+        newCtrl.classList.add('active');
+      }
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      var node = this.container.querySelector(".ctrl-".concat(this.id));
+      if (node) node.remove();
+    }
+  }]);
+
+  return TrackCtrl;
+}();
+
+/***/ }),
+
+/***/ "./src/track.js":
+/*!**********************!*\
+  !*** ./src/track.js ***!
+  \**********************/
+/*! exports provided: Track */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Track", function() { return Track; });
+/* harmony import */ var _colors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./colors */ "./src/colors.js");
+/* harmony import */ var _colors__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_colors__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./consts */ "./src/consts.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var Track =
+/*#__PURE__*/
+function () {
+  function Track(params) {
+    _classCallCheck(this, Track);
+
+    this.d3 = params.d3;
+    this.svg = params.svg;
+    this.hidden = params.hidden;
+    this.id = params.id;
+    this.name = params.name;
+    this.label = params.label;
+    this.width = params.width;
+    this.xLength = params.xLength;
+    this.regions = params.regions;
+    this.yPos = params.yPos || _consts__WEBPACK_IMPORTED_MODULE_1__["marginTop"] + (this.id - 1) * _consts__WEBPACK_IMPORTED_MODULE_1__["trackOffset"]; // render and expose axis/scale
+
+    this.x;
+    this.xAxis;
+    this.gX;
+    this.track;
+    this.render();
+    return this;
+  }
+
+  _createClass(Track, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      if (this.hidden) {
+        this.hiddenTrack();
+        return;
+      }
+
+      var d3 = this.d3;
+      this.x = d3.scaleLinear().domain([1, this.xLength]).range([1, this.width + 1]);
+      this.xAxis = d3.axisBottom(this.x).ticks(5).tickSize(10).tickFormat(d3.format("d"));
+      var g = this.track = this.svg.append('g').attr('class', function (d) {
+        return "track id-".concat(_this.id);
+      });
+      this.gX = g.append("g").attr('class', "axis axis-x-".concat(this.id)).call(this.xAxis).attr('transform', "translate(0, ".concat(this.yPos, ")")); // add names
+
+      g.append('text').attr('x', 0).attr('y', this.yPos + _consts__WEBPACK_IMPORTED_MODULE_1__["trackOffset"] - 5) // -2 padding
+      .text(this.label || this.name).attr('font-family', "sans-serif").attr('font-size', "10px").attr('fill', '#888');
+      if (this.regions) this.addRegions(this.regions);
+    }
+  }, {
+    key: "addRegions",
+    value: function addRegions(regions) {
+      var _this2 = this;
+
+      var numOfLCBs = regions.length; // add regions
+
+      this.track.selectAll('rect').data(regions).enter().append('rect').attr('class', function (d) {
+        return "region track-id-".concat(_this2.id, " group-").concat(d.groupID, " id-").concat(d.id);
+      }).attr('x', function (d) {
+        return _this2.x(d.start);
+      }).attr('y', function (d) {
+        return _this2._getRegionYPos(_this2.id, d.strand);
+      }).attr('width', function (d) {
+        return _this2.x(d.end - d.start);
+      }).attr('height', _consts__WEBPACK_IMPORTED_MODULE_1__["lcbHeight"]).attr('stroke', '#fffff').attr('fill', function (d) {
+        return _colors__WEBPACK_IMPORTED_MODULE_0__["schemeCategory20"][d.groupID % numOfLCBs % 20];
+      });
+      this.regions = regions;
+    }
+  }, {
+    key: "hiddenTrack",
+    value: function hiddenTrack() {
+      var _this3 = this;
+
+      var g = this.track.append('g').attr('class', function (d) {
+        return "hidden-track";
+      });
+      g.append('rect').attr('class', function (d) {
+        return "hidden-track track-".concat(_this3.id);
+      }).attr('x', 0).attr('y', function (d) {
+        return (_this3.id - 1) * _consts__WEBPACK_IMPORTED_MODULE_1__["trackOffset"];
+      }).attr('width', function (d) {
+        return 10000;
+      }).attr('height', 20).attr('stroke', '#fffff').attr('fill', function (d) {
+        return '#aaa';
+      });
+      g.append('text').attr('x', 10).attr('y', this.yPos - 2) // -2 padding
+      .text(this.label || this.name).attr("font-family", "sans-serif").attr("font-size", "10px").attr("fill", '#222');
+    }
+  }, {
+    key: "rescaleAxis",
+    value: function rescaleAxis() {
+      if (this.hidden) return;
+      this.gX.call(this.xAxis.scale(this.d3.event.transform.rescaleX(this.x)));
+    }
+  }, {
+    key: "_getRegionYPos",
+    value: function _getRegionYPos(trackIdx, strandDirection) {
+      return this.yPos + (strandDirection === '-' ? _consts__WEBPACK_IMPORTED_MODULE_1__["yPosOffset"] + _consts__WEBPACK_IMPORTED_MODULE_1__["lcbHeight"] : _consts__WEBPACK_IMPORTED_MODULE_1__["yPosOffset"]);
+    }
+  }]);
+
+  return Track;
+}();
+
+/***/ }),
+
+/***/ 1:
+/*!***********************************!*\
+  !*** multi ./src/mauve-viewer.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./src/mauve-viewer.js */"./src/mauve-viewer.js");
+
+
+/***/ })
+
+/******/ });
+});
 //# sourceMappingURL=mauve-viewer.js.map
