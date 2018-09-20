@@ -124,7 +124,7 @@ export class Cursor {
 
                 // highlight backbone
                 svg.selectAll(`.lcb-line.id-${groupID}`)
-                    .attr('stroke-width', 2)
+                    .attr('stroke-width', 3)
 
                 // set cursor-info
                 lengthNode.innerHTML = d.end - d.start + 1;

@@ -36,7 +36,7 @@ export class Track {
         let d3 = this.d3;
 
         this.x = d3.scaleLinear()
-            .domain([1, this.xLength])
+            .domain([0, this.xLength])
             .range([1, this.width + 1]);
 
         this.xAxis = d3.axisBottom(this.x)

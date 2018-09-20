@@ -70,7 +70,7 @@ export default class MauveViewer {
          *  ctrl-mousewheel for zoom
          */
         let zoom = d3.zoom()
-            .scaleExtent([0, xLength/10])
+            .scaleExtent([1, xLength/10])
             .translateExtent([[-width, 0], [width + 100, 0]])
             .on("zoom", zoomed)
             .filter(() => (
