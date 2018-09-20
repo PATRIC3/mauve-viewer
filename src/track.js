@@ -18,10 +18,11 @@ export class Track {
         this.yPos = params.yPos || marginTop + (this.id - 1) * trackOffset;
 
         // render and expose axis/scale
-        this.render();
         this.x;
         this.xAxis;
-        this.gX
+        this.gX;
+        this.track;
+        this.render();
 
         return this;
     }
@@ -35,27 +36,30 @@ export class Track {
         let d3 = this.d3;
 
         this.x = d3.scaleLinear()
-            .domain([0, this.xLength])
-            .range([0, this.width + 1]);
+            .domain([1, this.xLength])
+            .range([1, this.width + 1]);
 
         this.xAxis = d3.axisBottom(this.x)
-            .ticks((this.width + 2) / 1700 * 10)
+            .ticks(5)
             .tickSize(10)
+            .tickFormat(d3.format("d"));
 
-        this.gX = this.svg.append("g")
-            .attr("class", `axis axis-x-${this.id}`)
+        let g = this.track = this.svg.append('g')
+            .attr('class', d => `track id-${this.id}`)
+
+        this.gX = g.append("g")
+            .attr('class', `axis axis-x-${this.id}`)
             .call(this.xAxis)
-            .attr("transform", `translate(0, ${this.yPos})`);
+            .attr('transform', `translate(0, ${this.yPos})`);
 
         // add names
-        this.svg.append('text')
+        g.append('text')
             .attr('x', 0)
             .attr('y', this.yPos + trackOffset - 5) // -2 padding
             .text(this.label || this.name)
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "10px")
-            .attr("fill", '#888');
-
+            .attr('font-family', "sans-serif")
+            .attr('font-size', "10px")
+            .attr('fill', '#888');
 
         if (this.regions)
             this.addRegions(this.regions);
@@ -64,16 +68,12 @@ export class Track {
     addRegions(regions) {
         let numOfLCBs = regions.length;
 
-        let g = this.svg.select('g')
-            .append('g')
-            .attr('class', d => `track`)
-
         // add regions
-        g.selectAll('rect')
+        this.track.selectAll('rect')
             .data(regions)
             .enter()
             .append('rect')
-            .attr('class', d => `region region-track-${this.id} group-${d.groupID} region-${d.id}`)
+            .attr('class', d => `region track-id-${this.id} group-${d.groupID} id-${d.id}`)
             .attr('x', d => this.x(d.start))
             .attr('y', d => this._getRegionYPos(this.id, d.strand))
             .attr('width', d => this.x(d.end - d.start))
@@ -85,7 +85,7 @@ export class Track {
     }
 
     hiddenTrack() {
-        let g = this.svg.select('g')
+        let g = this.track
             .append('g')
             .attr('class', d => `hidden-track`)
 
@@ -113,6 +113,6 @@ export class Track {
     }
 
     _getRegionYPos(trackIdx, strandDirection) {
-        return this.yPos + (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) - marginTop;
+        return this.yPos + (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset);
     }
 }
