@@ -59,6 +59,7 @@ export default class MauveViewer {
         // get highest end value
         const endMax = Math.max(...[].concat.apply([], data).map(region => region.end));
         const xLength = endMax + 100;
+        console.log('xLength', xLength)
 
         // create svg dom element
         d3.select(this.ele.querySelector('svg')).remove();
@@ -73,8 +74,8 @@ export default class MauveViewer {
          *  ctrl-mousewheel for zoom
          */
         let zoom = d3.zoom()
-            .scaleExtent([1, 150])
-            .translateExtent([[-2000, 0], [width + 90, height + 100]])
+            .scaleExtent([0, xLength/10])
+            .translateExtent([[-width, 0], [width + 100, 0]])
             .on("zoom", zoomed)
             .filter(() => (
                 d3.event.ctrlKey ||
@@ -137,7 +138,9 @@ export default class MauveViewer {
 
         // add hover cursor lines, initially without x position
         let cursor = new Cursor({
-            d3, svg, scale: x, trackCount
+            d3, trackCount, svg,
+            scale: x,
+            container: this.ele
         })
 
         // add backbone of lcb lines
@@ -167,23 +170,11 @@ export default class MauveViewer {
             // scale lines
             backbone.scale(newScale);
 
-            // rescale hover events
-            svg.selectAll('.region')
-                .on("mousemove", null)
-                .on("mouseover", null)
-                .on("mouseenter", null)
-                .on("mouseleave", null)
-                .on("mouseout", null)
-
             cursor.resetHover(newScale);
         }
 
         function reset() {
             zoom.transform(svg, d3.zoomIdentity);
-        }
-
-        function getRegionYPos(trackIdx, strandDirection ) {
-            return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackIdx-1) * trackOffset);
         }
     }
 
