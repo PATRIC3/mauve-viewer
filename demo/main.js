@@ -10,6 +10,8 @@ function main() {
         axios.get(`more-brucella.json`).then(res => {
             let data = res.data;
             let ele = document.getElementById('chart');
+            new MauveViewer({ele, data, d3, labels: {}});
+            return
 
             // use different labels for each track (optional)
             // Todo: store list of names in alginment file
@@ -34,9 +36,11 @@ function main() {
                     new MauveViewer({ele, data, d3, labels: mapping});
                 })
 
-        }).catch(e => {
-            alert(`Could not fetch alignment json: ${e.message}`)
         })
+
+        //.catch(e => {
+        //    alert(`Could not fetch alignment json: ${e.message}`)
+        //})
     }).catch(error => 'An error occurred while loading the component');
 
 }

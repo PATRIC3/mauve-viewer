@@ -1,7 +1,6 @@
 import {schemeCategory20} from './colors';
 import {marginTop, trackOffset, yPosOffset, lcbHeight} from './consts';
 
-
 export class Track {
 
     constructor(params) {
@@ -16,6 +15,7 @@ export class Track {
         this.xLength = params.xLength;
         this.regions = params.regions;
         this.yPos = params.yPos || marginTop + (this.id - 1) * trackOffset;
+
 
         // render and expose axis/scale
         this.x;
@@ -108,11 +108,93 @@ export class Track {
     }
 
     rescaleAxis() {
+        console.log('called zoom')
         if (this.hidden) return;
-        this.gX.call(this.xAxis.scale(this.d3.event.transform.rescaleX(this.x)));
+
+        let srcEvent = this.d3.event.sourceEvent;
+        let newScale = this.d3.event.transform.rescaleX(this.x);
+
+        this.gX.call(this.xAxis.scale(newScale));
+
+        // scale this track's rectangles
+        if (!srcEvent || srcEvent.type === 'wheel' || srcEvent.type === 'click') {
+            this._scaleRegions(newScale)
+        } else if ((this.d3.event.sourceEvent.type === 'mousemove')) {
+            this._panRegions(newScale)
+        }
+
+        this.zoomScale = newScale.copy();
     }
+
+    _scaleRegions(newScale) {
+        this.track.selectAll('.region')
+            .attr('x', (d) => newScale(d.start))
+            .attr("width", (d) => newScale(d.end) - newScale(d.start))
+
+
+    }
+
+    _panRegions(newScale) {
+        this.track.selectAll('.region')
+            .attr("x", (d) => newScale(d.start) );
+    }
+
 
     _getRegionYPos(trackIdx, strandDirection) {
         return this.yPos + (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset);
     }
+
+    // shifts track by xPos,
+    // takes new shift position and call back
+    // call back returns new scale
+    shift(newX, scaleToUse, cb) {
+        let d3 = this.d3;
+
+        let scale = this.getScale();
+        let xPos = scaleToUse.invert(newX)
+
+        this.gX.transition().tween("axis", (d) => {
+            let i = d3.interpolate(
+                [scale.domain()[0], scale.domain()[1]],
+                [scale.domain()[0] - xPos, scale.domain()[1] - xPos]
+            );
+            return (t) => {
+                this.x.domain(i(t));
+                this.gX.call(this.xAxis);
+                cb()
+            }
+        })
+    }
+
+    reset() {
+        this.x = this.d3.scaleLinear()
+            .domain([0, this.xLength])
+            .range([1, this.width + 1]);
+
+        this.gX.call(this.xAxis);
+    }
+
+    getScale() {
+        if (this.zoomScale) {
+            return this.zoomScale
+        } else {
+            return this.x
+        }
+    }
+
+    getZoomScale() {
+        if (this.zoomScale) {
+            return this.zoomScale
+        } else {
+            return this.x
+        }
+    }
+
+
+    random(min, max){
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
 }
+
+

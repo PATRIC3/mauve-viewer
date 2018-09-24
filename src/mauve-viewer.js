@@ -9,8 +9,8 @@
 
 import {Track} from './track';
 import {TrackCtrl} from './track-ctrl';
-import {BackBone} from './backbone';
 import {Cursor} from './cursor';
+import {BackBone} from './backbone';
 import template from './container.html';
 import {
     marginTop,
@@ -25,9 +25,13 @@ export default class MauveViewer {
         this.ele = ele;
         this.data = data;
         this.d3 = d3;
-
         this.labels = labels;
+
+        this.tracks = []
+        this.trackCount;
         this.hiddenTracks = [];
+        this.backbone;
+        this.cursor;
 
         this.init();
     }
@@ -38,6 +42,13 @@ export default class MauveViewer {
         this.trackCount = Object.keys(this.genomeRegions).length;
 
         this.setReference(1, true);  // set first genome as reference
+
+        //Todo: testing, remove!
+        //this.data.forEach(lcb => {
+        //    lcb.forEach(region => {
+        //        region.strand = '+';
+        //    })
+        //})
 
         this.ele.innerHTML = template;
         this.render();
@@ -59,19 +70,26 @@ export default class MauveViewer {
 
         // create svg dom element
         d3.select(this.ele.querySelector('svg')).remove();
-        const svg = d3.select(this.ele.querySelector('.mv-chart')).append("svg")
+        const svg = this.svg =  d3.select(this.ele.querySelector('.mv-chart')).append("svg")
             .attr('width', 1000)
             .attr('height', trackCount * 165)
 
         const width = +svg.attr("width"),
             height = +svg.attr("height");
 
+        var rect = this.rect = svg.append("rect")
+            .attr('class', 'zoom-box')
+            .attr("width",  1000)
+            .attr("height", trackCount * 165)
+            .style("fill", 'none')
+            .style("pointer-events", "all");
+
         /**
          *  ctrl-mousewheel for zoom
          */
-        let zoom = d3.zoom()
+        let zoom = this.zoom = d3.zoom()
             .scaleExtent([1, xLength/10])
-            .translateExtent([[-width, 0], [width + 100, 0]])
+            .translateExtent([[-width, 0], [width *2, 0]])
             .on("zoom", zoomed)
             .filter(() => (
                 d3.event.ctrlKey ||
@@ -79,18 +97,17 @@ export default class MauveViewer {
                 d3.event.type == 'dblclick'
             ))
 
-        svg.call(zoom);
+        svg.call(zoom)
+        svg.on("dblclick.zoom", null);
 
-        d3.select(this.ele.querySelector('.reset-btn'))
-            .on("click", reset);
 
         /**
          *  create tracks (axises, scales, gXs)
          */
         let axises = [],
             gXs = [],
-            xScales = [],
-            tracks = [];
+            xScales = [];
+        let tracks = this.tracks;
 
         let yPos = marginTop;
         for (let id = 1; id <= trackCount; id++) {
@@ -102,6 +119,7 @@ export default class MauveViewer {
 
             let track = new Track({
                 d3, yPos, svg, id, name, label,
+                container: this.ele,
                 width, xLength,
                 hidden: isHidden,
                 regions: genomeRegions[id]
@@ -129,49 +147,54 @@ export default class MauveViewer {
             })
         }
 
-        let x = xScales[0]; // x scale is same for all tracks
+        /*
+        let masterTrack = this.masterTrack =  new MasterTrack({
+            d3, svg,
+            yPos: yPos += trackOffset,
+            id: trackCount+1,
+            name: 'master',
+            label: 'master',
+            container: this.ele,
+            width, xLength
+        })
+        tracks.push(masterTrack)
+        */
 
 
         // add hover cursor lines, initially without x position
-        let cursor = new Cursor({
+        this.cursor = new Cursor({
             d3, trackCount, svg,
-            scale: x,
-            container: this.ele
+            container: this.ele,
+            tracks: this.tracks,
+            onclick: (posDict) => {
+                this.onCursorClick(posDict);
+            },
         })
 
         // add backbone of lcb lines
-        let backbone = new BackBone({
-            scale: x, data, d3, svg
+        let backbone = this.backbone = new BackBone({
+            tracks, data, d3, svg
         })
 
         function zoomed() {
-            let srcEvent = d3.event.sourceEvent;
-            let newScale = d3.event.transform.rescaleX(xScales[0]);
-
-            // scale each axis
+            // scale each track
+            let newScale;
             for (let i = 0; i < tracks.length; i++) {
-                tracks[i].rescaleAxis();
-            }
-
-            // scale all rectangles
-            if (!srcEvent || srcEvent.type === 'wheel' || srcEvent.type === 'click') {
-                svg.selectAll('.region')
-                    .attr('x', (d) => newScale(d.start))
-                    .attr("width", (d) => newScale(d.end) - newScale(d.start))
-            } else if ((d3.event.sourceEvent.type === 'mousemove')) {
-                svg.selectAll('.region')
-                  .attr("x", (d) => newScale(d.start) );
+                newScale = tracks[i].rescaleAxis();
             }
 
             // scale lines
-            backbone.scale(newScale);
-
-            cursor.resetHover(newScale);
+            backbone.scale();
         }
 
-        function reset() {
-            zoom.transform(svg, d3.zoomIdentity);
+        let reset = () => {
+            this.tracks.forEach(track => { track.reset() });
+            zoom.transform(rect, d3.zoomIdentity);
         }
+
+        d3.select(this.ele.querySelector('.reset-btn'))
+            .on("click", reset);
+
     }
 
     moveTrackUp(id) {
@@ -264,6 +287,41 @@ export default class MauveViewer {
 
         this.hiddenTracks.splice( this.hiddenTracks.indexOf(id));
         this.render();
+    }
+
+    onCursorClick({trackID, relativeXs, lcbID, xPos, scales }) {
+        if (!trackID) return;
+
+        // reset hack
+        this.tracks.forEach((track) => {
+            track.reset()
+        })
+        //this.zoom.transform(this.rect, this.d3.zoomIdentity);
+
+        // shift all tracks to relative position
+        this.tracks.forEach((track, i) => {
+            // skip track clicked on
+            if (track.id == trackID || track.id > this.trackCount) return;
+            let shiftX = relativeXs[i];
+
+            // there may not be a corresponding LCB
+            if (!shiftX) return
+
+            let complete = 0
+            let scaleToUse = this.tracks[trackID-1].getScale()
+
+            track.shift(shiftX, scaleToUse, () => {
+                complete += 1;
+                // wait for all shifts to finish
+                if (complete == this.trackCount) {
+                    console.log('call trasnform')
+                    this.rect.transition().call(
+                        this.zoom.transform, this.d3.zoomTransform(track.track.select('.region'))
+                    )
+                }
+            });
+        })
+
     }
 
     // gets lcbs that have entry for every organism

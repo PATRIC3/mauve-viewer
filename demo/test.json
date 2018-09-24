@@ -1,0 +1,26 @@
+[
+    [
+        {
+            "name": "track 1",
+            "start": 200,
+            "end": 300,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "track 2",
+            "start": 100,
+            "end": 200,
+            "strand": "-",
+            "lcb_idx": 2
+        },
+        {
+            "name": "track 3",
+            "start": 150,
+            "end": 250,
+            "strand": "-",
+            "lcb_idx": 3
+        }
+    ]
+
+]
