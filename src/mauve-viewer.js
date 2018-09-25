@@ -167,7 +167,7 @@ export default class MauveViewer {
             container: this.ele,
             tracks: this.tracks,
             onclick: (posDict) => {
-                this.onCursorClick(posDict);
+                //this.onCursorClick(posDict);
             },
         })
 

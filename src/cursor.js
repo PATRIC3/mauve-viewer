@@ -154,7 +154,7 @@ export class Cursor {
                     let diff = xPos - nextXPos ;
                     self.relativeXs[d.lcb_idx - 1] = diff;
                     self.scales[d.lcb_idx - 1] = x;
-                    console.log('diff for track', i+1, diff);
+                    //console.log('diff for track', i+1, diff);
 
                     lines[d.lcb_idx-1]
                         .attr('x1', nextXPos )

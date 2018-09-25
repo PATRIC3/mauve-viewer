@@ -1,7 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
         'app': ['./demo/main.js'],
         'mauve-viewer': ['./src/mauve-viewer.js']
@@ -10,7 +10,8 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist/',
         filename: '[name].js',
-        libraryTarget: 'umd'
+        library: 'MauveViewer'
+        //libraryTarget: 'umd'
     },
     module: {
         rules: [
@@ -42,4 +43,4 @@ module.exports = {
         hints: false
     }
 
-};
+};;
