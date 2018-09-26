@@ -1,13 +1,13 @@
 
 import MauveViewer from '../src/mauve-viewer';
 
-const api = 'https://p3.theseed.org/services/data_api/genome/'
+const api = 'https://p3.theseed.org/services/data_api/genome/';
 
 function main() {
 
     Promise.all([import('d3'), import('axios')]).then(([d3, axios]) => {
 
-        axios.get(`test.json`).then(res => {
+        axios.get(`more-brucella.json`).then(res => {
             let data = res.data;
             let ele = document.getElementById('chart');
             new MauveViewer({ele, data, d3, labels: {}});

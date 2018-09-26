@@ -13,7 +13,6 @@ requirejs.config({
 // Start the main app logic.
 requirejs(['mauve-viewer', '../../node_modules/d3/dist/d3', '../../node_modules/axios/dist/axios'],
 function(MauveViewer, d3, axios) {
-    console.log('HERE', MauveViewer)
 
     let ele = document.getElementById('chart');
 

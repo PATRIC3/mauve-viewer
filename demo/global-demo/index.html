@@ -1,0 +1,37 @@
+
+
+<html>
+  <head>
+      <link href="../../dist/mauve-viewer.css" rel="stylesheet" type="text/css">
+    <script src="../../node_modules/d3/dist/d3.min.js"></script>
+    <script src="../../dist/mauve-viewer.js"></script>
+
+    <script>
+      (function() {
+        var req = new XMLHttpRequest();
+        req.addEventListener('load', onRes);
+        req.open('GET', '../more-brucella.json');
+        req.send();
+
+        function onRes () {
+          var data = JSON.parse(this.responseText);
+          var ele = document.getElementById('chart');
+
+          var chart = new MauveViewer.default({
+            data: data,
+            d3: d3,
+            ele: ele
+          })
+        }
+      })()
+     </script>
+
+  </head>
+
+
+  <body>
+    <div id="chart" style="margin: 0 auto; width:1024px;"></div>
+  </body>
+
+
+</html>
