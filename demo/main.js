@@ -7,7 +7,7 @@ function main() {
 
     Promise.all([import('d3'), import('axios')]).then(([d3, axios]) => {
 
-        axios.get(`more-brucella.json`).then(res => {
+        axios.get(`test.json`).then(res => {
             let data = res.data;
             let ele = document.getElementById('chart');
             new MauveViewer({ele, data, d3, labels: {}});

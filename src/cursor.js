@@ -22,8 +22,8 @@ export class Cursor {
         this.hoverXPos;   // position of mouse cursor
         this.hoverTrackID;
         this.hoverLCBID;
-        this.scales = []
-        this.relativeXs = []
+        this.scales = {}
+        this.relativeXs = {}
 
         this.hoverLines = [];
 
@@ -42,11 +42,26 @@ export class Cursor {
         for (let i=1; i <= this.trackCount; i++) {
             let yPos = this._getRegionYPos(i, '-');
 
-            let line = this.svg.append('line')
+            let g = this.svg.append('g')
+                .attr('class', 'cursor')
+
+            g.append('rect')
+                .attr('class', `hover-box hover-box-${i}`)
+                .attr('y', marginTop + yPos - 30)
+                .attr('x', -11)
+                .attr('width', 10)
+                .attr('height', 60)
+                .attr('fill', 'none')
+                .attr('stroke', '#000')
+                .style("pointer-events", "none");
+
+            let line = g.append('line')
                 .attr('class', 'cursor-line')
                 .style('stroke', '#222' )
                 .attr('y1', marginTop + yPos - 30)
                 .attr('y2', marginTop + yPos + 30)
+                .attr('x1', -11)
+                .attr('x', -11)
 
             this.hoverLines.push(line);
         }
@@ -86,6 +101,8 @@ export class Cursor {
             .on("mouseover", () => {
                 d3.selectAll('.cursor-line')
                     .attr("opacity", 1.0)
+                d3.selectAll('.hover-box')
+                    .attr("opacity", 1.0)
             })
             .on("mousemove", function() {
                 let clientX = d3.event.clientX,
@@ -112,8 +129,7 @@ export class Cursor {
                 let trackID = self.hoverTrackID = d.lcb_idx;
                 let hoverStrand = d.strand;
 
-                let x = self.tracks[trackID -1].getScale();
-                //console.log('Scale for hovered track', trackID , 'is', x.domain())
+                let x = self.tracks[trackID -1].getZoomScale();
 
                 // base xPos on nearest integer in range
                 xPos = x(Math.round(x.invert(xPos)));
@@ -126,11 +142,18 @@ export class Cursor {
                 // position relative to lcb
                 let relXPos = xPos - x(d.start);
 
+                // getZoom scales (if using unzoomed for diff; not currently used)
+                //x = self.tracks[trackID -1].getZoomScale();
+                //xPos = x(Math.round(x.invert(xPos)));;
+                //let relXPosZoom = xPos - x(d.start);
+
                 // draw cursor line for rect being hovered
                 lines[trackID - 1]
                     .attr('class', 'cursor-line')
                     .attr('x1', xPos)
                     .attr('x2', xPos);
+                svg.select(`.hover-box-${trackID}`)
+                    .attr('x', xPos-5)
 
                 // draw cursor line for other rects
                 let groupID = self.hoverLCBID = d.groupID;
@@ -141,7 +164,7 @@ export class Cursor {
 
                     // need to compute relative position based on strand
                     // store the relative position on other tracks as well
-                    let x = self.tracks[i].getScale();
+                    let x = self.tracks[d.lcb_idx-1].getZoomScale();
                     //console.log('Scale for relative lcb', i+1, 'is', x.domain())
 
                     let nextXPos;
@@ -151,7 +174,8 @@ export class Cursor {
                         nextXPos = x(d.start) + relXPos;
                     }
 
-                    let diff = xPos - nextXPos ;
+                    //console.log('nextXPos', nextXPos)
+                    let diff = xPos - nextXPos +1;
                     self.relativeXs[d.lcb_idx - 1] = diff;
                     self.scales[d.lcb_idx - 1] = x;
                     //console.log('diff for track', i+1, diff);
@@ -159,6 +183,9 @@ export class Cursor {
                     lines[d.lcb_idx-1]
                         .attr('x1', nextXPos )
                         .attr('x2', nextXPos )
+
+                    svg.select(`.hover-box-${d.lcb_idx}`)
+                        .attr('x', nextXPos-5)
                 })
 
                 // highlight lcbs
@@ -176,14 +203,6 @@ export class Cursor {
                 // set cursor-info
                 lengthNode.innerHTML = d.end - d.start + 1;
                 ntPosNode.innerHTML = Math.round(x.invert(xPos));
-
-
-                if (debug) {
-                    self.relativeXs.forEach((xp,i) => {
-                        if (i > 4) return
-                        console.log(i, xp)
-                    })
-                }
             })
             .on("mouseout", function(d) {
                 // ignore hover on line
@@ -196,6 +215,10 @@ export class Cursor {
                     .attr("opacity", 0)
                     .attr('x1', -2)
                     .attr('x2', -2)
+
+                d3.selectAll('.hover-box')
+                    .attr("opacity", 0)
+                    .attr('x', -11)
 
                 // remove highlighting
                 svg.selectAll(`.region`)

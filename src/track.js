@@ -33,7 +33,10 @@ export class Track {
             return;
         }
 
-        let d3 = this.d3;
+        let d3 = this.d3,
+            svg =this.svg
+
+
 
         this.x = d3.scaleLinear()
             .domain([0, this.xLength])
@@ -63,6 +66,8 @@ export class Track {
 
         if (this.regions)
             this.addRegions(this.regions);
+
+
     }
 
     addRegions(regions) {
@@ -123,15 +128,13 @@ export class Track {
             this._panRegions(newScale)
         }
 
-        this.zoomScale = newScale.copy();
+       this.zoomScale = newScale;
     }
 
     _scaleRegions(newScale) {
         this.track.selectAll('.region')
             .attr('x', (d) => newScale(d.start))
             .attr("width", (d) => newScale(d.end) - newScale(d.start))
-
-
     }
 
     _panRegions(newScale) {
@@ -150,17 +153,23 @@ export class Track {
     shift(newX, scaleToUse, cb) {
         let d3 = this.d3;
 
-        let scale = this.getScale();
-        let xPos = scaleToUse.invert(newX)
+        let scale = this.getZoomScale();
+        let xPos = scale.invert(newX)
 
+        let domain1 = [scale.domain()[0], scale.domain()[1]],
+            domain2 = [scale.domain()[0] - xPos, scale.domain()[1]- xPos];
+
+        console.log(domain1, domain2)
+
+        console.log('scale before transition', this.id, 'is', this.x.domain())
         this.gX.transition().tween("axis", (d) => {
-            let i = d3.interpolate(
-                [scale.domain()[0], scale.domain()[1]],
-                [scale.domain()[0] - xPos, scale.domain()[1] - xPos]
-            );
+            let i = d3.interpolate(domain1, domain2);
             return (t) => {
                 this.x.domain(i(t));
                 this.gX.call(this.xAxis);
+
+                this.zoomScale = this.x
+                console.log('newscale for', this.id, 'is', this.x.domain())
                 cb()
             }
         })
@@ -175,11 +184,7 @@ export class Track {
     }
 
     getScale() {
-        if (this.zoomScale) {
-            return this.zoomScale
-        } else {
-            return this.x
-        }
+        return this.x
     }
 
     getZoomScale() {
@@ -189,7 +194,6 @@ export class Track {
             return this.x
         }
     }
-
 
     random(min, max){
         return Math.floor(Math.random() * (max - min + 1) + min);

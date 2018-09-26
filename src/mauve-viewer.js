@@ -293,32 +293,29 @@ export default class MauveViewer {
         if (!trackID) return;
 
         // reset hack
-        this.tracks.forEach((track) => {
-            track.reset()
-        })
+        // this.tracks.forEach((track) => {
+        //     track.reset()
+        //})
         //this.zoom.transform(this.rect, this.d3.zoomIdentity);
 
         // shift all tracks to relative position
         this.tracks.forEach((track, i) => {
             // skip track clicked on
-            if (track.id == trackID || track.id > this.trackCount) return;
+            //if (track.id == trackID) return;
             let shiftX = relativeXs[i];
 
             // there may not be a corresponding LCB
             if (!shiftX) return
 
-            let complete = 0
-            let scaleToUse = this.tracks[trackID-1].getScale()
+            let complete = 1
+            let scaleToUse = this.tracks[trackID-1]
 
-            track.shift(shiftX, scaleToUse, () => {
+            track.shift(shiftX, scales[i], () => {
                 complete += 1;
-                // wait for all shifts to finish
-                if (complete == this.trackCount) {
-                    console.log('call trasnform')
-                    this.rect.transition().call(
-                        this.zoom.transform, this.d3.zoomTransform(track.track.select('.region'))
-                    )
-                }
+                this.rect.transition().call(
+                    this.zoom.transform, this.d3.zoomTransform({k:1, x: 0, y:0})
+                )
+
             });
         })
 
@@ -359,7 +356,11 @@ export default class MauveViewer {
     }
 
     initControls() {
-        this.ele.querySelector('.opts-btn').onclick = () => {
+        let optsBtn = this.ele.querySelector('.opts-btn');
+
+        if (!optsBtn) return;
+
+        optsBtn.onclick = () => {
             this.ele.querySelector(".dd-content").classList.toggle("show");
         }
 
