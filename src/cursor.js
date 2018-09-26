@@ -35,10 +35,6 @@ export class Cursor {
     render() {
         // draw the track cursor once and update
         // position for better performance
-        let self = this;
-
-        let d3 = this.d3
-
         for (let i=1; i <= this.trackCount; i++) {
             let yPos = this._getRegionYPos(i, '-');
 
@@ -114,13 +110,17 @@ export class Cursor {
 
                 // ignore non-regions
                 if (ele.tagName !== 'rect' || !d || !('lcb_idx' in d)) {
-                    if (ele.classList.contains('cursor-line')) {
+                    if (ele.classList.contains('cursor-line') ||
+                        ele.classList.contains('hover-box')) {
                         return;
                     }
 
                     // if not region, hide cursors
+                    d3.selectAll('.hover-box')
+                        .attr("opacity", 0)
                     for (let i=0; i < lines.length; i++) {
                         lines[i].attr("opacity", 0);
+
                     }
                     return;
                 }
@@ -213,12 +213,9 @@ export class Cursor {
 
                 d3.selectAll('.cursor-line')
                     .attr("opacity", 0)
-                    .attr('x1', -2)
-                    .attr('x2', -2)
 
                 d3.selectAll('.hover-box')
                     .attr("opacity", 0)
-                    .attr('x', -11)
 
                 // remove highlighting
                 svg.selectAll(`.region`)

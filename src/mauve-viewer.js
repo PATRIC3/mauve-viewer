@@ -11,7 +11,9 @@ import {Track} from './track';
 import {TrackCtrl} from './track-ctrl';
 import {Cursor} from './cursor';
 import {BackBone} from './backbone';
+
 import template from './container.html';
+import {schemeCategory20} from './colors';
 import {
     marginTop,
     trackOffset,
@@ -77,12 +79,12 @@ export default class MauveViewer {
         const width = +svg.attr("width"),
             height = +svg.attr("height");
 
-        var rect = this.rect = svg.append("rect")
+        /*var rect = this.rect = svg.append("rect")
             .attr('class', 'zoom-box')
             .attr("width",  1000)
             .attr("height", trackCount * 165)
             .style("fill", 'none')
-            .style("pointer-events", "all");
+            .style("pointer-events", "all");*/
 
         /**
          *  ctrl-mousewheel for zoom
@@ -336,13 +338,13 @@ export default class MauveViewer {
         let regionID = 0;
         let lcbID = 0;
         lcbs.forEach((lcb, groupID) => {
-            //lcb.reverse(); // consider last index reference genome
             lcbID += 1;
             lcb.forEach((region) => {
                 // increment/add ids to regions
                 regionID += 1;
                 region.id = regionID;
                 region.groupID = groupID;
+                region.color = schemeCategory20[groupID % 20]
 
                 let index = region.lcb_idx;
                 if (index in regions)

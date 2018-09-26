@@ -1,5 +1,4 @@
 
-import {schemeCategory20} from './colors';
 import {marginTop, trackOffset, yPosOffset, lcbHeight} from './consts';
 
 export class BackBone {
@@ -9,7 +8,6 @@ export class BackBone {
         this.svg = params.svg;
 
         this.data = params.data;
-        //this.x = params.scale
         this.tracks = params.tracks;
 
         this.render(this.data);
@@ -28,10 +26,12 @@ export class BackBone {
             let lcbMids = [];
             lcbs.forEach(l => {
                 if (l.hidden) return;
+                console.log('l', l)
 
                 let x = tracks[l.lcb_idx - 1].getZoomScale();
 
                 lcbMids.push({
+                    color: l.color,
                     lcb_idx: l.lcb_idx,
                     start: l.start,
                     end: l.end,
@@ -55,7 +55,7 @@ export class BackBone {
                 .attr('class', `lcb-line id-${i}`)
                 .attr("d", this.lineFunction(set))
                 .attr("stroke-width", 1)
-                .attr('stroke', schemeCategory20[i % 20])
+                .attr('stroke', d => d[0].color)
                 .attr('fill', 'none')
 
         })
@@ -87,6 +87,8 @@ export class BackBone {
     _getRegionYPos(trackIdx, strandDirection) {
         return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackIdx-1) * trackOffset);
     }
+
+
 
     /*
     renderTest() {

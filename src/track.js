@@ -1,4 +1,3 @@
-import {schemeCategory20} from './colors';
 import {marginTop, trackOffset, yPosOffset, lcbHeight} from './consts';
 
 export class Track {
@@ -84,7 +83,7 @@ export class Track {
             .attr('width', d => this.x(d.end - d.start))
             .attr('height', lcbHeight)
             .attr('stroke', '#fffff')
-            .attr('fill', d =>  schemeCategory20[(d.groupID % numOfLCBs) % 20] )
+            .attr('fill', d =>  d.color)
 
         this.regions = regions;
     }
@@ -113,7 +112,6 @@ export class Track {
     }
 
     rescaleAxis() {
-        console.log('called zoom')
         if (this.hidden) return;
 
         let srcEvent = this.d3.event.sourceEvent;

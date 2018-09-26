@@ -1,6 +1,4 @@
 
-
-
 export const marginTop = 20;     // margin of canvas top
 export const trackOffset = 105; // distance between axises
 export const hideTrackOffset = 35;
