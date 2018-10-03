@@ -1,0 +1,104 @@
+[
+    [
+        {
+            "name": "568815.3.fasta",
+            "start": 1,
+            "end": 7860,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 1,
+            "end": 7860,
+            "strand": "+",
+            "lcb_idx": 2
+        }
+    ],
+    [
+        {
+            "name": "568815.3.fasta",
+            "start": 14880,
+            "end": 80228,
+            "strand": "+",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 14880,
+            "end": 79345,
+            "strand": "+",
+            "lcb_idx": 2
+        }
+    ],
+    [
+        {
+            "name": "568815.3.fasta",
+            "start": 1565371,
+            "end": 1565489,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 11519,
+            "end": 11635,
+            "strand": "+",
+            "lcb_idx": 2
+        }
+    ],
+    [
+        {
+            "name": "568815.3.fasta",
+            "start": 7861,
+            "end": 14879,
+            "strand": "+",
+            "lcb_idx": 1
+        }
+    ],
+    [
+        {
+            "name": "568815.3.fasta",
+            "start": 80229,
+            "end": 1565370,
+            "strand": "+",
+            "lcb_idx": 1
+        }
+    ],
+    [
+        {
+            "name": "568815.3.fasta",
+            "start": 1565490,
+            "end": 3337369,
+            "strand": "+",
+            "lcb_idx": 1
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fasta",
+            "start": 7861,
+            "end": 11518,
+            "strand": "+",
+            "lcb_idx": 2
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fasta",
+            "start": 11636,
+            "end": 14879,
+            "strand": "+",
+            "lcb_idx": 2
+        }
+    ],
+    [
+        {
+            "name": "204722.5.fasta",
+            "start": 79346,
+            "end": 79347,
+            "strand": "+",
+            "lcb_idx": 2
+        }
+    ]
+]

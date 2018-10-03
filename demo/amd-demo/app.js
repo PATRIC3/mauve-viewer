@@ -16,7 +16,7 @@ function(MauveViewer, d3, axios) {
 
     let ele = document.getElementById('chart');
 
-    axios.get(`../brucella-lcbs.json`).then(res => {
+    axios.get(`../data/brucella-lcbs.json`).then(res => {
         let data = res.data;
         let chart = new MauveViewer.default({data, d3, ele})
     }).catch(error => 'An error occurred while loading the component');
