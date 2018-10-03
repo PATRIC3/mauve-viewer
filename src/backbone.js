@@ -24,19 +24,89 @@ export class BackBone {
         let midSets = [];
         data.forEach((lcbs) => {
             let lcbMids = [];
-            lcbs.forEach(l => {
+            lcbs.forEach((l, i) => {
                 if (l.hidden) return;
-                console.log('l', l)
 
                 let x = tracks[l.lcb_idx - 1].getZoomScale();
+                let xPos =  x(l.start) + ( (x(l.end) - x(l.start))  / 2 );
+
+                // if first track
+                if (l.lcb_idx == 1) {
+                    lcbMids.push({
+                        color: l.color,
+                        lcb_idx: l.lcb_idx,
+                        start: l.start,
+                        end: l.end,
+                        x:  xPos,
+                        y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2)
+                    });
+
+                    lcbMids.push({
+                        color: l.color,
+                        lcb_idx: l.lcb_idx,
+                        start: l.start,
+                        end: l.end,
+                        x:  xPos,
+                        y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + lcbHeight + 10
+                    });
+                    return;
+                }
+
+                // if last track
+                if (l.lcb_idx == this.tracks.length) {
+                    lcbMids.push({
+                        color: l.color,
+                        lcb_idx: l.lcb_idx,
+                        start: l.start,
+                        end: l.end,
+                        x:  xPos,
+                        y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) - lcbHeight -
+                            (l.strand === '-' ? 10 : 0)
+                    });
+
+                    lcbMids.push({
+                        color: l.color,
+                        lcb_idx: l.lcb_idx,
+                        start: l.start,
+                        end: l.end,
+                        x:  xPos,
+                        y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2)
+                    });
+                    return
+                }
+
+                /**
+                 *  if middle track
+                 */
+                lcbMids.push({
+                    color: l.color,
+                    lcb_idx: l.lcb_idx,
+                    start: l.start,
+                    end: l.end,
+                    x: xPos,
+                    y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) - lcbHeight -
+                        (l.strand === '-' ? 10 : 0)
+                });
 
                 lcbMids.push({
                     color: l.color,
                     lcb_idx: l.lcb_idx,
                     start: l.start,
                     end: l.end,
-                    x:  x(l.start) + ( (x(l.end) - x(l.start))  / 2 ) ,
+                    x: xPos,
                     y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2)
+                });
+
+                if (i == lcbs.length -1) return;
+
+                lcbMids.push({
+                    color: l.color,
+                    lcb_idx: l.lcb_idx,
+                    start: l.start,
+                    end: l.end,
+                    x: xPos,
+                    y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + lcbHeight + 10 +
+                        (l.strand === '+' ? 10 : 0)
                 });
             })
 
@@ -57,7 +127,6 @@ export class BackBone {
                 .attr("stroke-width", 1)
                 .attr('stroke', d => d[0].color)
                 .attr('fill', 'none')
-
         })
 
         return midSets;
@@ -160,6 +229,59 @@ export class BackBone {
 
         simulation.force("link")
             .links(graph.links);
-    }*/
+    }
+
+
+            data.forEach((lcbs) => {
+            let lcbMids = [];
+            lcbs.forEach((l, i) => {
+                if (l.hidden) return;
+
+                let x = tracks[l.lcb_idx - 1].getZoomScale();
+
+                let obj = {
+                    color: l.color,
+                    lcb_idx: l.lcb_idx,
+                    start: l.start,
+                    end: l.end,
+                    x: x(l.start) + ( (x(l.end + 1) - x(l.start))  / 2 ),
+                    y: null
+                }
+
+                // if first track
+                if (l.lcb_idx == 1) {
+                    console.log('HJERE')
+                    obj.y =  this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2);
+                    lcbMids.push(obj);
+
+                    obj.y = marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + lcbHeight + 10;
+                    lcbMids.push(obj);
+                    return;
+                }
+
+                // if last track
+                if (l.lcb_idx == this.tracks.length) {
+                    obj.y = marginTop + this._getRegionYPos(l.lcb_idx, l.strand) - lcbHeight - 10;
+                    lcbMids.push(obj);
+
+                    obj.y = marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2)
+                    lcbMids.push(obj);
+                    return
+                }
+
+
+
+
+                obj.y = marginTop + this._getRegionYPos(l.lcb_idx, l.strand) - lcbHeight - 10;
+                lcbMids.push(obj);
+                obj.y = marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2);
+                lcbMids.push(obj);
+                obj.y = marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + lcbHeight + 10
+                lcbMids.push(obj);
+            })
+
+
+
+    */
 
 }
