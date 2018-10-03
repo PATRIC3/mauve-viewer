@@ -339,6 +339,8 @@ export default class MauveViewer {
         let lcbID = 0;
         lcbs.forEach((lcb, groupID) => {
             lcbID += 1;
+            if (lcb.length < 2) return;
+
             lcb.forEach((region) => {
                 // increment/add ids to regions
                 regionID += 1;
