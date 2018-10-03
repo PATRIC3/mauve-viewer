@@ -2,8 +2,6 @@
 import {marginTop, yPosOffset, lcbHeight, trackOffset} from './consts';
 
 
-const debug = false;
-
 export class Cursor {
 
     constructor(params) {
@@ -79,7 +77,6 @@ export class Cursor {
     }
 
     resetHover() {
-        console.log('reset hover')
         let svg = this.svg,
             d3 = this.d3,
             lines = this.hoverLines;
@@ -109,7 +106,7 @@ export class Cursor {
                 if (!ele) return;
 
                 // ignore non-regions
-                if (ele.tagName !== 'rect' || !d || !('lcb_idx' in d)) {
+                if (ele.tagName !== 'rect' || !ele.classList.contains('region')) {
                     if (ele.classList.contains('cursor-line') ||
                         ele.classList.contains('hover-box')) {
                         return;
@@ -120,7 +117,6 @@ export class Cursor {
                         .attr("opacity", 0)
                     for (let i=0; i < lines.length; i++) {
                         lines[i].attr("opacity", 0);
-
                     }
                     return;
                 }
@@ -157,15 +153,14 @@ export class Cursor {
 
                 // draw cursor line for other rects
                 let groupID = self.hoverLCBID = d.groupID;
-                svg.selectAll(`.group-${groupID}`).each(function(d, i) {
-                    //console.log('d', this)
+                svg.selectAll(`.group-${groupID}`).each(function(d) {
+
                     // need to skip rect that is being hovered on
                     if (d.lcb_idx === trackID) return;
 
                     // need to compute relative position based on strand
                     // store the relative position on other tracks as well
                     let x = self.tracks[d.lcb_idx-1].getZoomScale();
-                    //console.log('Scale for relative lcb', i+1, 'is', x.domain())
 
                     let nextXPos;
                     if (hoverStrand !== d.strand) {
@@ -174,11 +169,11 @@ export class Cursor {
                         nextXPos = x(d.start) + relXPos;
                     }
 
-                    //console.log('nextXPos', nextXPos)
+                    let netNTPose = x.invert(nextXPos);
+
                     let diff = xPos - nextXPos +1;
                     self.relativeXs[d.lcb_idx - 1] = diff;
                     self.scales[d.lcb_idx - 1] = x;
-                    //console.log('diff for track', i+1, diff);
 
                     lines[d.lcb_idx-1]
                         .attr('x1', nextXPos )
@@ -211,11 +206,14 @@ export class Cursor {
                     return;
                 }
 
+                // move cursor out of domain in event that track doesn't have a LCB
                 d3.selectAll('.cursor-line')
-                    .attr("opacity", 0)
-
+                    .attr('opacity', 0)
+                    .attr('x1', -2)
+                    .attr('x2', -2)
                 d3.selectAll('.hover-box')
-                    .attr("opacity", 0)
+                    .attr('opacity', 0)
+                    .attr('x', -11)
 
                 // remove highlighting
                 svg.selectAll(`.region`)

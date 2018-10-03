@@ -7,14 +7,13 @@ function main() {
 
     Promise.all([import('d3'), import('axios')]).then(([d3, axios]) => {
 
-        axios.get(`more-brucella.json`).then(res => {
+        axios.get(`all-brucella.json`).then(res => {
             let data = res.data;
             let ele = document.getElementById('chart');
-            new MauveViewer({ele, data, d3, labels: {}});
-            return
+            //new MauveViewer({ele, data, d3, labels: {}});
+            //return
 
             // use different labels for each track (optional)
-            // Todo: store list of names in alginment file
             let ext;
             let ids = []
             data.forEach(lcbs => {
