@@ -14,11 +14,7 @@ import {BackBone} from './backbone';
 
 import template from './container.html';
 import {schemeCategory20} from './colors';
-import {
-    marginTop,
-    trackOffset,
-    hideTrackOffset,
-} from './consts';
+import {marginTop, trackOffset, hideTrackOffset} from './consts';
 
 
 
@@ -45,12 +41,6 @@ export default class MauveViewer {
 
         this.setReference(1, true);  // set first genome as reference
 
-        //Todo: testing, remove!
-        //this.data.forEach(lcb => {
-        //    lcb.forEach(region => {
-        //        region.strand = '+';
-        //    })
-        //})
 
         this.ele.innerHTML = template;
         this.render();
@@ -78,13 +68,6 @@ export default class MauveViewer {
 
         const width = +svg.attr("width"),
             height = +svg.attr("height");
-
-        /*var rect = this.rect = svg.append("rect")
-            .attr('class', 'zoom-box')
-            .attr("width",  1000)
-            .attr("height", trackCount * 165)
-            .style("fill", 'none')
-            .style("pointer-events", "all");*/
 
         /**
          *  ctrl-mousewheel for zoom
@@ -148,20 +131,6 @@ export default class MauveViewer {
                 onShow: id => { this.showTrack(id) }
             })
         }
-
-        /*
-        let masterTrack = this.masterTrack =  new MasterTrack({
-            d3, svg,
-            yPos: yPos += trackOffset,
-            id: trackCount+1,
-            name: 'master',
-            label: 'master',
-            container: this.ele,
-            width, xLength
-        })
-        tracks.push(masterTrack)
-        */
-
 
         // add hover cursor lines, initially without x position
         this.cursor = new Cursor({
@@ -320,7 +289,6 @@ export default class MauveViewer {
 
             });
         })
-
     }
 
     // gets lcbs that have entry for every organism

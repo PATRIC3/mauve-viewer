@@ -43,7 +43,6 @@ export class TrackCtrl {
         // add container
         let ele = this.node = document.createElement('div');
         ele.setAttribute('class', `track-ctrl ctrl-${this.id}`);
-        //ele.style.border = "1px solid black";
         ele.style.top = relativeTop  + this.yPos + ctrlPadding + 'px';
         ele.style.left = '-35px';
         ele.style.width = '25px';
@@ -128,7 +127,6 @@ export class TrackCtrl {
     }
 
     showTrack() {
-        console.log('called show');
         this.node.innerHTML = '';
         this._addMainButtons();
 

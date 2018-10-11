@@ -6,7 +6,14 @@
 
 .mauve-viewer .pull-left { float: left; }
 .mauve-viewer .pull-right { float: right; }
-
+.mauve-viewer.caret-down {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #222;
+    display:inline-block;
+}
 
 /**
  * mv ele styling
@@ -23,6 +30,8 @@
   */
 
 .mauve-viewer .track-ctrl button {
+    background-color: #fff;
+    border: 1px solid #ddd;
     font-weight: 800;
 }
 
@@ -37,16 +46,17 @@
 .mauve-viewer .track-ctrl button.active {
     background: #b50707;
     color: #fff;
+    border-color: #aaa;
 }
 
-.mauve-viewer.caret-down {
-	width: 0;
-	height: 0;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 5px solid #222;
-    display:inline-block;
+.mauve-viewer .track-ctrl button[disabled] {
+    background-color: #ddd;
 }
+
+.mauve-viewer .track-ctrl button[disabled]:hover {
+    cursor: not-allowed;
+}
+
 
 /**
  * buttons
