@@ -6,7 +6,14 @@
 
 .mauve-viewer .pull-left { float: left; }
 .mauve-viewer .pull-right { float: right; }
-
+.mauve-viewer .caret-down {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #222;
+    display:inline-block;
+}
 
 /**
  * mv ele styling
@@ -22,6 +29,7 @@
   * track control
   */
 
+
 .mauve-viewer .track-ctrl button {
     font-weight: 800;
 }
@@ -30,30 +38,36 @@
     color: #b50707;
 }
 
-.mauve-viewer .track-ctrl button:focus {
-    outline: none;
-}
-
 .mauve-viewer .track-ctrl button.active {
     background: #b50707;
     color: #fff;
+    border-color: #aaa;
 }
 
-.mauve-viewer.caret-down {
-	width: 0;
-	height: 0;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 5px solid #222;
-    display:inline-block;
+.mauve-viewer .track-ctrl button[disabled] {
+    background-color: #ddd;
 }
+
+.mauve-viewer .track-ctrl button[disabled]:hover {
+    cursor: not-allowed;
+}
+
 
 /**
  * buttons
  */
 
+ .mauve-viewer button {
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
 .mauve-viewer button:hover {
     background-color: #f2f2f2;
+}
+
+.mauve-viewer button:focus {
+    outline: none;
 }
 
 
@@ -69,18 +83,29 @@
 .mauve-viewer .dd-content {
     display: none;
     position: absolute;
+    left: 0;
     background-color: #fff;
-    min-width: 160px;
+    min-width: 200px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    font-size: .9em;
 }
 
 .mauve-viewer .dd-content div {
-    display: block;
     color: #222;
     user-select: none;
     padding: 5px 10px;
+}
+
+.mauve-viewer .dd-content div:hover {
+    background: #efefef;
+}
+
+.mauve-viewer .dd-content label {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .mauve-viewer .show {
