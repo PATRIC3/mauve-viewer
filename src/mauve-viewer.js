@@ -147,6 +147,9 @@ export default class MauveViewer {
             tracks, data, d3, svg
         })
 
+        // call zoom transform if being re-rendered
+        zoom.transform(svg, d3.zoomIdentity);
+
         function zoomed() {
             // scale each track
             let newScale;
@@ -160,7 +163,7 @@ export default class MauveViewer {
 
         let reset = () => {
             this.tracks.forEach(track => { track.reset() });
-            zoom.transform(rect, d3.zoomIdentity);
+            zoom.transform(svg, d3.zoomIdentity);
         }
 
         d3.select(this.ele.querySelector('.reset-btn'))
