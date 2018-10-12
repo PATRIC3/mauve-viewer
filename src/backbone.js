@@ -121,10 +121,10 @@ export class BackBone {
 
         midSets.forEach((set, i) => {
             this.svg.datum(set)
-                .insert("path",":first-child")
+                .insert('path',':first-child')
                 .attr('class', `lcb-line id-${i}`)
-                .attr("d", this.lineFunction(set))
-                .attr("stroke-width", 1)
+                .attr('d', this.lineFunction(set))
+                .attr('stroke-width', 1)
                 .attr('stroke', d => d[0].color)
                 .attr('fill', 'none')
         })
@@ -134,7 +134,7 @@ export class BackBone {
 
     scale(newScale) {
         this.svg.selectAll('path.lcb-line')
-            .attr("d", d => {
+            .attr('d', d => {
                 let set = d.map(p => {
                     let newScale = this.tracks[p.lcb_idx - 1].getZoomScale();
                     return {
@@ -157,6 +157,16 @@ export class BackBone {
         return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackIdx-1) * trackOffset);
     }
 
+    hide() {
+        this.svg.selectAll('path.lcb-line')
+            .attr('opacity', 0)
+    }
+
+
+    show() {
+        this.svg.selectAll('path.lcb-line')
+            .attr('opacity', 1.0)
+    }
 
 
     /*
@@ -198,36 +208,36 @@ export class BackBone {
 
 
         let simulation = d3.forceSimulation()
-            .force("link", d3.forceLink().id(function(d) { return d.id; }))
-            //.force("charge", d3.forceManyBody().strength(-1000))
+            .force('link', d3.forceLink().id(function(d) { return d.id; }))
+            //.force('charge', d3.forceManyBody().strength(-1000))
 
         let color = d3.scaleOrdinal(schemeCategory20);
 
-        let link = svg.append("g")
-            .attr("class", "links")
-            .selectAll("line")
+        let link = svg.append('g')
+            .attr('class', 'links')
+            .selectAll('line')
             .data(graph.links)
-            .enter().append("line")
+            .enter().append('line')
             .attr('stroke', '#999')
-            .attr("stroke-width", function(d) { return 3; });
+            .attr('stroke-width', function(d) { return 3; });
 
 
         let ticked = () => {
-            link.attr("x1", function(d) {
+            link.attr('x1', function(d) {
                     console.log('x1', d.source.x)
                     return d.source.x;
                     })
-                .attr("y1", function(d) { return d.source.y; })
-                .attr("x2", function(d) { return d.target.x; })
-                .attr("y2", function(d) { return d.target.y; });
+                .attr('y1', function(d) { return d.source.y; })
+                .attr('x2', function(d) { return d.target.x; })
+                .attr('y2', function(d) { return d.target.y; });
 
         }
 
         simulation
             .nodes(graph.nodes)
-            .on("tick", ticked);
+            .on('tick', ticked);
 
-        simulation.force("link")
+        simulation.force('link')
             .links(graph.links);
     }
 

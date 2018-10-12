@@ -358,17 +358,24 @@ export default class MauveViewer {
             if (this.checked) {
                 self.tracks.forEach((track) => {
                     let name = track.name,
-                        label = self.getLabel(name)
-                    track.setLabel(label)
+                        label = self.getLabel(name);
+                    track.setLabel(label);
                 })
-            }
-
-            if (!this.checked) {
+            } else {
                 self.tracks.forEach((track) => {
                     let label = track.label,
                         orgName = label.slice(0, label.lastIndexOf('[') - 1);
-                    track.setLabel(orgName)
+                    track.setLabel(orgName);
                 })
+            }
+        }
+
+        let showLinesBtn =  dd.querySelector('[name=showLCBLines]');
+        showLinesBtn.onclick = function() {
+            if (this.checked) {
+                self.backbone.show();
+            } else {
+                self.backbone.hide();
             }
         }
     }
