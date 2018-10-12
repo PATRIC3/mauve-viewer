@@ -99,9 +99,9 @@ export default class MauveViewer {
             let isHidden = this.hiddenTracks.includes(id);
             yPos += id === 1 ? 0 : (isHidden ? hideTrackOffset : trackOffset);
 
-            let name = genomeRegions[id][0].name,
-                orgID = name.slice(0, name.lastIndexOf('.')),
-                label = this.labels ? `${this.labels[name]} [${orgID}]` : '';
+            let name = genomeRegions[id][0].name;
+            let label = this.getLabel(name);
+
 
             let track = new Track({
                 d3, yPos, svg, id, name, label,
@@ -332,23 +332,51 @@ export default class MauveViewer {
     }
 
     initControls() {
-        let optsBtn = this.ele.querySelector('.opts-btn');
+        let self = this;
+        let node = this.ele;
+        let optsBtn = node.querySelector('.opts-btn'),
+            dd = node.querySelector('.dropdown');
 
         if (!optsBtn) return;
 
         optsBtn.onclick = () => {
-            this.ele.querySelector(".dd-content").classList.toggle("show");
+            node.querySelector(".dd-content").classList.toggle('show');
         }
 
+        // close all dropdown contents on outside click
         document.onclick = (evt) => {
-            let dd = this.ele.querySelector('.dropdown');
             if (dd.contains(evt.target)) return;
 
             if (!evt.target.matches('.dd-btn')) {
-                var dds = this.ele.getElementsByClassName("dd-content");
+                var dds = node.getElementsByClassName('dd-content');
                 Array.from(dds).forEach(dd => { dd.classList.remove('show') });
             }
         }
+
+        let showIDBtn =  dd.querySelector('[name=showGenomeID]');
+        showIDBtn.onclick = function() {
+            if (this.checked) {
+                self.tracks.forEach((track) => {
+                    let name = track.name,
+                        label = self.getLabel(name)
+                    track.setLabel(label)
+                })
+            }
+
+            if (!this.checked) {
+                self.tracks.forEach((track) => {
+                    let label = track.label,
+                        orgName = label.slice(0, label.lastIndexOf('[') - 1);
+                    track.setLabel(orgName)
+                })
+            }
+        }
+    }
+
+    getLabel(name) {
+        let orgID = name.slice(0, name.lastIndexOf('.'));
+        let label = this.labels ? `${this.labels[name]} [${orgID}]` : '';
+        return label;
     }
 
 }

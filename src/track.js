@@ -58,13 +58,7 @@ export class Track {
             .attr('transform', `translate(0, ${this.yPos})`);
 
         // add names
-        g.append('text')
-            .attr('x', 0)
-            .attr('y', this.yPos - 3 ) // -3 padding
-            .text(this.label || this.name)
-            .attr('font-family', "sans-serif")
-            .attr('font-size', "10px")
-            .attr('fill', '#888');
+        this.setLabel(this.label || this.name)
 
         if (this.regions)
             this.addRegions(this.regions);
@@ -234,8 +228,17 @@ export class Track {
         }
     }
 
-    random(min, max){
-        return Math.floor(Math.random() * (max - min + 1) + min);
+    setLabel(label) {
+        this.track.selectAll('.track-label').remove();
+
+        this.track.append('text')
+            .attr('class', 'track-label')
+            .attr('x', 0)
+            .attr('y', this.yPos - 3 ) // -3 padding
+            .text(label)
+            .attr('font-family', "sans-serif")
+            .attr('font-size', "10px")
+            .attr('fill', '#888');
     }
 
 }

@@ -6,7 +6,7 @@
 
 .mauve-viewer .pull-left { float: left; }
 .mauve-viewer .pull-right { float: right; }
-.mauve-viewer.caret-down {
+.mauve-viewer .caret-down {
 	width: 0;
 	height: 0;
 	border-left: 5px solid transparent;
@@ -39,10 +39,6 @@
     color: #b50707;
 }
 
-.mauve-viewer .track-ctrl button:focus {
-    outline: none;
-}
-
 .mauve-viewer .track-ctrl button.active {
     background: #b50707;
     color: #fff;
@@ -66,6 +62,10 @@
     background-color: #f2f2f2;
 }
 
+.mauve-viewer button:focus {
+    outline: none;
+}
+
 
 /**
  *  dropdowns
@@ -79,6 +79,7 @@
 .mauve-viewer .dd-content {
     display: none;
     position: absolute;
+    left: 0;
     background-color: #fff;
     min-width: 160px;
     overflow: auto;
@@ -87,7 +88,6 @@
 }
 
 .mauve-viewer .dd-content div {
-    display: block;
     color: #222;
     user-select: none;
     padding: 5px 10px;

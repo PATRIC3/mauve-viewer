@@ -196,7 +196,7 @@ export class Cursor {
                     .attr('stroke-width', 3)
 
                 // set cursor-info
-                lengthNode.innerHTML = d.end - d.start + 1;
+                lengthNode.innerHTML = `LCB Length: ${d.end - d.start + 1}`;
                 ntPosNode.innerHTML = Math.round(x.invert(xPos));
             })
             .on("mouseout", function(d) {
@@ -221,8 +221,8 @@ export class Cursor {
                 svg.selectAll(`.lcb-line`)
                     .attr('stroke-width', 1)
 
-                lengthNode.innerHTML = '-';
-                ntPosNode.innerHTML = '-';
+                lengthNode.innerHTML = '';
+                ntPosNode.innerHTML = '';
             });
     }
 
