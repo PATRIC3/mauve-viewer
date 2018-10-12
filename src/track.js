@@ -59,7 +59,7 @@ export class Track {
         // add names
         g.append('text')
             .attr('x', 0)
-            .attr('y', this.yPos + trackOffset - 5) // -2 padding
+            .attr('y', this.yPos - 2 ) // -2 padding
             .text(this.label || this.name)
             .attr('font-family', "sans-serif")
             .attr('font-size', "10px")
