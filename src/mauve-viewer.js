@@ -100,7 +100,8 @@ export default class MauveViewer {
             yPos += id === 1 ? 0 : (isHidden ? hideTrackOffset : trackOffset);
 
             let name = genomeRegions[id][0].name,
-                label = this.labels ? this.labels[name] : '';
+                orgID = name.slice(0, name.lastIndexOf('.')),
+                label = this.labels ? `${this.labels[name]} [${orgID}]` : '';
 
             let track = new Track({
                 d3, yPos, svg, id, name, label,

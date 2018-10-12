@@ -16,7 +16,8 @@ export class Track {
         this.width = params.width;
         this.xLength = params.xLength;
         this.regions = params.regions;
-        this.yPos = params.yPos || marginTop + (this.id - 1) * trackOffset;
+        this.yPos = params.yPos;
+
 
         // render and expose axis/scale
         this.x;
@@ -59,7 +60,7 @@ export class Track {
         // add names
         g.append('text')
             .attr('x', 0)
-            .attr('y', this.yPos - 2 ) // -2 padding
+            .attr('y', this.yPos - 3 ) // -3 padding
             .text(this.label || this.name)
             .attr('font-family', "sans-serif")
             .attr('font-size', "10px")
