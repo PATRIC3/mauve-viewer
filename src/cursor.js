@@ -31,6 +31,8 @@ export class Cursor {
     }
 
     render() {
+        let d3 = this.d3;
+
         // draw the track cursor once and update
         // position for better performance
         for (let i=1; i <= this.trackCount; i++) {
@@ -60,7 +62,7 @@ export class Cursor {
             this.hoverLines.push(line);
         }
 
-        this.resetHover(this.scale);
+        this.resetHover();
 
 
         // click event callback
@@ -74,6 +76,8 @@ export class Cursor {
                 scales: this.scales
             })
         })
+
+
     }
 
     resetHover() {

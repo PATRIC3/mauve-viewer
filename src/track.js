@@ -1,4 +1,4 @@
-import {marginTop, trackOffset, yPosOffset, lcbHeight} from './consts';
+import {trackOffset, yPosOffset, lcbHeight, featureHeight} from './consts';
 
 
 const showGaps = false;
@@ -16,7 +16,10 @@ export class Track {
         this.width = params.width;
         this.xLength = params.xLength;
         this.regions = params.regions;
+        this.features = params.features;
         this.yPos = params.yPos;
+
+        this.backbone = params.backbone;
 
 
         // render and expose axis/scale
@@ -72,19 +75,62 @@ export class Track {
             .append('rect')
             .attr('class', d => `region track-id-${this.id} group-${d.groupID} id-${d.id}`)
             .attr('x', d => this.x(d.start))
-            .attr('y', d => this._getRegionYPos(this.id, d.strand))
+            .attr('y', d => this._getRegionYPos(d.strand))
             .attr('width', d => this.x(d.end - d.start + 1))
             .attr('height', lcbHeight)
             .attr('stroke', '#fffff')
             .attr('fill', d =>  d.color)
-            //.attr('opacity', .5)
+           //.attr('opacity', .5)
 
         this.regions = regions;
 
         // if object does not have gaps list, we're done
         // if (regions.length && !('gaps' in regions[0])) return;
-        if (showGaps)
-            this.addGaps();
+        if (showGaps) this.addGaps();
+    }
+
+
+    updateFeatures(start, end) {
+        this.rmFeatureHoverEvent();
+
+        let features = this.features.filter(f =>
+            (f.start < start && f.end >= start) ||
+            (f.start < end && f.end >= end) ||
+            (f.start >= start && f.end <= end)
+        )
+
+        let feats = this.track.selectAll('.feature')
+            .data(features)
+
+        feats.exit().remove();
+
+        feats = feats.enter().append('rect')
+            .attr('class', d => `feature`)
+            .merge(feats)
+            .attr('x', d => this.x(d.start))
+            .attr('y', d =>  this._getFeatureYPos(d.strand) + lcbHeight*2 + 5)
+            .attr('width', d => this.x(d.end - d.start + 1))
+            .attr('height', 10)
+            .attr('stroke', '#000')
+            .attr('fill', d => '#777' )
+            .attr('opacity', .5)
+
+        this.addFeatureHoverEvent();
+        this.showAnnotations = true;
+
+        // also hide connections
+        this.svg.selectAll('.lcb-line').attr('opacity', 0)
+
+    }
+
+
+    rmFeatures() {
+        this.svg.selectAll('.feature').remove();
+        this.rmFeatureHoverEvent();
+        this.showAnnotations = false;
+
+        // show connections again
+        this.svg.selectAll('.lcb-line').attr('opacity', 1.0)
     }
 
     addGaps() {
@@ -117,7 +163,7 @@ export class Track {
                 .append('rect')
                 .attr('class', d => `region gap`)
                 .attr('x', d => this.x(d.start))
-                .attr('y', d => this._getRegionYPos(this.id, region.strand))
+                .attr('y', d => this._getRegionYPos(region.strand))
                 .attr('width', d => this.x(d.e - d.s + 1))
                 .attr('height', lcbHeight)
                 .attr('fill', d =>  '#666')
@@ -147,11 +193,24 @@ export class Track {
             .attr("fill", '#222');
     }
 
+
     rescaleAxis() {
         if (this.hidden) return;
 
         let srcEvent = this.d3.event.sourceEvent;
         let newScale = this.d3.event.transform.rescaleX(this.x);
+
+        // get start and stop of zoomed domain
+        let s = newScale.domain()[0],
+            e = newScale.domain()[1];
+
+        // add features based on zoomed domain
+        let meetsThres = (e - s <= 100000);
+        if (meetsThres) {
+            this.updateFeatures(s, e);
+        } else if (!meetsThres && this.showAnnotations ){
+            this.rmFeatures();
+        }
 
         this.gX.call(this.xAxis.scale(newScale));
 
@@ -169,16 +228,26 @@ export class Track {
         this.track.selectAll('.region')
             .attr('x', (d) => newScale(d.start))
             .attr("width", (d) => newScale(d.end + 1)  - newScale(d.start))
+
+        this.track.selectAll('.feature')
+            .attr('x', (d) => newScale(d.start))
+            .attr("width", (d) => newScale(d.end + 1)  - newScale(d.start));
     }
 
     _panRegions(newScale) {
         this.track.selectAll('.region')
             .attr("x", (d) => newScale(d.start) );
+
+        this.track.selectAll('.feature')
+            .attr("x", (d) => newScale(d.start) )
+            .attr("width", (d) => newScale(d.end + 1)  - newScale(d.start));
     }
 
-
-    _getRegionYPos(trackIdx, strandDirection) {
+    _getRegionYPos(strandDirection) {
         return this.yPos + (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset);
+    }
+    _getFeatureYPos(strandDirection) {
+        return this.yPos + (strandDirection === '-' ? yPosOffset + featureHeight : yPosOffset);
     }
 
     // shifts track by xPos,
@@ -192,9 +261,7 @@ export class Track {
 
         let domain1 = [scale.domain()[0], scale.domain()[1]],
             domain2 = [scale.domain()[0] - xPos, scale.domain()[1]- xPos];
-        console.log(domain1, domain2)
 
-        console.log('scale before transition', this.id, 'is', this.x.domain())
         this.gX.transition().tween("axis", (d) => {
             let i = d3.interpolate(domain1, domain2);
             return (t) => {
@@ -202,7 +269,6 @@ export class Track {
                 this.gX.call(this.xAxis);
 
                 this.zoomScale = this.x
-                console.log('newscale for', this.id, 'is', this.x.domain())
                 cb()
             }
         })
@@ -239,6 +305,46 @@ export class Track {
             .attr('font-family', "sans-serif")
             .attr('font-size', "10px")
             .attr('fill', '#888');
+    }
+
+
+    addFeatureHoverEvent() {
+        let d3 = this.d3;
+
+        let tooltip = d3.select('.mauve-viewer')
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        this.svg.selectAll('.feature')
+            .on('mouseover', (d) => {
+                tooltip.transition()
+                    .style("opacity", .9);
+
+
+                let pageX = d3.event.pageX,
+                    pageY = d3.event.pageY;
+
+                tooltip.html(
+                        `${d.feature_type} [${d.start}, ${d.end}]<br>
+                        ${d.product}`
+                    )
+                    .style("left", pageX  - 150+ "px")
+                    .style("top", pageY - 28 + "px");
+            }).on('mouseout', (d) => {
+                tooltip.transition()
+
+                .style("opacity", 0);
+            });
+    }
+
+
+    rmFeatureHoverEvent() {
+        this.svg.selectAll('.feature')
+            .on('mouseover', null)
+            .on('mouseout', null)
+
+        this.d3.selectAll('.tooltip').remove()
     }
 
 }

@@ -112,3 +112,20 @@
     display: block;
 }
 
+
+/**
+ *  tooltips
+ */
+
+
+.mauve-viewer .tooltip {
+    position: absolute;
+    width: 200px;
+    height: 150px;
+    padding: 2px;
+    color: #fff;
+    background: #444;
+    border: 2px xolid #000;
+    pointer-events: none;
+}
+

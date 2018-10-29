@@ -19,9 +19,10 @@ import {marginTop, trackOffset, hideTrackOffset} from './consts';
 
 
 export default class MauveViewer {
-    constructor({d3, ele, data, labels}){
+    constructor({d3, ele, data, labels, features}){
         this.ele = ele;
         this.data = data;
+        this.features = features;
         this.d3 = d3;
         this.labels = labels;
 
@@ -89,9 +90,6 @@ export default class MauveViewer {
         /**
          *  create tracks (axises, scales, gXs)
          */
-        let axises = [],
-            gXs = [],
-            xScales = [];
         let tracks = this.tracks;
 
         let yPos = marginTop;
@@ -102,19 +100,14 @@ export default class MauveViewer {
             let name = genomeRegions[id][0].name;
             let label = this.getLabel(name);
 
-
             let track = new Track({
                 d3, yPos, svg, id, name, label,
                 container: this.ele,
                 width, xLength,
                 hidden: isHidden,
-                regions: genomeRegions[id]
+                regions: genomeRegions[id],
+                features: this.features ? this.features[ name.slice(0, name.lastIndexOf('.')) ] : null
             })
-
-            axises.push(track.xAxis);
-            gXs.push(track.gX);
-            xScales.push(track.x);
-
             tracks.push(track);
 
             // only create track ctrls once
