@@ -16,9 +16,7 @@ export class BackBone {
     }
 
     render(data) {
-        // local (not const)
-        let x = this.x,
-            tracks = this.tracks;
+        let tracks = this.tracks;
 
         // compute all LCB midpoints as list of objects through backbone
         let midSets = [];
@@ -113,15 +111,18 @@ export class BackBone {
             midSets.push(lcbMids);
         })
 
-        // draw connections using lineFunction
+        // draw connections using lineFunction.
         // keep line function for scaling
         this.lineFunction = this.d3.line()
             .x(d => d.x)
             .y(d => d.y)
 
+        let g = this.svg.insert('g', ':first-child')
+            .attr('class', 'lcb-lines');
+
         midSets.forEach((set, i) => {
-            this.svg.datum(set)
-                .insert('path',':first-child')
+            g.datum(set)
+                .append('path')
                 .attr('class', `lcb-line id-${i}`)
                 .attr('d', this.lineFunction(set))
                 .attr('stroke-width', 1)
