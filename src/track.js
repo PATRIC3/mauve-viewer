@@ -1,5 +1,6 @@
-import {trackOffset, yPosOffset, lcbHeight, featureHeight} from './consts';
-
+import {
+    trackOffset, yPosOffset, lcbHeight, featureHeight, marginTop
+} from './consts';
 
 const showGaps = false;
 
@@ -15,12 +16,11 @@ export class Track {
         this.label = params.label;
         this.width = params.width;
         this.xLength = params.xLength;
-        this.regions = params.regions;
-        this.features = params.features;
         this.yPos = params.yPos;
 
-        this.backbone = params.backbone;
-
+        this.regions = params.regions;
+        this.features = params.features;
+        this.contigs = params.contigs;
 
         // render and expose axis/scale
         this.x;
@@ -39,7 +39,7 @@ export class Track {
         }
 
         let d3 = this.d3,
-            svg =this.svg
+            svg = this.svg;
 
         this.x = d3.scaleLinear()
             .domain([0, this.xLength])
@@ -54,6 +54,7 @@ export class Track {
             .attr('class', d => `track id-${this.id}`)
 
         g.append('g').attr('class', 'regions')
+        g.append('g').attr('class', 'contigs')
 
         this.gX = g.append("g")
             .attr('class', `axis axis-x-${this.id}`)
@@ -65,6 +66,9 @@ export class Track {
 
         if (this.regions)
             this.addRegions(this.regions);
+
+        if (this.contigs)
+            this.addContigs(this.contigs);
     }
 
     addRegions(regions) {
@@ -80,15 +84,11 @@ export class Track {
             .attr('height', lcbHeight)
             .attr('stroke', '#fffff')
             .attr('fill', d =>  d.color)
-           //.attr('opacity', .5)
 
         this.regions = regions;
 
-        // if object does not have gaps list, we're done
-        // if (regions.length && !('gaps' in regions[0])) return;
         if (showGaps) this.addGaps();
     }
-
 
     updateFeatures(start, end) {
         this.rmFeatureHoverEvent();
@@ -120,7 +120,21 @@ export class Track {
 
         // also hide connections
         this.svg.selectAll('.lcb-line').attr('opacity', 0)
+    }
 
+    addContigs(contigs) {
+        this.track.select('.contigs').selectAll('line.contig')
+            .data(contigs)
+            .enter()
+            .append('line')
+            .attr('class', 'contig')
+            .attr('stroke', '#b50707')
+            .attr('stroke-width', 2)
+            .attr('opacity', .65)
+            .attr('y1', marginTop + this.yPos )
+            .attr('y2', marginTop + this.yPos +100)
+            .attr('x1', d =>  this.x(d.end))
+            .attr('x2', d => this.x(d.end))
     }
 
 
@@ -138,7 +152,6 @@ export class Track {
             .attr('class', `gaps`)
 
         regions.forEach((region, i)=> {
-            //console.log('region', regi
             // add in track index
             region.gaps.forEach(gap => {
                 gap.lcb_idx = region.lcb_idx;
@@ -232,6 +245,10 @@ export class Track {
         this.track.selectAll('.feature')
             .attr('x', (d) => newScale(d.start))
             .attr("width", (d) => newScale(d.end + 1)  - newScale(d.start));
+
+        this.track.selectAll('.contig')
+            .attr("x1", (d) => newScale(d.end) )
+            .attr("x2", (d) => newScale(d.end) )
     }
 
     _panRegions(newScale) {
@@ -241,6 +258,10 @@ export class Track {
         this.track.selectAll('.feature')
             .attr("x", (d) => newScale(d.start) )
             .attr("width", (d) => newScale(d.end + 1)  - newScale(d.start));
+
+        this.track.selectAll('.contig')
+            .attr("x1", (d) => newScale(d.end) )
+            .attr("x2", (d) => newScale(d.end) )
     }
 
     _getRegionYPos(strandDirection) {

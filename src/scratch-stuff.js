@@ -83,10 +83,7 @@ function renderTest() {
 
 
     let ticked = () => {
-        link.attr('x1', function(d) {
-                console.log('x1', d.source.x)
-                return d.source.x;
-                })
+        link.attr('x1', function(d) { return d.source.x; })
             .attr('y1', function(d) { return d.source.y; })
             .attr('x2', function(d) { return d.target.x; })
             .attr('y2', function(d) { return d.target.y; });
@@ -120,7 +117,6 @@ function renderTest() {
 
             // if first track
             if (l.lcb_idx == 1) {
-                console.log('HJERE')
                 obj.y =  this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2);
                 lcbMids.push(obj);
 

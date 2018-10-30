@@ -19,11 +19,14 @@ import {marginTop, trackOffset, hideTrackOffset} from './consts';
 
 
 export default class MauveViewer {
-    constructor({d3, ele, data, labels, features}){
+    constructor({d3, ele, data, labels, features, contigs}){
+        this.d3 = d3;
         this.ele = ele;
+
         this.data = data;
         this.features = features;
-        this.d3 = d3;
+        this.contigs = contigs;
+
         this.labels = labels;
 
         this.tracks = []
@@ -94,11 +97,12 @@ export default class MauveViewer {
 
         let yPos = marginTop;
         for (let id = 1; id <= trackCount; id++) {
-            let isHidden = this.hiddenTracks.includes(id);
-            yPos += id === 1 ? 0 : (isHidden ? hideTrackOffset : trackOffset);
+            let isHidden = this.hiddenTracks.includes(id),
+                name = genomeRegions[id][0].name,
+                label = this.getLabel(name),
+                genomeID = name.slice(0, name.lastIndexOf('.'));
 
-            let name = genomeRegions[id][0].name;
-            let label = this.getLabel(name);
+            yPos += id === 1 ? 0 : (isHidden ? hideTrackOffset : trackOffset);
 
             let track = new Track({
                 d3, yPos, svg, id, name, label,
@@ -106,7 +110,8 @@ export default class MauveViewer {
                 width, xLength,
                 hidden: isHidden,
                 regions: genomeRegions[id],
-                features: this.features ? this.features[ name.slice(0, name.lastIndexOf('.')) ] : null
+                features: this.features ? this.features[ genomeID ] : null,
+                contigs: this.contigs ? this.contigs[ genomeID ] : null
             })
             tracks.push(track);
 
@@ -261,10 +266,8 @@ export default class MauveViewer {
         if (!trackID) return;
 
         // reset hack
-        // this.tracks.forEach((track) => {
-        //     track.reset()
-        //})
-        //this.zoom.transform(this.rect, this.d3.zoomIdentity);
+        // this.tracks.forEach((track) => track.reset())
+        // this.zoom.transform(this.rect, this.d3.zoomIdentity);
 
         // shift all tracks to relative position
         this.tracks.forEach((track, i) => {
@@ -283,7 +286,6 @@ export default class MauveViewer {
                 this.rect.transition().call(
                     this.zoom.transform, this.d3.zoomTransform({k:1, x: 0, y:0})
                 )
-
             });
         })
     }
@@ -347,29 +349,39 @@ export default class MauveViewer {
         }
 
         let showIDBtn =  dd.querySelector('[name=showGenomeID]');
-        showIDBtn.onclick = function() {
+        showIDBtn.onclick = () => {
             if (this.checked) {
                 self.tracks.forEach((track) => {
                     let name = track.name,
                         label = self.getLabel(name);
                     track.setLabel(label);
                 })
-            } else {
-                self.tracks.forEach((track) => {
-                    let label = track.label,
-                        orgName = label.slice(0, label.lastIndexOf('[') - 1);
-                    track.setLabel(orgName);
-                })
+                return;
             }
+            self.tracks.forEach((track) => {
+                let label = track.label,
+                    orgName = label.slice(0, label.lastIndexOf('[') - 1);
+                track.setLabel(orgName);
+            })
         }
 
         let showLinesBtn =  dd.querySelector('[name=showLCBLines]');
-        showLinesBtn.onclick = function() {
+        showLinesBtn.onclick = () => {
             if (this.checked) {
                 self.backbone.show();
-            } else {
-                self.backbone.hide();
+                return;
             }
+            self.backbone.hide();
+        }
+
+        let showFeaturesBtn =  dd.querySelector('[name=showFeatures]');
+        showFeaturesBtn.onclick = () => {
+            if (this.checked) {
+                self.tracks.forEach((track) => track.addFeatures());
+                return;
+            }
+            self.tracks.forEach((track) => track.rmFeatures() );
+
         }
     }
 
