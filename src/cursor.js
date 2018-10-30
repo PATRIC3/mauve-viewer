@@ -57,7 +57,7 @@ export class Cursor {
                 .attr('y1', marginTop + yPos - 30)
                 .attr('y2', marginTop + yPos + 30)
                 .attr('x1', -11)
-                .attr('x', -11)
+                .attr('x2', -11)
 
             this.hoverLines.push(line);
         }
@@ -118,8 +118,8 @@ export class Cursor {
 
                     // if not region, hide cursors
                     d3.selectAll('.hover-box')
-                        .attr("opacity", 0)
-                    for (let i=0; i < lines.length; i++) {
+                        .attr("opacity", 0);
+                    for (let i = 0; i < lines.length; i++) {
                         lines[i].attr("opacity", 0);
                     }
                     return;
@@ -157,6 +157,7 @@ export class Cursor {
 
                 // draw cursor line for other rects
                 let groupID = self.hoverLCBID = d.groupID;
+                /*
                 svg.selectAll(`.group-${groupID}`).each(function(d) {
 
                     // need to skip rect that is being hovered on
@@ -186,18 +187,20 @@ export class Cursor {
                     svg.select(`.hover-box-${d.lcb_idx}`)
                         .attr('x', nextXPos-5)
                 })
-
-                // highlight lcbs
-                svg.selectAll(`.group-${groupID}`).each(function(d) {
-                    this.parentNode.appendChild(this);
-                    d3.select(this)
-                        .attr('stroke', '#222')
-                        .attr('stroke-width', 2)
-                })
+                */
 
                 // highlight backbone
                 svg.selectAll(`.lcb-line.id-${groupID}`)
-                    .attr('stroke-width', 3)
+                    .attr('stroke-width', 5)
+                    .raise()
+
+                // highlight lcbs
+                svg.selectAll(`.group-${groupID}`).each(function(d) {
+                    d3.select(this)
+                        .attr('stroke', '#222')
+                        .attr('stroke-width', 2)
+                        .raise()
+                })
 
                 // set cursor-info
                 lengthNode.innerHTML = `LCB Length: ${d.end - d.start + 1}`;
