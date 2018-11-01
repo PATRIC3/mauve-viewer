@@ -18,15 +18,11 @@ const contigSelect = [
 function getFeatures({genomeIDs}) {
     genomeIDs = Array.isArray(genomeIDs) ? genomeIDs : [genomeIDs];
 
-    // for each id, fetch features to file
     let proms = [];
     for (const id of genomeIDs) {
         let url = `${api}/genome_feature/?eq(genome_id,${id})` +
             `&select(${featureSelect})&limit(10000000)`;
-        let prom = axios.get(url)
-            .then(res => {
-                return res.data;
-            })
+        let prom = axios.get(url).then(res => res.data);
         proms.push(prom);
     }
 
@@ -38,14 +34,10 @@ function getContigs({genomeIDs}) {
 
     let proms = [];
 
-    // for each id, fetch features to file
     for (const id of genomeIDs) {
         let url = `${api}/genome_sequence/?eq(genome_id,${id})` +
             `&select(${contigSelect.join(',')})&sort(-length)&limit(10000000)`;
-        let prom = axios.get(url)
-            .then(res => {
-                return res.data;
-            })
+        let prom = axios.get(url).then(res => res.data);
         proms.push(prom);
     }
 
@@ -93,9 +85,7 @@ function setContigPositions(contigs) {
     return contigs;
 }
 
-
 function getMauveData({genomeIDs, ext}) {
-
     let nameProm = getGenomeNames({genomeIDs})
         .then(data => {
             let mapping = {};
@@ -107,7 +97,6 @@ function getMauveData({genomeIDs, ext}) {
 
     let featProm = getFeatures({genomeIDs})
         .then(data => {
-            console.log('features', data)
             let mapping = {};
             genomeIDs.forEach((id, i) => { mapping[id] = data[i] });
             return mapping;
