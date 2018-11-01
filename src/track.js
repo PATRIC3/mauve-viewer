@@ -29,6 +29,8 @@ export class Track {
         this.track;
         this.render();
 
+        this._showFeatures = true;
+
         return this;
     }
 
@@ -68,7 +70,7 @@ export class Track {
             this.addRegions(this.regions);
 
         if (this.contigs)
-            this.addContigs(this.contigs);
+            this._addContigs(this.contigs);
     }
 
     addRegions(regions) {
@@ -87,11 +89,11 @@ export class Track {
 
         this.regions = regions;
 
-        if (showGaps) this.addGaps();
+        if (showGaps) this._addGaps();
     }
 
-    updateFeatures(start, end) {
-        this.rmFeatureHoverEvent();
+    _updateFeatures(start, end) {
+        this._rmFeatureHoverEvent();
 
         let features = this.features.filter(f =>
             (f.start < start && f.end >= start) ||
@@ -113,16 +115,65 @@ export class Track {
             .attr('height', 10)
             .attr('stroke', '#000')
             .attr('fill', d => '#777' )
-            .attr('opacity', .5)
+            .attr('opacity', .4)
 
-        this.addFeatureHoverEvent();
-        this.showAnnotations = true;
+        this._addFeatureHoverEvent();
 
         // also hide connections
         this.svg.selectAll('.lcb-line').attr('opacity', 0)
     }
 
-    addContigs(contigs) {
+    _rmFeatures() {
+        this.svg.selectAll('.feature').remove();
+        this._rmFeatureHoverEvent();
+
+        // show connections again
+        this.svg.selectAll('.lcb-line').attr('opacity', 1.0)
+    }
+
+    _addFeatureHoverEvent() {
+        let d3 = this.d3,
+            svg = this.svg;
+
+
+        let tooltip = d3.select('.mauve-viewer')
+            .append("div")
+            .attr("class", "tooltip")
+            .style("position", 'absolute')
+            .style("opacity", 0);
+
+        this.svg.selectAll('.feature')
+            .on('mouseover', function(d) {
+                tooltip.transition().style("opacity", .9);
+
+                let svgPos = svg.node().getBoundingClientRect();
+
+                let x = d3.event.pageX - svgPos.left,
+                    y = d3.event.pageY;
+
+                tooltip.html(
+                        `${d.feature_type} [${d.start}, ${d.end}]<br>
+                        ${d.product}`
+                    )
+                    .style("left", x + 25 + 'px')
+                    .style("top", y - 10 + 'px');
+
+                d3.select(this).attr('opacity', 1.0);
+            }).on('mouseleave', function(d) {
+                d3.select(this).attr('opacity', .4);
+                tooltip.style('opacity', 0);
+            });
+    }
+
+    _rmFeatureHoverEvent() {
+        this.svg.selectAll('.feature')
+            .on('mouseover', null)
+            .on('mouseleave', null)
+
+        this.d3.selectAll('.tooltip').remove()
+    }
+
+    _addContigs(contigs) {
         this.track.select('.contigs').selectAll('line.contig')
             .data(contigs)
             .enter()
@@ -137,17 +188,8 @@ export class Track {
             .attr('x2', d => this.x(d.end))
     }
 
-
-    rmFeatures() {
-        this.svg.selectAll('.feature').remove();
-        this.rmFeatureHoverEvent();
-        this.showAnnotations = false;
-
-        // show connections again
-        this.svg.selectAll('.lcb-line').attr('opacity', 1.0)
-    }
-
-    addGaps() {
+    // not currently used
+    _addGaps() {
         let g = this.track.append('g')
             .attr('class', `gaps`)
 
@@ -219,10 +261,10 @@ export class Track {
 
         // add features based on zoomed domain
         let meetsThres = (e - s <= 100000);
-        if (meetsThres) {
-            this.updateFeatures(s, e);
-        } else if (!meetsThres && this.showAnnotations ){
-            this.rmFeatures();
+        if (meetsThres && this._showFeatures) {
+            this._updateFeatures(s, e);
+        } else {
+            this._rmFeatures();
         }
 
         this.gX.call(this.xAxis.scale(newScale));
@@ -236,6 +278,23 @@ export class Track {
 
        this.zoomScale = newScale;
     }
+
+    showFeatures() {
+        this._showFeatures = true;
+    }
+
+    hideFeatures() {
+        this._showFeatures = false;
+    }
+
+    showContigs() {
+        this._addContigs(this.contigs);
+    }
+
+    hideContigs() {
+        this.track.selectAll('.contig').remove();
+    }
+
 
     _scaleRegions(newScale) {
         this.track.selectAll('.region')
@@ -326,46 +385,6 @@ export class Track {
             .attr('font-family', "sans-serif")
             .attr('font-size', "10px")
             .attr('fill', '#888');
-    }
-
-
-    addFeatureHoverEvent() {
-        let d3 = this.d3;
-
-        let tooltip = d3.select('.mauve-viewer')
-            .append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-        this.svg.selectAll('.feature')
-            .on('mouseover', (d) => {
-                tooltip.transition()
-                    .style("opacity", .9);
-
-
-                let pageX = d3.event.pageX,
-                    pageY = d3.event.pageY;
-
-                tooltip.html(
-                        `${d.feature_type} [${d.start}, ${d.end}]<br>
-                        ${d.product}`
-                    )
-                    .style("left", pageX  - 150+ "px")
-                    .style("top", pageY - 28 + "px");
-            }).on('mouseout', (d) => {
-                tooltip.transition()
-
-                .style("opacity", 0);
-            });
-    }
-
-
-    rmFeatureHoverEvent() {
-        this.svg.selectAll('.feature')
-            .on('mouseover', null)
-            .on('mouseout', null)
-
-        this.d3.selectAll('.tooltip').remove()
     }
 
 }

@@ -11,11 +11,11 @@ import {Track} from './track';
 import {TrackCtrl} from './track-ctrl';
 import {Cursor} from './cursor';
 import {BackBone} from './backbone';
+import {Options} from './options';
 
 import template from './container.html';
 import {schemeCategory20} from './colors';
 import {marginTop, trackOffset, hideTrackOffset} from './consts';
-
 
 
 export default class MauveViewer {
@@ -43,14 +43,23 @@ export default class MauveViewer {
         this.genomeRegions = regions;
         this.trackCount = Object.keys(this.genomeRegions).length;
 
-        this.setReference(1, true);  // set first genome as reference
+        // set first genome as reference
+        this.setReference(1, true);
 
-
+        // add container
         this.ele.innerHTML = template;
+
+        // render
         this.render();
         this.rendered = true;
 
-        this.initControls(); // add global controls
+        // global options
+        new Options({
+            ele: this.ele,
+            tracks: this.tracks,
+            backbone: this.backbone,
+            getLabel: this.getLabel
+        });
     }
 
     render() {
@@ -196,8 +205,6 @@ export default class MauveViewer {
 
     swapBackbones(oldID, newID) {
         this.data.forEach(lcb => {
-            let foundOldRegion = null,
-                foundSwapRegion = null;
             lcb.forEach(region => {
                 if (region.lcb_idx === oldID)
                     region.lcb_idx = newID;
@@ -324,65 +331,6 @@ export default class MauveViewer {
         })
 
         return {regions, regionCount: regionID, lcbCount: lcbID};
-    }
-
-    initControls() {
-        let self = this;
-        let node = this.ele;
-        let optsBtn = node.querySelector('.opts-btn'),
-            dd = node.querySelector('.dropdown');
-
-        if (!optsBtn) return;
-
-        optsBtn.onclick = () => {
-            node.querySelector(".dd-content").classList.toggle('show');
-        }
-
-        // close all dropdown contents on outside click
-        document.onclick = (evt) => {
-            if (dd.contains(evt.target)) return;
-
-            if (!evt.target.matches('.dd-btn')) {
-                var dds = node.getElementsByClassName('dd-content');
-                Array.from(dds).forEach(dd => { dd.classList.remove('show') });
-            }
-        }
-
-        let showIDBtn =  dd.querySelector('[name=showGenomeID]');
-        showIDBtn.onclick = () => {
-            if (this.checked) {
-                self.tracks.forEach((track) => {
-                    let name = track.name,
-                        label = self.getLabel(name);
-                    track.setLabel(label);
-                })
-                return;
-            }
-            self.tracks.forEach((track) => {
-                let label = track.label,
-                    orgName = label.slice(0, label.lastIndexOf('[') - 1);
-                track.setLabel(orgName);
-            })
-        }
-
-        let showLinesBtn =  dd.querySelector('[name=showLCBLines]');
-        showLinesBtn.onclick = () => {
-            if (this.checked) {
-                self.backbone.show();
-                return;
-            }
-            self.backbone.hide();
-        }
-
-        let showFeaturesBtn =  dd.querySelector('[name=showFeatures]');
-        showFeaturesBtn.onclick = () => {
-            if (this.checked) {
-                self.tracks.forEach((track) => track.addFeatures());
-                return;
-            }
-            self.tracks.forEach((track) => track.rmFeatures() );
-
-        }
     }
 
     getLabel(name) {

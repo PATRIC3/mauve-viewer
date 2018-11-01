@@ -27,8 +27,6 @@ Promise.all([import('d3'), import('axios')]).then(([d3, axios]) => {
                     ele, data, d3,
                     labels, features, contigs
                 });
-            }).catch(e => {
-                alert('Could not fetch associated genome data.')
             })
     })
 
