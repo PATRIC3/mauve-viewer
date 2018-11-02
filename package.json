@@ -7,6 +7,8 @@
     "build": "webpack -p",
     "start": "webpack-dev-server --hot --inline",
     "start:server": "http-server -o",
+    "lint": "/node_modules/eslint/bin/eslint.js src/*.js demo/*.js",
+    "lint:fix": "/node_modules/eslint/bin/eslint.js --fix src/*.js demo/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,6 +30,12 @@
     "babel-loader": "^8.0.1",
     "babel-preset-es2015": "^6.24.1",
     "copy-webpack-plugin": "^4.5.2",
+    "eslint": "^5.8.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "html-loader": "^0.5.5",
     "http-server": "^0.11.1",
     "webpack": "^4.17.1",

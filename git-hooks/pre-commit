@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Running linter...";
+/node_modules/eslint/bin/eslint.js src/*.js demo/*.js

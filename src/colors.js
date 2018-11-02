@@ -1,3 +1,4 @@
+
 let schemeCategory20 = [
     'rgb(31, 119, 180)',
     'rgb(174, 199, 232)',
@@ -19,7 +20,7 @@ let schemeCategory20 = [
     'rgb(219, 219, 141)',
     'rgb(23, 190, 207)',
     'rgb(158, 218, 229)'
-]
+];
 
 const schemeCategory20Hex = [
     '#1f77b4',
@@ -42,11 +43,11 @@ const schemeCategory20Hex = [
     '#dbdb8d',
     '#17becf',
     '#9edae5'
-]
+];
 
 function darken() {
-    let factor = .45;
-    let alpha = .5;
+    let factor = 0.45;
+    let alpha = 0.5;
 
     let darker = schemeCategory20.map(str => {
         let parts = str.replace('rgb(', '').replace(')', '').split(', ');
@@ -54,13 +55,13 @@ function darken() {
             g = Math.round(parts[1] * factor),
             b = Math.round(parts[2] * factor);
 
-        return `rgb(${r},${g},${b},${alpha})`
-    })
+        return `rgb(${r},${g},${b},${alpha})`;
+    });
 
     return darker;
 }
-//schemeCategory20 = darken()
+// schemeCategory20 = darken()
 
-module.exports =  {
+module.exports = {
     schemeCategory20
-}
+};

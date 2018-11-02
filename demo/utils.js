@@ -3,17 +3,16 @@ import axios from 'axios';
 
 const api = 'https://p3.theseed.org/services/data_api';
 
-
 const featureSelect = [
     'id', 'sequence_id', 'start', 'end',
     'strand', 'annotation', 'feature_type', 'product'
-]
+];
 
 const contigSelect = [
     'topology', 'gi', 'accession', 'length',
     'sequence_id', 'gc_content', 'chromosome',
     'sequence_type', 'chromosome', 'description'
-]
+];
 
 function getFeatures({genomeIDs}) {
     genomeIDs = Array.isArray(genomeIDs) ? genomeIDs : [genomeIDs];
@@ -50,37 +49,36 @@ function getGenomeNames({genomeIDs}) {
     return axios.get(url).then(res => res.data);
 }
 
-
 function setFeaturePositions(contigs, features) {
-    let newFeatures = []
-    let ntPos = 1
+    let newFeatures = [];
+    let ntPos = 1;
     contigs.forEach(c => {
         // get all features in this contig
         let contigFeatures = features.filter(f => f.sequence_id == c.sequence_id)
-            .filter(f => f.feature_type != 'source')
-            //.filter(f => f .annotation.toLowerCase() == 'patric')
+            .filter(f => f.feature_type != 'source');
+            // .filter(f => f .annotation.toLowerCase() == 'patric')
 
         // adjust start/end
         contigFeatures = contigFeatures.map(f => {
-            f.start = ntPos + f.start
-            f.end = ntPos + f.end
-            return f
-        })
+            f.start = ntPos + f.start;
+            f.end = ntPos + f.end;
+            return f;
+        });
 
         newFeatures = newFeatures.concat(contigFeatures);
-        ntPos += c.length
-    })
+        ntPos += c.length;
+    });
 
     return newFeatures;
 }
 
 function setContigPositions(contigs) {
-    let ntPos = 1
+    let ntPos = 1;
     contigs.forEach(c => {
         c.start = ntPos;
         c.end = ntPos + c.length - 1;
         ntPos += c.length;
-    })
+    });
 
     return contigs;
 }
@@ -91,40 +89,40 @@ function getMauveData({genomeIDs, ext}) {
             let mapping = {};
             data.forEach(org => {
                 mapping[`${org.genome_id}.${ext}`] = org.genome_name;
-            })
-            return mapping
-        })
+            });
+            return mapping;
+        });
 
     let featProm = getFeatures({genomeIDs})
         .then(data => {
             let mapping = {};
-            genomeIDs.forEach((id, i) => { mapping[id] = data[i] });
+            genomeIDs.forEach((id, i) => { mapping[id] = data[i]; });
             return mapping;
-        })
+        });
 
     let contigProm = getContigs({genomeIDs})
         .then(data => {
             let mapping = {};
-            genomeIDs.forEach((id, i) => { mapping[id] = data[i] });
-            return mapping
-        })
+            genomeIDs.forEach((id, i) => { mapping[id] = data[i]; });
+            return mapping;
+        });
 
     return axios.all([nameProm, featProm, contigProm])
         .then(([labels, featuresObj, contigsObj]) => {
             // update contig metas with locations of contigs
             let contigs = {};
             genomeIDs.forEach((genomeID, i) => {
-                contigs[genomeID] = setContigPositions(contigsObj[genomeID])
+                contigs[genomeID] = setContigPositions(contigsObj[genomeID]);
             });
 
             // update feature metas with locations of features
-            let features = {}
+            let features = {};
             Object.keys(contigs).forEach(gid => {
                 features[gid] = setFeaturePositions(contigs[gid], featuresObj[gid]);
-            })
+            });
 
             return {labels, contigs, features};
-        })
+        });
 }
 
 export {
@@ -134,4 +132,4 @@ export {
     setContigPositions,
     getGenomeNames,
     getMauveData
-}
+};

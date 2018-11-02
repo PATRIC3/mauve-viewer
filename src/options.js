@@ -1,8 +1,5 @@
 
-
-
 export class Options {
-
     constructor({ele, tracks, backbone, getLabel}) {
         this.ele = ele;
         this.tracks = tracks;
@@ -16,15 +13,15 @@ export class Options {
 
     init() {
         let self = this;
-        let node = this.ele
+        let node = this.ele;
         let optsBtn = node.querySelector('.opts-btn'),
             dd = node.querySelector('.dropdown');
 
         if (!optsBtn) return;
 
         optsBtn.onclick = () => {
-            node.querySelector(".dd-content").classList.toggle('show');
-        }
+            node.querySelector('.dd-content').classList.toggle('show');
+        };
 
         // close all dropdown contents on outside click
         document.onclick = (evt) => {
@@ -32,9 +29,9 @@ export class Options {
 
             if (!evt.target.matches('.dd-btn')) {
                 var dds = node.getElementsByClassName('dd-content');
-                Array.from(dds).forEach(dd => { dd.classList.remove('show') });
+                Array.from(dds).forEach(dd => { dd.classList.remove('show'); });
             }
-        }
+        };
 
         dd.querySelector('[name=showGenomeID]')
             .onclick = function() {
@@ -43,15 +40,15 @@ export class Options {
                         let name = track.name,
                             label = self.getLabel(name);
                         track.setLabel(label);
-                    })
+                    });
                     return;
                 }
                 self.tracks.forEach(track => {
                     let label = track.label,
                         orgName = label.slice(0, label.lastIndexOf('[') - 1);
                     track.setLabel(orgName);
-                })
-            }
+                });
+            };
 
         dd.querySelector('[name=showLCBLines]')
             .onclick = function() {
@@ -60,7 +57,7 @@ export class Options {
                     return;
                 }
                 self.backbone.hide();
-            }
+            };
 
         dd.querySelector('[name=showFeatures]')
             .onclick = function() {
@@ -69,7 +66,7 @@ export class Options {
                     return;
                 }
                 self.tracks.forEach(track => track.hideFeatures() );
-            }
+            };
 
         dd.querySelector('[name=showContigs]')
             .onclick = function() {
@@ -78,6 +75,6 @@ export class Options {
                     return;
                 }
                 self.tracks.forEach(track => track.hideContigs() );
-            }
-        }
+            };
     }
+}

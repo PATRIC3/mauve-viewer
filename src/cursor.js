@@ -3,7 +3,6 @@ import {marginTop, yPosOffset, lcbHeight, trackOffset} from './consts';
 
 
 export class Cursor {
-
     constructor(params) {
         this.container = params.container;
         this.d3 = params.d3;
@@ -11,17 +10,16 @@ export class Cursor {
         this.trackCount = params.trackCount;
         this.onclick = params.onclick;
 
-
         // cursor class uses tracks for scales
         this.tracks = params.tracks;
         this.zoom = params.zoom;
 
         // set on hover
-        this.hoverXPos;   // position of mouse cursor
+        this.hoverXPos; // position of mouse cursor
         this.hoverTrackID;
         this.hoverLCBID;
-        this.scales = {}
-        this.relativeXs = {}
+        this.scales = {};
+        this.relativeXs = {};
 
         this.hoverLines = [];
 
@@ -35,11 +33,11 @@ export class Cursor {
 
         // draw the track cursor once and update
         // position for better performance
-        for (let i=1; i <= this.trackCount; i++) {
+        for (let i = 1; i <= this.trackCount; i++) {
             let yPos = this._getRegionYPos(i, '-');
 
             let g = this.svg.append('g')
-                .attr('class', 'cursor')
+                .attr('class', 'cursor');
 
             g.append('rect')
                 .attr('class', `hover-box hover-box-${i}`)
@@ -49,7 +47,7 @@ export class Cursor {
                 .attr('height', 60)
                 .attr('fill', 'none')
                 .attr('stroke', '#000')
-                .style("pointer-events", "none");
+                .style('pointer-events', 'none');
 
             let line = g.append('line')
                 .attr('class', 'cursor-line')
@@ -57,13 +55,12 @@ export class Cursor {
                 .attr('y1', marginTop + yPos - 30)
                 .attr('y2', marginTop + yPos + 30)
                 .attr('x1', -11)
-                .attr('x2', -11)
+                .attr('x2', -11);
 
             this.hoverLines.push(line);
         }
 
         this.resetHover();
-
 
         // click event callback
         this.svg.on('click', (event) => {
@@ -74,10 +71,8 @@ export class Cursor {
                 xPos: this.hoverXPos,
                 relativeXs: this.relativeXs,
                 scales: this.scales
-            })
-        })
-
-
+            });
+        });
     }
 
     resetHover() {
@@ -86,22 +81,22 @@ export class Cursor {
             lines = this.hoverLines;
 
         svg.selectAll('.track')
-            .on("mouseover", null)
-            .on("mousemove", null)
-            .on("mouseout", null);
+            .on('mouseover', null)
+            .on('mousemove', null)
+            .on('mouseout', null);
 
         let lengthNode = this.container.querySelector('.lcb-length'),
             ntPosNode = this.container.querySelector('.nt-pos');
 
         let self = this;
         svg.selectAll('.track')
-            .on("mouseover", () => {
+            .on('mouseover', () => {
                 d3.selectAll('.cursor-line')
-                    .attr("opacity", 1.0)
+                    .attr('opacity', 1.0);
                 d3.selectAll('.hover-box')
-                    .attr("opacity", 1.0)
+                    .attr('opacity', 1.0);
             })
-            .on("mousemove", function() {
+            .on('mousemove', function() {
                 let clientX = d3.event.clientX,
                     clientY = d3.event.clientY;
                 let ele = document.elementFromPoint(clientX, clientY);
@@ -118,9 +113,9 @@ export class Cursor {
 
                     // if not region, hide cursors
                     d3.selectAll('.hover-box')
-                        .attr("opacity", 0);
+                        .attr('opacity', 0);
                     for (let i = 0; i < lines.length; i++) {
-                        lines[i].attr("opacity", 0);
+                        lines[i].attr('opacity', 0);
                     }
                     return;
                 }
@@ -129,7 +124,7 @@ export class Cursor {
                 let trackID = self.hoverTrackID = d.lcb_idx;
                 let hoverStrand = d.strand;
 
-                let x = self.tracks[trackID -1].getZoomScale();
+                let x = self.tracks[trackID - 1].getZoomScale();
 
                 // base xPos on nearest integer in range
                 xPos = x(Math.round(x.invert(xPos)));
@@ -143,9 +138,9 @@ export class Cursor {
                 let relXPos = xPos - x(d.start);
 
                 // getZoom scales (if using unzoomed for diff; not currently used)
-                //x = self.tracks[trackID -1].getZoomScale();
-                //xPos = x(Math.round(x.invert(xPos)));;
-                //let relXPosZoom = xPos - x(d.start);
+                // x = self.tracks[trackID -1].getZoomScale();
+                // xPos = x(Math.round(x.invert(xPos)));;
+                // let relXPosZoom = xPos - x(d.start);
 
                 // draw cursor line for rect being hovered
                 lines[trackID - 1]
@@ -153,7 +148,7 @@ export class Cursor {
                     .attr('x1', xPos)
                     .attr('x2', xPos);
                 svg.select(`.hover-box-${trackID}`)
-                    .attr('x', xPos-5)
+                    .attr('x', xPos - 5);
 
                 // draw cursor line for other rects
                 let groupID = self.hoverLCBID = d.groupID;
@@ -192,21 +187,21 @@ export class Cursor {
                 // highlight backbone
                 svg.selectAll(`.lcb-line.id-${groupID}`)
                     .attr('stroke-width', 5)
-                    .raise()
+                    .raise();
 
                 // highlight lcbs
                 svg.selectAll(`.group-${groupID}`).each(function(d) {
                     d3.select(this)
                         .attr('stroke', '#222')
                         .attr('stroke-width', 2)
-                        .raise()
-                })
+                        .raise();
+                });
 
                 // set cursor-info
                 lengthNode.innerHTML = `LCB Length: ${d.end - d.start + 1}`;
                 ntPosNode.innerHTML = Math.round(x.invert(xPos));
             })
-            .on("mouseout", function(d) {
+            .on('mouseout', function(d) {
                 // ignore hover on line
                 if (d3.event.relatedTarget &&
                     d3.event.relatedTarget.classList.contains('cursor-line')) {
@@ -217,25 +212,23 @@ export class Cursor {
                 d3.selectAll('.cursor-line')
                     .attr('opacity', 0)
                     .attr('x1', -2)
-                    .attr('x2', -2)
+                    .attr('x2', -2);
                 d3.selectAll('.hover-box')
                     .attr('opacity', 0)
-                    .attr('x', -11)
+                    .attr('x', -11);
 
                 // remove highlighting
                 svg.selectAll(`.region`)
-                    .attr('stroke', null)
+                    .attr('stroke', null);
                 svg.selectAll(`.lcb-line`)
-                    .attr('stroke-width', 1)
+                    .attr('stroke-width', 1);
 
                 lengthNode.innerHTML = '';
                 ntPosNode.innerHTML = '';
             });
     }
 
-
-
     _getRegionYPos(trackID, strandDirection) {
-        return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackID-1) * trackOffset);
+        return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackID - 1) * trackOffset);
     }
 }

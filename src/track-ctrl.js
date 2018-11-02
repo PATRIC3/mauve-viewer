@@ -1,11 +1,10 @@
 
 import {marginTop, trackOffset, ctrlPadding} from './consts';
 
-
 const btnStyle = 'width: 26px; height: 23px;';
 
-export class TrackCtrl {
 
+export class TrackCtrl {
     constructor(params) {
         this.id = params.id;
 
@@ -17,7 +16,6 @@ export class TrackCtrl {
         this.ctrls;
         this.isReference = params.isReference || false;
         this.hidden;
-
 
         // control callbacks
         this.onMoveUp = params.onMoveUp;
@@ -43,7 +41,7 @@ export class TrackCtrl {
         // add container
         let ele = this.node = document.createElement('div');
         ele.setAttribute('class', `track-ctrl ctrl-${this.id}`);
-        ele.style.top = relativeTop  + this.yPos + ctrlPadding + 'px';
+        ele.style.top = relativeTop + this.yPos + ctrlPadding + 'px';
         ele.style.left = '-35px';
         ele.style.width = '25px';
         ele.style.height = trackOffset + 'px';
@@ -51,13 +49,13 @@ export class TrackCtrl {
 
         this._addMainButtons();
 
-        this.container.querySelector('.mauve-viewer').appendChild(ele)
+        this.container.querySelector('.mauve-viewer').appendChild(ele);
     }
 
     _addMainButtons() {
         let {upBtn, downBtn, hideBtn, refBtn} = this.ctrls = this._getButtons();
         this.node.appendChild(upBtn);
-        //this.node.appendChild(hideBtn);
+        // this.node.appendChild(hideBtn);
         this.node.appendChild(refBtn);
         this.node.appendChild(downBtn);
 
@@ -71,10 +69,10 @@ export class TrackCtrl {
         upBtn.style = btnStyle;
         upBtn.innerHTML = '▲';
         upBtn.disabled = this.id === 1 || false;
-        upBtn.onclick = this.moveTrackUp.bind(this)
+        upBtn.onclick = this.moveTrackUp.bind(this);
 
         let hideBtn = document.createElement('button');
-        hideBtn.title = 'Hide this genome'
+        hideBtn.title = 'Hide this genome';
         hideBtn.style = btnStyle;
         hideBtn.innerHTML = '−';
         hideBtn.onclick = this.hideTrack.bind(this);
@@ -93,7 +91,7 @@ export class TrackCtrl {
         downBtn.disabled = this.id === this.trackCount || false;
         downBtn.onclick = this.moveTrackDown.bind(this);
 
-        return {upBtn, downBtn, hideBtn, refBtn}
+        return {upBtn, downBtn, hideBtn, refBtn};
     }
 
     _getShowButton() {
@@ -105,7 +103,6 @@ export class TrackCtrl {
         showBtn.onclick = this.showTrack.bind(this);
         return showBtn;
     }
-
 
     moveTrackUp() {
         this._selectNewRef(this.id, this.id - 1);
@@ -136,13 +133,12 @@ export class TrackCtrl {
 
     refTrack() {
         let eles = this.container.querySelectorAll('.ref-btn');
-        eles.forEach(ele => { ele.classList.remove("active"); });
+        eles.forEach(ele => { ele.classList.remove('active'); });
         this.ctrls.refBtn.classList.add('active');
 
         this.onSetReference(this.id);
         this.isReference = true;
     }
-
 
     _selectNewRef(oldID, newID) {
         let oldCtrl = this.container.querySelector(`.ctrl-${oldID} .ref-btn`),
@@ -160,7 +156,6 @@ export class TrackCtrl {
             newCtrl.classList.add('active');
         }
     }
-
 
     destroy() {
         let node = this.container.querySelector(`.ctrl-${this.id}`);

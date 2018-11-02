@@ -4,8 +4,8 @@ import {
 
 const showGaps = false;
 
-export class Track {
 
+export class Track {
     constructor(params) {
         this.d3 = params.d3;
         this.svg = params.svg;
@@ -50,21 +50,21 @@ export class Track {
         this.xAxis = d3.axisBottom(this.x)
             .ticks(5)
             .tickSize(10)
-            .tickFormat(d3.format("d"));
+            .tickFormat(d3.format('d'));
 
         let g = this.track = svg.append('g')
-            .attr('class', d => `track id-${this.id}`)
+            .attr('class', d => `track id-${this.id}`);
 
-        g.append('g').attr('class', 'regions')
-        g.append('g').attr('class', 'contigs')
+        g.append('g').attr('class', 'regions');
+        g.append('g').attr('class', 'contigs');
 
-        this.gX = g.append("g")
+        this.gX = g.append('g')
             .attr('class', `axis axis-x-${this.id}`)
             .call(this.xAxis)
             .attr('transform', `translate(0, ${this.yPos})`);
 
         // add names
-        this.setLabel(this.label || this.name)
+        this.setLabel(this.label || this.name);
 
         if (this.regions)
             this.addRegions(this.regions);
@@ -85,7 +85,7 @@ export class Track {
             .attr('width', d => this.x(d.end - d.start + 1))
             .attr('height', lcbHeight)
             .attr('stroke', '#fffff')
-            .attr('fill', d =>  d.color)
+            .attr('fill', d => d.color);
 
         this.regions = regions;
 
@@ -99,10 +99,10 @@ export class Track {
             (f.start < start && f.end >= start) ||
             (f.start < end && f.end >= end) ||
             (f.start >= start && f.end <= end)
-        )
+        );
 
         let feats = this.track.selectAll('.feature')
-            .data(features)
+            .data(features);
 
         feats.exit().remove();
 
@@ -110,17 +110,17 @@ export class Track {
             .attr('class', d => `feature`)
             .merge(feats)
             .attr('x', d => this.x(d.start))
-            .attr('y', d =>  this._getFeatureYPos(d.strand) + lcbHeight*2 + 5)
+            .attr('y', d => this._getFeatureYPos(d.strand) + lcbHeight * 2 + 5)
             .attr('width', d => this.x(d.end - d.start + 1))
             .attr('height', 10)
             .attr('stroke', '#000')
             .attr('fill', d => '#777' )
-            .attr('opacity', .4)
+            .attr('opacity', 0.4);
 
         this._addFeatureHoverEvent();
 
         // also hide connections
-        this.svg.selectAll('.lcb-line').attr('opacity', 0)
+        this.svg.selectAll('.lcb-line').attr('opacity', 0);
     }
 
     _rmFeatures() {
@@ -128,23 +128,22 @@ export class Track {
         this._rmFeatureHoverEvent();
 
         // show connections again
-        this.svg.selectAll('.lcb-line').attr('opacity', 1.0)
+        this.svg.selectAll('.lcb-line').attr('opacity', 1.0);
     }
 
     _addFeatureHoverEvent() {
         let d3 = this.d3,
             svg = this.svg;
 
-
         let tooltip = d3.select('.mauve-viewer')
-            .append("div")
-            .attr("class", "tooltip")
-            .style("position", 'absolute')
-            .style("opacity", 0);
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('position', 'absolute')
+            .style('opacity', 0);
 
         this.svg.selectAll('.feature')
             .on('mouseover', function(d) {
-                tooltip.transition().style("opacity", .9);
+                tooltip.transition().style('opacity', 0.9);
 
                 let svgPos = svg.node().getBoundingClientRect();
 
@@ -152,15 +151,15 @@ export class Track {
                     y = d3.event.pageY;
 
                 tooltip.html(
-                        `${d.feature_type} [${d.start}, ${d.end}]<br>
+                    `${d.feature_type} [${d.start}, ${d.end}]<br>
                         ${d.product}`
-                    )
-                    .style("left", x + 25 + 'px')
-                    .style("top", y - 10 + 'px');
+                )
+                    .style('left', x + 25 + 'px')
+                    .style('top', y - 10 + 'px');
 
                 d3.select(this).attr('opacity', 1.0);
             }).on('mouseleave', function(d) {
-                d3.select(this).attr('opacity', .4);
+                d3.select(this).attr('opacity', 0.4);
                 tooltip.style('opacity', 0);
             });
     }
@@ -168,9 +167,9 @@ export class Track {
     _rmFeatureHoverEvent() {
         this.svg.selectAll('.feature')
             .on('mouseover', null)
-            .on('mouseleave', null)
+            .on('mouseleave', null);
 
-        this.d3.selectAll('.tooltip').remove()
+        this.d3.selectAll('.tooltip').remove();
     }
 
     _addContigs(contigs) {
@@ -181,38 +180,38 @@ export class Track {
             .attr('class', 'contig')
             .attr('stroke', '#b50707')
             .attr('stroke-width', 2)
-            .attr('opacity', .65)
+            .attr('opacity', 0.65)
             .attr('y1', marginTop + this.yPos )
-            .attr('y2', marginTop + this.yPos +100)
-            .attr('x1', d =>  this.x(d.end))
-            .attr('x2', d => this.x(d.end))
+            .attr('y2', marginTop + this.yPos + 100)
+            .attr('x1', d => this.x(d.end))
+            .attr('x2', d => this.x(d.end));
     }
 
     // not currently used
-    _addGaps() {
+    _addGaps(regions) {
         let g = this.track.append('g')
-            .attr('class', `gaps`)
+            .attr('class', `gaps`);
 
-        regions.forEach((region, i)=> {
+        regions.forEach((region, i) => {
             // add in track index
             region.gaps.forEach(gap => {
                 gap.lcb_idx = region.lcb_idx;
 
                 // Todo: fix parser offset
                 if (gap.end > region.end) {
-                    console.warn('gap issue (region , gap):', region, gap)
+                    console.warn('gap issue (region , gap):', region, gap);
                 }
 
                 // local relative start/end, considering direction
                 gap.s = region.strand == '+' ? gap.start : region.end - gap.start;
-                gap.e = region.strand == "+" ? gap.end : region.end - gap.end;
+                gap.e = region.strand == '+' ? gap.end : region.end - gap.end;
 
                 // global start/end
                 gap.start = region.start + gap.s;
                 gap.end = region.start + gap.e;
             });
 
-            this.track.selectAll('rect.gap'+i)
+            this.track.selectAll('rect.gap' + i)
                 .data(region.gaps)
                 .enter()
                 .append('rect')
@@ -221,33 +220,32 @@ export class Track {
                 .attr('y', d => this._getRegionYPos(region.strand))
                 .attr('width', d => this.x(d.e - d.s + 1))
                 .attr('height', lcbHeight)
-                .attr('fill', d =>  '#666')
-        })
+                .attr('fill', d => '#666');
+        });
     }
 
     hiddenTrack() {
         let g = this.track
             .append('g')
-            .attr('class', d => `hidden-track`)
+            .attr('class', d => `hidden-track`);
 
         g.append('rect')
             .attr('class', d => `hidden-track track-${this.id}`)
             .attr('x', 0)
-            .attr('y', d => (this.id-1) * trackOffset )
+            .attr('y', d => (this.id - 1) * trackOffset )
             .attr('width', d => 10000)
             .attr('height', 20)
             .attr('stroke', '#fffff')
-            .attr('fill', d =>  '#aaa')
+            .attr('fill', d => '#aaa');
 
         g.append('text')
             .attr('x', 10)
             .attr('y', this.yPos - 2) // -2 padding
             .text(this.label || this.name)
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "10px")
-            .attr("fill", '#222');
+            .attr('font-family', 'sans-serif')
+            .attr('font-size', '10px')
+            .attr('fill', '#222');
     }
-
 
     rescaleAxis() {
         if (this.hidden) return;
@@ -271,12 +269,12 @@ export class Track {
 
         // scale this track's regions
         if (!srcEvent || srcEvent.type === 'wheel' || srcEvent.type === 'click') {
-            this._scaleRegions(newScale)
+            this._scaleRegions(newScale);
         } else if ((this.d3.event.sourceEvent.type === 'mousemove')) {
-            this._panRegions(newScale)
+            this._panRegions(newScale);
         }
 
-       this.zoomScale = newScale;
+        this.zoomScale = newScale;
     }
 
     showFeatures() {
@@ -295,32 +293,31 @@ export class Track {
         this.track.selectAll('.contig').remove();
     }
 
-
     _scaleRegions(newScale) {
         this.track.selectAll('.region')
             .attr('x', (d) => newScale(d.start))
-            .attr("width", (d) => newScale(d.end + 1)  - newScale(d.start))
+            .attr('width', (d) => newScale(d.end + 1) - newScale(d.start));
 
         this.track.selectAll('.feature')
             .attr('x', (d) => newScale(d.start))
-            .attr("width", (d) => newScale(d.end + 1)  - newScale(d.start));
+            .attr('width', (d) => newScale(d.end + 1) - newScale(d.start));
 
         this.track.selectAll('.contig')
-            .attr("x1", (d) => newScale(d.end) )
-            .attr("x2", (d) => newScale(d.end) )
+            .attr('x1', (d) => newScale(d.end) )
+            .attr('x2', (d) => newScale(d.end) );
     }
 
     _panRegions(newScale) {
         this.track.selectAll('.region')
-            .attr("x", (d) => newScale(d.start) );
+            .attr('x', (d) => newScale(d.start) );
 
         this.track.selectAll('.feature')
-            .attr("x", (d) => newScale(d.start) )
-            .attr("width", (d) => newScale(d.end + 1)  - newScale(d.start));
+            .attr('x', (d) => newScale(d.start) )
+            .attr('width', (d) => newScale(d.end + 1) - newScale(d.start));
 
         this.track.selectAll('.contig')
-            .attr("x1", (d) => newScale(d.end) )
-            .attr("x2", (d) => newScale(d.end) )
+            .attr('x1', (d) => newScale(d.end) )
+            .attr('x2', (d) => newScale(d.end) );
     }
 
     _getRegionYPos(strandDirection) {
@@ -337,21 +334,21 @@ export class Track {
         let d3 = this.d3;
 
         let scale = this.getZoomScale();
-        let xPos = scale.invert(newX)
+        let xPos = scale.invert(newX);
 
         let domain1 = [scale.domain()[0], scale.domain()[1]],
-            domain2 = [scale.domain()[0] - xPos, scale.domain()[1]- xPos];
+            domain2 = [scale.domain()[0] - xPos, scale.domain()[1] - xPos];
 
-        this.gX.transition().tween("axis", (d) => {
+        this.gX.transition().tween('axis', (d) => {
             let i = d3.interpolate(domain1, domain2);
             return (t) => {
                 this.x.domain(i(t));
                 this.gX.call(this.xAxis);
 
-                this.zoomScale = this.x
-                cb()
-            }
-        })
+                this.zoomScale = this.x;
+                cb();
+            };
+        });
     }
 
     reset() {
@@ -363,14 +360,14 @@ export class Track {
     }
 
     getScale() {
-        return this.x
+        return this.x;
     }
 
     getZoomScale() {
         if (this.zoomScale) {
-            return this.zoomScale
+            return this.zoomScale;
         } else {
-            return this.x
+            return this.x;
         }
     }
 
@@ -382,11 +379,8 @@ export class Track {
             .attr('x', 0)
             .attr('y', this.yPos - 3 ) // -3 padding
             .text(label)
-            .attr('font-family', "sans-serif")
-            .attr('font-size', "10px")
+            .attr('font-family', 'sans-serif')
+            .attr('font-size', '10px')
             .attr('fill', '#888');
     }
-
 }
-
-

@@ -19,7 +19,7 @@ import {marginTop, trackOffset, hideTrackOffset} from './consts';
 
 
 export default class MauveViewer {
-    constructor({d3, ele, data, labels, features, contigs}){
+    constructor({d3, ele, data, labels, features, contigs}) {
         this.d3 = d3;
         this.ele = ele;
 
@@ -29,7 +29,7 @@ export default class MauveViewer {
 
         this.labels = labels;
 
-        this.tracks = []
+        this.tracks = [];
         this.trackCount;
         this.hiddenTracks = [];
         this.backbone;
@@ -54,7 +54,7 @@ export default class MauveViewer {
         this.rendered = true;
 
         // global options
-        new Options({
+        this.options = new Options({
             ele: this.ele,
             tracks: this.tracks,
             backbone: this.backbone,
@@ -75,29 +75,28 @@ export default class MauveViewer {
 
         // create svg dom element
         d3.select(this.ele.querySelector('svg')).remove();
-        const svg = this.svg =  d3.select(this.ele.querySelector('.mv-chart')).append("svg")
+        const svg = this.svg = d3.select(this.ele.querySelector('.mv-chart')).append('svg')
             .attr('width', 1000)
-            .attr('height', trackCount * 165)
+            .attr('height', trackCount * 165);
 
-        const width = +svg.attr("width"),
-            height = +svg.attr("height");
+        const width = +svg.attr('width'),
+            height = +svg.attr('height');
 
         /**
          *  ctrl-mousewheel for zoom
          */
         let zoom = this.zoom = d3.zoom()
-            .scaleExtent([1, xLength/10])
-            .translateExtent([[-width, 0], [width *2, 0]])
-            .on("zoom", zoomed)
+            .scaleExtent([1, xLength / 10])
+            .translateExtent([[-width, 0], [width * 2, 0]])
+            .on('zoom', zoomed)
             .filter(() => (
                 d3.event.ctrlKey ||
                 d3.event.type === 'mousedown' ||
-                d3.event.type == 'dblclick'
-            ))
+                d3.event.type === 'dblclick'
+            ));
 
-        svg.call(zoom)
-        svg.on("dblclick.zoom", null);
-
+        svg.call(zoom);
+        svg.on('dblclick.zoom', null);
 
         /**
          *  create tracks (axises, scales, gXs)
@@ -121,7 +120,7 @@ export default class MauveViewer {
                 regions: genomeRegions[id],
                 features: this.features ? this.features[ genomeID ] : null,
                 contigs: this.contigs ? this.contigs[ genomeID ] : null
-            })
+            });
             tracks.push(track);
 
             // only create track ctrls once
@@ -132,12 +131,12 @@ export default class MauveViewer {
                 svg: this.ele.querySelector('svg'),
                 trackCount: this.trackCount,
                 isReference: id === 1,
-                onMoveUp: id => { this.moveTrackUp(id) },
-                onMoveDown: id => { this.moveTrackDown(id) },
-                onSetReference: id => { this.setReference(id) },
-                onHide: id => { this.hideTrack(id) },
-                onShow: id => { this.showTrack(id) }
-            })
+                onMoveUp: id => { this.moveTrackUp(id); },
+                onMoveDown: id => { this.moveTrackDown(id); },
+                onSetReference: id => { this.setReference(id); },
+                onHide: id => { this.hideTrack(id); },
+                onShow: id => { this.showTrack(id); }
+            });
         }
 
         // add hover cursor lines, initially without x position
@@ -146,23 +145,22 @@ export default class MauveViewer {
             container: this.ele,
             tracks: this.tracks,
             onclick: (posDict) => {
-                //this.onCursorClick(posDict);
+                // this.onCursorClick(posDict);
             },
-        })
+        });
 
         // add backbone of lcb lines
         let backbone = this.backbone = new BackBone({
             tracks, data, d3, svg
-        })
+        });
 
         // call zoom transform if being re-rendered
         zoom.transform(svg, d3.zoomIdentity);
 
         function zoomed() {
             // scale each track
-            let newScale;
             for (let i = 0; i < tracks.length; i++) {
-                newScale = tracks[i].rescaleAxis();
+                tracks[i].rescaleAxis();
             }
 
             // scale lines
@@ -170,13 +168,12 @@ export default class MauveViewer {
         }
 
         let reset = () => {
-            this.tracks.forEach(track => { track.reset() });
+            this.tracks.forEach(track => { track.reset(); });
             zoom.transform(svg, d3.zoomIdentity);
-        }
+        };
 
         d3.select(this.ele.querySelector('.reset-btn'))
-            .on("click", reset);
-
+            .on('click', reset);
     }
 
     moveTrackUp(id) {
@@ -184,7 +181,7 @@ export default class MauveViewer {
         if (swapID < 1) return;
 
         this.swapTrack(id, swapID);
-        this.swapBackbones(id, swapID)
+        this.swapBackbones(id, swapID);
         this.render();
     }
 
@@ -193,7 +190,7 @@ export default class MauveViewer {
         if (swapID > this.trackCount) return;
 
         this.swapTrack(id, swapID);
-        this.swapBackbones(id, swapID)
+        this.swapBackbones(id, swapID);
         this.render();
     }
 
@@ -210,10 +207,10 @@ export default class MauveViewer {
                     region.lcb_idx = newID;
                 else if (region.lcb_idx === newID)
                     region.lcb_idx = oldID;
-            })
+            });
 
-            lcb.sort((a, b) => a.lcb_idx - b.lcb_idx)
-        })
+            lcb.sort((a, b) => a.lcb_idx - b.lcb_idx);
+        });
     }
 
     setReference(id, noRerender) {
@@ -227,9 +224,9 @@ export default class MauveViewer {
 
                 if (region.strand !== '+') {
                     region.strand = '+';
-                    flipped = true
+                    flipped = true;
                 }
-            })
+            });
 
             if (!flipped) return;
 
@@ -237,8 +234,8 @@ export default class MauveViewer {
             lcb.forEach(region => {
                 if (region.lcb_idx === id) return;
                 region.strand = region.strand === '-' ? '+' : '-';
-            })
-        })
+            });
+        });
 
         if (noRerender) return;
 
@@ -250,8 +247,8 @@ export default class MauveViewer {
             lcbs.forEach(region => {
                 if (region.lcb_idx == id)
                     region.hidden = true;
-            })
-        })
+            });
+        });
 
         this.hiddenTracks.push(id);
         this.render();
@@ -262,14 +259,14 @@ export default class MauveViewer {
             lcbs.forEach(region => {
                 if (region.lcb_idx == id)
                     delete region.hidden;
-            })
-        })
+            });
+        });
 
         this.hiddenTracks.splice( this.hiddenTracks.indexOf(id));
         this.render();
     }
 
-    onCursorClick({trackID, relativeXs, lcbID, xPos, scales }) {
+    onCursorClick({trackID, relativeXs, lcbID, xPos, scales}) {
         if (!trackID) return;
 
         // reset hack
@@ -279,29 +276,29 @@ export default class MauveViewer {
         // shift all tracks to relative position
         this.tracks.forEach((track, i) => {
             // skip track clicked on
-            //if (track.id == trackID) return;
+            // if (track.id === trackID) return;
             let shiftX = relativeXs[i];
 
             // there may not be a corresponding LCB
-            if (!shiftX) return
+            if (!shiftX) return;
 
-            let complete = 1
-            let scaleToUse = this.tracks[trackID-1]
+            let complete = 1;
+            let scaleToUse = this.tracks[trackID - 1];
 
             track.shift(shiftX, scales[i], () => {
                 complete += 1;
                 this.rect.transition().call(
-                    this.zoom.transform, this.d3.zoomTransform({k:1, x: 0, y:0})
-                )
+                    this.zoom.transform, this.d3.zoomTransform({k: 1, x: 0, y: 0})
+                );
             });
-        })
+        });
     }
 
     // gets lcbs that have entry for every organism
     // deprecated(?)
     getSharedLCBs(data) {
         let maxRows = Math.max( ...data.map(lcb => lcb.length) );
-        let filtered = data.filter(lcbs => lcbs.length === maxRows);
+        let filtered = data.filter(lcbs => lcbs.length == maxRows);
         return filtered;
     }
 
@@ -320,15 +317,15 @@ export default class MauveViewer {
                 regionID += 1;
                 region.id = regionID;
                 region.groupID = groupID;
-                region.color = schemeCategory20[groupID % 20]
+                region.color = schemeCategory20[groupID % 20];
 
                 let index = region.lcb_idx;
                 if (index in regions)
                     regions[index].push(region);
                 else
                     regions[index] = [region];
-            })
-        })
+            });
+        });
 
         return {regions, regionCount: regionID, lcbCount: lcbID};
     }
@@ -338,5 +335,4 @@ export default class MauveViewer {
         let label = this.labels ? `${this.labels[name]} [${orgID}]` : '';
         return label;
     }
-
 }

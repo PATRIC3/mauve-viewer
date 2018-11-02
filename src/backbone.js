@@ -1,8 +1,8 @@
 
 import {marginTop, trackOffset, yPosOffset, lcbHeight} from './consts';
 
-export class BackBone {
 
+export class BackBone {
     constructor(params) {
         this.d3 = params.d3;
         this.svg = params.svg;
@@ -26,7 +26,7 @@ export class BackBone {
                 if (l.hidden) return;
 
                 let x = tracks[l.lcb_idx - 1].getZoomScale();
-                let xPos =  x(l.start) + ( (x(l.end) - x(l.start))  / 2 );
+                let xPos = x(l.start) + ( (x(l.end) - x(l.start)) / 2 );
 
                 // if first track
                 if (l.lcb_idx == 1) {
@@ -35,8 +35,8 @@ export class BackBone {
                         lcb_idx: l.lcb_idx,
                         start: l.start,
                         end: l.end,
-                        x:  xPos,
-                        y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2)
+                        x: xPos,
+                        y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight / 2)
                     });
 
                     lcbMids.push({
@@ -44,7 +44,7 @@ export class BackBone {
                         lcb_idx: l.lcb_idx,
                         start: l.start,
                         end: l.end,
-                        x:  xPos,
+                        x: xPos,
                         y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + lcbHeight + 10
                     });
                     return;
@@ -57,7 +57,7 @@ export class BackBone {
                         lcb_idx: l.lcb_idx,
                         start: l.start,
                         end: l.end,
-                        x:  xPos,
+                        x: xPos,
                         y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) - lcbHeight -
                             (l.strand === '-' ? 10 : 0)
                     });
@@ -67,10 +67,10 @@ export class BackBone {
                         lcb_idx: l.lcb_idx,
                         start: l.start,
                         end: l.end,
-                        x:  xPos,
-                        y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2)
+                        x: xPos,
+                        y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight / 2)
                     });
-                    return
+                    return;
                 }
 
                 /**
@@ -92,10 +92,10 @@ export class BackBone {
                     start: l.start,
                     end: l.end,
                     x: xPos,
-                    y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight/2)
+                    y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + (lcbHeight / 2)
                 });
 
-                if (i == lcbs.length -1) return;
+                if (i == lcbs.length - 1) return;
 
                 lcbMids.push({
                     color: l.color,
@@ -106,16 +106,16 @@ export class BackBone {
                     y: marginTop + this._getRegionYPos(l.lcb_idx, l.strand) + lcbHeight + 10 +
                         (l.strand === '+' ? 10 : 0)
                 });
-            })
+            });
 
             midSets.push(lcbMids);
-        })
+        });
 
         // draw connections using lineFunction.
         // keep line function for scaling
         this.lineFunction = this.d3.line()
             .x(d => d.x)
-            .y(d => d.y)
+            .y(d => d.y);
 
         let g = this.svg.insert('g', ':first-child')
             .attr('class', 'lcb-lines');
@@ -127,8 +127,8 @@ export class BackBone {
                 .attr('d', this.lineFunction(set))
                 .attr('stroke-width', 1)
                 .attr('stroke', d => d[0].color)
-                .attr('fill', 'none')
-        })
+                .attr('fill', 'none');
+        });
 
         return midSets;
     }
@@ -141,12 +141,12 @@ export class BackBone {
                     return {
                         start: p.start,
                         end: p.end,
-                        x: newScale(p.start) + ( (newScale(p.end) - newScale(p.start))  / 2 ),
+                        x: newScale(p.start) + ( (newScale(p.end) - newScale(p.start)) / 2 ),
                         y: p.y
-                    }
-                })
+                    };
+                });
 
-                return this.lineFunction(set)
+                return this.lineFunction(set);
             });
     }
 
@@ -155,17 +155,16 @@ export class BackBone {
     }
 
     _getRegionYPos(trackIdx, strandDirection) {
-        return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackIdx-1) * trackOffset);
+        return (strandDirection === '-' ? yPosOffset + lcbHeight : yPosOffset) + ((trackIdx - 1) * trackOffset);
     }
 
     hide() {
         this.svg.selectAll('path.lcb-line')
-            .attr('opacity', 0)
+            .attr('opacity', 0);
     }
 
     show() {
         this.svg.selectAll('path.lcb-line')
-            .attr('opacity', 1.0)
+            .attr('opacity', 1.0);
     }
-
 }
