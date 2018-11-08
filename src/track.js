@@ -151,8 +151,10 @@ export class Track {
                     y = d3.event.pageY;
 
                 tooltip.html(
-                    `${d.feature_type} [${d.start}, ${d.end}]<br>
-                        ${d.product}`
+                    `<div><b>${d.patric_id}</b> | <b>${d.refseq_locus_tag}</b> | <b>${d.gene}</b></div>
+                     <div>${d.product}</div>
+                     <div>${d.feature_type} [${d.start}, ${d.end}]</div>
+                     <div class="help-text">click for more</div>`
                 )
                     .style('left', x + 25 + 'px')
                     .style('top', y - 10 + 'px');
@@ -183,8 +185,8 @@ export class Track {
             .attr('opacity', 0.65)
             .attr('y1', marginTop + this.yPos )
             .attr('y2', marginTop + this.yPos + 100)
-            .attr('x1', d => this.x(d.end))
-            .attr('x2', d => this.x(d.end));
+            .attr('x1', d => this.x(d.xEnd))
+            .attr('x2', d => this.x(d.xEnd));
     }
 
     // not currently used

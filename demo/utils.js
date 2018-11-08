@@ -4,8 +4,9 @@ import axios from 'axios';
 const api = 'https://p3.theseed.org/services/data_api';
 
 const featureSelect = [
-    'id', 'sequence_id', 'start', 'end',
-    'strand', 'annotation', 'feature_type', 'product'
+    'patric_id', 'sequence_id', 'start', 'end',
+    'strand', 'annotation', 'feature_type',
+    'product', 'accession', 'refseq_locus_tag', 'gene'
 ];
 
 const contigSelect = [
