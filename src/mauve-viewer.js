@@ -147,6 +147,9 @@ export default class MauveViewer {
             onclick: (posDict) => {
                 // this.onCursorClick(posDict);
             },
+            onHover: () => {
+
+            }
         });
 
         // add backbone of lcb lines

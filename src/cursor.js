@@ -23,6 +23,12 @@ export class Cursor {
 
         this.hoverLines = [];
 
+        this.cursorInfoNode = this.container.querySelector('table.cursor-info');
+        this.lengthNode = this.container.querySelector('.lcb-length');
+        this.ntPosNode = this.container.querySelector('.nt-pos');
+        this.contigIDNode = this.container.querySelector('.contig-id');
+        this.contigLengthNode = this.container.querySelector('.contig-length');
+
         this.render();
 
         return this;
@@ -85,8 +91,6 @@ export class Cursor {
             .on('mousemove', null)
             .on('mouseout', null);
 
-        let lengthNode = this.container.querySelector('.lcb-length'),
-            ntPosNode = this.container.querySelector('.nt-pos');
 
         let self = this;
         svg.selectAll('.track')
@@ -122,9 +126,10 @@ export class Cursor {
 
                 let xPos = d3.mouse(this)[0];
                 let trackID = self.hoverTrackID = d.lcb_idx;
+                let track = self.tracks[trackID - 1];
                 let hoverStrand = d.strand;
 
-                let x = self.tracks[trackID - 1].getZoomScale();
+                let x = track.getZoomScale();
 
                 // base xPos on nearest integer in range
                 xPos = x(Math.round(x.invert(xPos)));
@@ -152,6 +157,7 @@ export class Cursor {
 
                 // draw cursor line for other rects
                 let groupID = self.hoverLCBID = d.groupID;
+
                 /*
                 svg.selectAll(`.group-${groupID}`).each(function(d) {
 
@@ -198,8 +204,8 @@ export class Cursor {
                 });
 
                 // set cursor-info
-                lengthNode.innerHTML = `LCB Length: ${d.end - d.start + 1}`;
-                ntPosNode.innerHTML = Math.round(x.invert(xPos));
+                let position = Math.round(x.invert(xPos));
+                self._setLCBInfo(trackID, position, d.start, d.end);
             })
             .on('mouseout', function(d) {
                 // ignore hover on line
@@ -223,9 +229,28 @@ export class Cursor {
                 svg.selectAll(`.lcb-line`)
                     .attr('stroke-width', 1);
 
-                lengthNode.innerHTML = '';
-                ntPosNode.innerHTML = '';
+                self._clearLCBInfo();
             });
+    }
+
+    _setLCBInfo(trackID, position, lcbStart, lcbEnd) {
+        let contig = this.tracks[trackID - 1].contigs
+            .filter(c => position >= c.xStart && position <= c.xEnd)[0];
+
+        this.cursorInfoNode.style.visibility = 'visible';
+        this.lengthNode.innerHTML = `${lcbEnd - lcbStart + 1}`;
+        this.ntPosNode.innerHTML = `${position}`;
+        this.contigIDNode.innerHTML = contig.accession;
+        this.contigLengthNode.innerHTML = contig.length;
+    }
+
+
+    _clearLCBInfo() {
+        this.cursorInfoNode.style.visibility = 'hidden';
+        this.lengthNode.innerHTML = '';
+        this.ntPosNode.innerHTML = '';
+        this.contigIDNode.innerHTML = '';
+        this.contigLengthNode.innerHTML = '';
     }
 
     _getRegionYPos(trackID, strandDirection) {

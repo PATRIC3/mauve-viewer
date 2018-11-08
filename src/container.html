@@ -3,9 +3,11 @@
 <div class="mauve-viewer" style="position: relative;">
     <div class="mv-header" style="text-align: left;">
         <h4 class="title">Mauve Viewer <sup>(beta)</sup></h4>
+
         <div class="help-text">
             <b>Tips:</b> click and drag to pan; use ctrl-scroll to zoom.
         </div><br>
+
         <button class="reset-btn">Reset</button>
 
         <div class="dropdown">
@@ -38,10 +40,24 @@
             </div>
         </div>
 
-        <div class="cursor-info pull-right">
-            <span class="nt-pos pull-right"></span><br>
-            <span class="lcb-length pull-right"></span>
-        </div>
+        <table class="cursor-info pull-right" style="visibility: hidden;">
+            <thead>
+                <tr>
+                    <th class="align-right">Position</th>
+                    <th class="align-right">LCB Length</th>
+                    <th class="align-left">Contig</th>
+                    <th class="align-right">Contig Length</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="nt-pos align-right">-</td>
+                    <td class="lcb-length align-right">-</td>
+                    <td class="contig-id align-left">-</td>
+                    <td class="contig-length align-right">-</td>
+                </tr>
+            </tbody>
+        </table>
 
         <br>
     </div>
