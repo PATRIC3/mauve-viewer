@@ -51,17 +51,17 @@ function getGenomeNames({genomeIDs}) {
 
 function setFeaturePositions(contigs, features) {
     let newFeatures = [];
-    let ntPos = 1;
+    let ntPos = 0;
     contigs.forEach(c => {
         // get all features in this contig
         let contigFeatures = features.filter(f => f.sequence_id == c.sequence_id)
-            .filter(f => f.feature_type != 'source');
-            // .filter(f => f .annotation.toLowerCase() == 'patric')
+            .filter(f => f.feature_type != 'source')
+            .filter(f => f.annotation.toLowerCase() == 'patric');
 
         // adjust start/end
         contigFeatures = contigFeatures.map(f => {
-            f.start = ntPos + f.start;
-            f.end = ntPos + f.end;
+            f.xStart = ntPos + f.start;
+            f.xEnd = ntPos + f.end;
             return f;
         });
 
@@ -75,8 +75,8 @@ function setFeaturePositions(contigs, features) {
 function setContigPositions(contigs) {
     let ntPos = 1;
     contigs.forEach(c => {
-        c.start = ntPos;
-        c.end = ntPos + c.length - 1;
+        c.xStart = ntPos;
+        c.xEnd = ntPos + c.length - 1;
         ntPos += c.length;
     });
 

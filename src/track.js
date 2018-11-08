@@ -96,9 +96,9 @@ export class Track {
         this._rmFeatureHoverEvent();
 
         let features = this.features.filter(f =>
-            (f.start < start && f.end >= start) ||
-            (f.start < end && f.end >= end) ||
-            (f.start >= start && f.end <= end)
+            (f.xStart < start && f.xEnd >= start) ||
+            (f.xStart < end && f.xEnd >= end) ||
+            (f.xStart >= start && f.xEnd <= end)
         );
 
         let feats = this.track.selectAll('.feature')
@@ -109,7 +109,7 @@ export class Track {
         feats = feats.enter().append('rect')
             .attr('class', d => `feature`)
             .merge(feats)
-            .attr('x', d => this.x(d.start))
+            .attr('x', d => this.x(d.xStart))
             .attr('y', d => this._getFeatureYPos(d.strand) + lcbHeight * 2 + 5)
             .attr('width', d => this.x(d.end - d.start + 1))
             .attr('height', 10)
@@ -299,12 +299,12 @@ export class Track {
             .attr('width', (d) => newScale(d.end + 1) - newScale(d.start));
 
         this.track.selectAll('.feature')
-            .attr('x', (d) => newScale(d.start))
+            .attr('x', (d) => newScale(d.xStart))
             .attr('width', (d) => newScale(d.end + 1) - newScale(d.start));
 
         this.track.selectAll('.contig')
-            .attr('x1', (d) => newScale(d.end) )
-            .attr('x2', (d) => newScale(d.end) );
+            .attr('x1', (d) => newScale(d.xEnd) )
+            .attr('x2', (d) => newScale(d.xEnd) );
     }
 
     _panRegions(newScale) {
@@ -312,12 +312,12 @@ export class Track {
             .attr('x', (d) => newScale(d.start) );
 
         this.track.selectAll('.feature')
-            .attr('x', (d) => newScale(d.start) )
+            .attr('x', (d) => newScale(d.xStart) )
             .attr('width', (d) => newScale(d.end + 1) - newScale(d.start));
 
         this.track.selectAll('.contig')
-            .attr('x1', (d) => newScale(d.end) )
-            .attr('x2', (d) => newScale(d.end) );
+            .attr('x1', (d) => newScale(d.xEnd) )
+            .attr('x2', (d) => newScale(d.xEnd) );
     }
 
     _getRegionYPos(strandDirection) {
