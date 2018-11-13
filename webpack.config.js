@@ -28,18 +28,22 @@ module.exports = {
                 test: /\.html$/,
                 loader: 'html-loader',
                 exclude: /node_modules/
+            },
+            {
+                test: /\.(gif|svg|jpg|png)$/,
+                loader: "file-loader"
             }
         ]
     },
     optimization: {
         minimizer: [
-          new UglifyJSPlugin({
-            uglifyOptions: {
-              compress: {
-                drop_console: true
-              }
-            }
-          })
+            new UglifyJSPlugin({
+                uglifyOptions: {
+                    compress: {
+                        drop_console: true
+                    }
+                }
+            })
         ]
     },
     plugins: [
@@ -51,7 +55,7 @@ module.exports = {
                 from: 'src/mauve-viewer.css',
                 to: 'mauve-viewer.css'
             }
-       ])
+        ])
     ],
     stats: {
         colors: true
@@ -64,4 +68,4 @@ module.exports = {
     performance: {
         hints: false // ignore app.js chunk for now
     }
-};;
+};
