@@ -146,9 +146,6 @@ export default class MauveViewer {
             tracks: this.tracks,
             onclick: (posDict) => {
                 // this.onCursorClick(posDict);
-            },
-            onHover: () => {
-
             }
         });
 
@@ -170,13 +167,42 @@ export default class MauveViewer {
             backbone.scale();
         }
 
-        let reset = () => {
-            this.tracks.forEach(track => { track.reset(); });
-            zoom.transform(svg, d3.zoomIdentity);
-        };
-
         d3.select(this.ele.querySelector('.reset-btn'))
-            .on('click', reset);
+            .on('click', () => {
+                this.tracks.forEach(track => { track.reset(); });
+                zoom.transform(svg, d3.zoomIdentity);
+            });
+
+        d3.selectAll('button.zoom').on('click', function() {
+            let center = [width / 2, height / 2];
+            let zoomTransform = d3.zoomTransform(svg.node());
+
+            let scale = zoomTransform.k,
+                extent = zoom.scaleExtent(),
+                x = zoomTransform.x,
+                factor = this.classList.contains('zoom-in') ? 1.5 : 1 / 1.5,
+                targetScale = scale * factor;
+
+            // Don't pass scaling extent in either direction
+            if (targetScale < extent[0] || targetScale > extent[1]) {
+                return false;
+            }
+
+            // If the factor is too much, scale it down to reach the extent exactly
+            let clampedTargetScale = Math.max(extent[0], Math.min(extent[1], targetScale));
+
+            if (clampedTargetScale != targetScale) {
+                targetScale = clampedTargetScale;
+                factor = targetScale / scale;
+            }
+
+            // Center each vector, stretch, then put back
+            x = (x - center[0]) * factor + center[0];
+
+            zoomTransform.k = targetScale;
+            zoomTransform.x = x;
+            zoom.transform(svg, zoomTransform);
+        });
     }
 
     moveTrackUp(id) {

@@ -247,10 +247,10 @@ export class Cursor {
 
     _clearLCBInfo() {
         this.cursorInfoNode.style.visibility = 'hidden';
-        this.lengthNode.innerHTML = '';
-        this.ntPosNode.innerHTML = '';
-        this.contigIDNode.innerHTML = '';
-        this.contigLengthNode.innerHTML = '';
+        this.lengthNode.innerHTML = '-';
+        this.ntPosNode.innerHTML = '-';
+        this.contigIDNode.innerHTML = '-';
+        this.contigLengthNode.innerHTML = '-';
     }
 
     _getRegionYPos(trackID, strandDirection) {
