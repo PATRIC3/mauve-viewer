@@ -234,7 +234,10 @@ export class Cursor {
     }
 
     _setLCBInfo(trackID, position, lcbStart, lcbEnd) {
-        let contig = this.tracks[trackID - 1].contigs
+        let contigs = this.tracks[trackID - 1].contigs;
+        if (!contigs) return;
+
+        let contig = contigs
             .filter(c => position >= c.xStart && position <= c.xEnd)[0];
 
         this.cursorInfoNode.style.visibility = 'visible';

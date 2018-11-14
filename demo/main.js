@@ -1,6 +1,6 @@
 
 import MauveViewer from '../src/mauve-viewer';
-import { getMauveData } from './utils';
+import { getMauveData, getGenomeLabels } from './utils';
 import * as d3 from 'd3';
 import axios from 'axios';
 

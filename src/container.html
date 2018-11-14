@@ -1,5 +1,3 @@
-
-
 <div class="mauve-viewer" style="position: relative;">
     <div class="mv-header" style="text-align: left;">
         <h4 class="title">Mauve Viewer <sup>(beta)</sup></h4>
@@ -8,44 +6,56 @@
             <b>Tips:</b> click and drag to pan; use ctrl-scroll to zoom.
         </div><br>
 
-        <button class="reset-btn">Reset</button>
+        <div class="options pull-left">
 
-        <div class="dropdown">
-            <button class="opts-btn dd-btn">Options <i class="caret-down"></i></button>
-            <div class="dd-content">
-                <div>
-                    <label>
-                        <input type="checkbox" name="showGenomeID" checked />
-                        Show Genome ID
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="checkbox" name="showLCBLines" checked />
-                        LCB Connecting Lines
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="checkbox" name="showFeatures" checked />
-                        Show Features (zoomed)
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="checkbox" name="showContigs" checked />
-                        Show Contigs
-                    </label>
+            <button class="reset-btn">Reset</button>
+
+            <div class="dropdown">
+                <button class="opts-btn dd-btn">Options <i class="caret-down"></i></button>
+                <div class="dd-content">
+                    <div>
+                        <label>
+                            <input type="checkbox" name="showGenomeID" checked />
+                            Show Genome ID
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="checkbox" name="showLCBLines" checked />
+                            LCB Connecting Lines
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="checkbox" name="showFeatures" checked />
+                            Show Features (zoomed)
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="checkbox" name="showContigs" checked />
+                            Show Contigs
+                        </label>
+                    </div>
                 </div>
             </div>
+
+            <div class="spacer"></div>
+
+            <button class="pan pan-left">
+                <img src="./static/icons/chevron_left.svg" />
+            </button>
+            <button class="zoom zoom-in">
+               <img src="./static/icons/zoom_in.svg" />
+            </button>
+            <button class="zoom zoom-out">
+                <img src="./static/icons/zoom_out.svg" />
+            </button>
+            <button class="pan pan-right">
+                <img src="./static/icons/chevron_right.svg" />
+            </button>
         </div>
 
-        <button class="zoom zoom-in">
-                <img src="./static/icons/zoom_in.svg" />
-        </button>
-        <button class="zoom zoom-out">
-            <img src="./static/icons/zoom_out.svg" />
-        </button>
 
         <table class="cursor-info pull-right" style="visibility: hidden;">
             <thead>

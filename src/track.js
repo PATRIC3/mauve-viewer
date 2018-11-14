@@ -93,6 +93,8 @@ export class Track {
     }
 
     _updateFeatures(start, end) {
+        if (!this.features) return;
+
         this._rmFeatureHoverEvent();
 
         let features = this.features.filter(f =>

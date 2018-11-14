@@ -29,11 +29,14 @@ export default class MauveViewer {
 
         this.labels = labels;
 
+
+        this.svg;
         this.tracks = [];
         this.trackCount;
         this.hiddenTracks = [];
         this.backbone;
         this.cursor;
+        this.zoom;
 
         this.init();
     }
@@ -54,7 +57,7 @@ export default class MauveViewer {
         this.rendered = true;
 
         // global options
-        this.options = new Options({
+        new Options({
             ele: this.ele,
             tracks: this.tracks,
             backbone: this.backbone,
@@ -168,41 +171,17 @@ export default class MauveViewer {
         }
 
         d3.select(this.ele.querySelector('.reset-btn'))
-            .on('click', () => {
-                this.tracks.forEach(track => { track.reset(); });
-                zoom.transform(svg, d3.zoomIdentity);
+            .on('click', () => { this.reset(); });
+
+        d3.selectAll('button.pan')
+            .on('click', (d, i, nodes) => {
+                this.pan(nodes[i]);
             });
 
-        d3.selectAll('button.zoom').on('click', function() {
-            let center = [width / 2, height / 2];
-            let zoomTransform = d3.zoomTransform(svg.node());
-
-            let scale = zoomTransform.k,
-                extent = zoom.scaleExtent(),
-                x = zoomTransform.x,
-                factor = this.classList.contains('zoom-in') ? 1.5 : 1 / 1.5,
-                targetScale = scale * factor;
-
-            // Don't pass scaling extent in either direction
-            if (targetScale < extent[0] || targetScale > extent[1]) {
-                return false;
-            }
-
-            // If the factor is too much, scale it down to reach the extent exactly
-            let clampedTargetScale = Math.max(extent[0], Math.min(extent[1], targetScale));
-
-            if (clampedTargetScale != targetScale) {
-                targetScale = clampedTargetScale;
-                factor = targetScale / scale;
-            }
-
-            // Center each vector, stretch, then put back
-            x = (x - center[0]) * factor + center[0];
-
-            zoomTransform.k = targetScale;
-            zoomTransform.x = x;
-            zoom.transform(svg, zoomTransform);
-        });
+        d3.selectAll('button.zoom')
+            .on('click', (d, i, nodes) => {
+                this.zoomTo(width / 2, nodes[i]);
+            });
     }
 
     moveTrackUp(id) {
@@ -293,6 +272,57 @@ export default class MauveViewer {
 
         this.hiddenTracks.splice( this.hiddenTracks.indexOf(id));
         this.render();
+    }
+
+    reset() {
+        this.tracks.forEach(track => { track.reset(); });
+        this.zoom.transform(this.svg, this.d3.zoomIdentity);
+    }
+
+    zoomTo(xPos, srcElement) {
+        let zoom = this.zoom,
+            svg = this.svg;
+
+        let zoomTransform = this.d3.zoomTransform(svg.node());
+
+        let scale = zoomTransform.k,
+            extent = zoom.scaleExtent(),
+            x = zoomTransform.x,
+            factor = srcElement.classList.contains('zoom-in') ? 1.5 : 1 / 1.5,
+            targetScale = scale * factor;
+
+        // Don't pass scaling extent in either direction
+        if (targetScale < extent[0] || targetScale > extent[1]) {
+            return false;
+        }
+
+        // If the factor is too much, scale it down to reach the extent exactly
+        let clampedTargetScale = Math.max(extent[0], Math.min(extent[1], targetScale));
+
+        if (clampedTargetScale != targetScale) {
+            targetScale = clampedTargetScale;
+            factor = targetScale / scale;
+        }
+
+        // Center each vector, stretch, then put back
+        x = (x - xPos) * factor + xPos;
+
+        zoomTransform.k = targetScale;
+        zoomTransform.x = x;
+        zoom.transform(svg, zoomTransform);
+    }
+
+    pan(srcElement) {
+        let zoom = this.zoom,
+            svg = this.svg;
+
+        let zoomTransform = this.d3.zoomTransform(svg.node());
+
+        let x = zoomTransform.x,
+            shiftAmount = srcElement.classList.contains('pan-right') ? -100 : 100;
+
+        zoomTransform.x = x + shiftAmount;
+        zoom.transform(svg, zoomTransform);
     }
 
     onCursorClick({trackID, relativeXs, lcbID, xPos, scales}) {
