@@ -44,10 +44,18 @@ function getContigs({genomeIDs}) {
     return axios.all(proms);
 }
 
-function getGenomeNames({genomeIDs}) {
+function getGenomeLabels({genomeIDs, ext}) {
     let url = `${api}/genome/?in(genome_id,(${genomeIDs.join(',')}))` +
         `&select(genome_id,genome_name)`;
-    return axios.get(url).then(res => res.data);
+    return axios.get(url)
+        .then(res => res.data)
+        .then(data => {
+            let mapping = {};
+            data.forEach(org => {
+                mapping[`${org.genome_id}.${ext}`] = org.genome_name;
+            });
+            return mapping;
+        });
 }
 
 function setFeaturePositions(contigs, features) {
@@ -85,14 +93,7 @@ function setContigPositions(contigs) {
 }
 
 function getMauveData({genomeIDs, ext}) {
-    let nameProm = getGenomeNames({genomeIDs})
-        .then(data => {
-            let mapping = {};
-            data.forEach(org => {
-                mapping[`${org.genome_id}.${ext}`] = org.genome_name;
-            });
-            return mapping;
-        });
+    let nameProm = getGenomeLabels({genomeIDs, ext});
 
     let featProm = getFeatures({genomeIDs})
         .then(data => {
@@ -131,6 +132,6 @@ export {
     getContigs,
     setFeaturePositions,
     setContigPositions,
-    getGenomeNames,
+    getGenomeLabels,
     getMauveData
 };
