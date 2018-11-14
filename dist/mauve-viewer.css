@@ -1,11 +1,18 @@
 
 
+.mauve-viewer {
+    font-family: 'Lucida Sans', sans-serif;
+}
+
+
 /**
  * general utils
  */
 
 .mauve-viewer .pull-left { float: left; }
 .mauve-viewer .pull-right { float: right; }
+.mauve-viewer .align-left { text-align: left; }
+.mauve-viewer .align-right { text-align: right; }
 .mauve-viewer .caret-down {
 	width: 0;
 	height: 0;
@@ -15,20 +22,30 @@
     display:inline-block;
 }
 
+.mauve-viewer .spacer {
+    display: inline-block;
+    margin: 0 15px;
+    height: 30px;
+}
+
+
 /**
  * mv ele styling
  */
 
 .mauve-viewer .cursor-info {
-     font-size: .9em;
+    font-size: .9em;
  }
+
+.mauve-viewer table.cursor-info tr > * {
+    padding: 0 30px 0 30px;
+}
 
 
 
 /**
   * track control
   */
-
 
 .mauve-viewer .track-ctrl button {
     font-weight: 800;
@@ -45,7 +62,7 @@
 }
 
 .mauve-viewer .track-ctrl button[disabled] {
-    background-color: #ddd;
+    background-color: #f2f2f2;
 }
 
 .mauve-viewer .track-ctrl button[disabled]:hover {
@@ -57,7 +74,8 @@
  * buttons
  */
 
- .mauve-viewer button {
+
+.mauve-viewer button {
     background-color: #fff;
     border: 1px solid #ddd;
 }
@@ -69,6 +87,13 @@
 .mauve-viewer button:focus {
     outline: none;
 }
+
+.mauve-viewer .options button {
+    height: 30px;
+    display: inline-block;
+    vertical-align: top;
+ }
+
 
 
 /**
@@ -112,3 +137,39 @@
     display: block;
 }
 
+
+/**
+ * hover positional info
+ */
+
+.mauve-viewer dl {
+    position: inline-block;
+}
+
+
+/**
+ *  tooltips
+ */
+
+.mauve-viewer .tooltip {
+    position: absolute;
+    width: inherit;
+    height: 150px;
+    padding: 7px;
+    color: #fff;
+    background: #444;
+    border: 2px xolid #000;
+    pointer-events: none;
+}
+
+.mauve-viewer .tooltip div {
+    margin: 0 0 10px 0;
+}
+
+.mauve-viewer .tooltip div.help-text {
+    position: absolute;
+    bottom: 0;
+    right: 7;
+    font-size: .7em;
+    font-style: italic;
+}
