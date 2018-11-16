@@ -1,10 +1,13 @@
 
 export class Options {
-    constructor({ele, tracks, backbone, getLabel}) {
+    constructor({ele, d3, zoom, tracks, backbone, getLabel}) {
         this.ele = ele;
+        this.d3 = d3;
         this.tracks = tracks;
         this.backbone = backbone;
         this.getLabel = getLabel;
+
+        this.zoom = zoom;
 
         this.init();
 
@@ -72,6 +75,8 @@ export class Options {
             .onclick = function() {
                 if (this.checked) {
                     self.tracks.forEach(track => track.showContigs());
+                    let svg = node.querySelector('svg');
+                    self.zoom.transform(self.d3.select(svg), self.d3.zoomTransform(svg));
                     return;
                 }
                 self.tracks.forEach(track => track.hideContigs() );
