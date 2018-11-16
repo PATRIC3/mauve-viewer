@@ -1,0 +1,361 @@
+[
+    [
+        {
+            "name": "224914.11.fasta",
+            "start": 10,
+            "end": 2003350,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 1,
+            "end": 1994039,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "483179.4.fasta",
+            "start": 1,
+            "end": 1992207,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "444178.3.fasta",
+            "start": 1,
+            "end": 1997854,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "262698.4.fasta",
+            "start": 1,
+            "end": 2010701,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fasta",
+            "start": 2003351,
+            "end": 2117152,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 1994040,
+            "end": 2107794,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "483179.4.fasta",
+            "start": 1992208,
+            "end": 2105967,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "444178.3.fasta",
+            "start": 1997860,
+            "end": 2111370,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "262698.4.fasta",
+            "start": 2010702,
+            "end": 2124241,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fasta",
+            "start": 2117153,
+            "end": 2209261,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 2107795,
+            "end": 2199958,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "483179.4.fasta",
+            "start": 2105970,
+            "end": 2198149,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "444178.3.fasta",
+            "start": 2111371,
+            "end": 2203221,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "262698.4.fasta",
+            "start": 2124242,
+            "end": 2216165,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fasta",
+            "start": 3164423,
+            "end": 3294931,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 2199959,
+            "end": 2331067,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "483179.4.fasta",
+            "start": 2198150,
+            "end": 2329354,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "444178.3.fasta",
+            "start": 2203225,
+            "end": 2334070,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "262698.4.fasta",
+            "start": 2216166,
+            "end": 2349422,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fasta",
+            "start": 2861729,
+            "end": 3164422,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 2331068,
+            "end": 2653179,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "483179.4.fasta",
+            "start": 2329355,
+            "end": 2651339,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "444178.3.fasta",
+            "start": 2334071,
+            "end": 2658448,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "262698.4.fasta",
+            "start": 2795918,
+            "end": 3072533,
+            "strand": "-",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fasta",
+            "start": 2857787,
+            "end": 2861728,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 2653180,
+            "end": 2657122,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "483179.4.fasta",
+            "start": 2651340,
+            "end": 2655282,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "444178.3.fasta",
+            "start": 2658453,
+            "end": 2662385,
+            "strand": "-",
+            "lcb_idx": 4
+        },
+        {
+            "name": "262698.4.fasta",
+            "start": 2791990,
+            "end": 2795917,
+            "strand": "-",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fasta",
+            "start": 2424117,
+            "end": 2857786,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 2657123,
+            "end": 3099786,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "483179.4.fasta",
+            "start": 2655283,
+            "end": 3097385,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "444178.3.fasta",
+            "start": 2662387,
+            "end": 3106031,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "262698.4.fasta",
+            "start": 2349423,
+            "end": 2791989,
+            "strand": "-",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fasta",
+            "start": 2209262,
+            "end": 2424116,
+            "strand": "-",
+            "lcb_idx": 1
+        },
+        {
+            "name": "204722.5.fasta",
+            "start": 3099787,
+            "end": 3315175,
+            "strand": "+",
+            "lcb_idx": 2
+        },
+        {
+            "name": "483179.4.fasta",
+            "start": 3097386,
+            "end": 3312769,
+            "strand": "+",
+            "lcb_idx": 3
+        },
+        {
+            "name": "444178.3.fasta",
+            "start": 3106034,
+            "end": 3275590,
+            "strand": "+",
+            "lcb_idx": 4
+        },
+        {
+            "name": "262698.4.fasta",
+            "start": 3072534,
+            "end": 3286445,
+            "strand": "+",
+            "lcb_idx": 5
+        }
+    ],
+    [
+        {
+            "name": "224914.11.fasta",
+            "start": 1,
+            "end": 9,
+            "strand": "+",
+            "lcb_idx": 1
+        }
+    ],
+    [
+        {
+            "name": "483179.4.fasta",
+            "start": 2105968,
+            "end": 2105969,
+            "strand": "+",
+            "lcb_idx": 3
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fasta",
+            "start": 1997855,
+            "end": 1997859,
+            "strand": "+",
+            "lcb_idx": 4
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fasta",
+            "start": 2203222,
+            "end": 2203224,
+            "strand": "+",
+            "lcb_idx": 4
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fasta",
+            "start": 2658449,
+            "end": 2658452,
+            "strand": "+",
+            "lcb_idx": 4
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fasta",
+            "start": 2662386,
+            "end": 2662386,
+            "strand": "+",
+            "lcb_idx": 4
+        }
+    ],
+    [
+        {
+            "name": "444178.3.fasta",
+            "start": 3106032,
+            "end": 3106033,
+            "strand": "+",
+            "lcb_idx": 4
+        }
+    ]
+]
