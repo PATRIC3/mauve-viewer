@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let statusHandle = loading(ele);
 
     // get alignment
-    axios.get(`data/3-ecoli.json`).then(res => {
+    axios.get(`data/more-brucella.json`).then(res => {
         let data = res.data;
 
         // use organism labels for each track (optional)
@@ -24,12 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-
         getMauveData({genomeIDs: ids, ext})
             .then(({labels, contigs, features}) => {
                 clearInterval(statusHandle);
                 new MauveViewer({
-                    ele, data, d3,
+                    ele, d3, data,
                     labels, features, contigs
                 });
             }).catch(e => {
