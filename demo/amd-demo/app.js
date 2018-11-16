@@ -17,6 +17,6 @@ requirejs(['mauve-viewer', '../../node_modules/d3/dist/d3', '../../node_modules/
 
         axios.get(`../data/brucella-lcbs.json`).then(res => {
             let data = res.data;
-            let chart = new MauveViewer.default({data, d3, ele});
+            let chart = new MauveViewer({data, d3, ele});
         }).catch(error => { alert('An error occurred while loading the component') });
     });

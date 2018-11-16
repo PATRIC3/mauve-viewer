@@ -17,7 +17,7 @@
           var data = JSON.parse(this.responseText);
           var ele = document.getElementById('chart');
 
-          var chart = new MauveViewer.default({
+          var chart = new MauveViewer({
             data: data,
             d3: d3,
             ele: ele

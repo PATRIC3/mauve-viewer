@@ -7,8 +7,8 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        'app': ['./demo/main.js'],
-        'mauve-viewer': ['./src/mauve-viewer.js']
+        'mauve-viewer': './entry.js',
+        'app': ['./demo/main.js']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
