@@ -187,8 +187,8 @@ export class Track {
             .attr('opacity', 0.65)
             .attr('y1', marginTop + this.yPos )
             .attr('y2', marginTop + this.yPos + 100)
-            .attr('x1', d => this.x(d.xEnd))
-            .attr('x2', d => this.x(d.xEnd));
+            .attr('x1', d => this.x(d.xEnd + 1))
+            .attr('x2', d => this.x(d.xEnd + 1));
     }
 
     // not currently used
@@ -307,8 +307,8 @@ export class Track {
             .attr('width', (d) => newScale(d.end + 1) - newScale(d.start));
 
         this.track.selectAll('.contig')
-            .attr('x1', (d) => newScale(d.xEnd) )
-            .attr('x2', (d) => newScale(d.xEnd) );
+            .attr('x1', (d) => newScale(d.xEnd + 1) )
+            .attr('x2', (d) => newScale(d.xEnd + 1) );
     }
 
     _panRegions(newScale) {
@@ -320,8 +320,8 @@ export class Track {
             .attr('width', (d) => newScale(d.end + 1) - newScale(d.start));
 
         this.track.selectAll('.contig')
-            .attr('x1', (d) => newScale(d.xEnd) )
-            .attr('x2', (d) => newScale(d.xEnd) );
+            .attr('x1', (d) => newScale(d.xEnd + 1) )
+            .attr('x2', (d) => newScale(d.xEnd + 1) );
     }
 
     _getRegionYPos(strandDirection) {
