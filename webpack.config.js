@@ -8,7 +8,7 @@ module.exports = {
     mode: 'development',
     entry: {
         'mauve-viewer': './entry.js',
-        'app': ['./demo/main.js']
+        'app': ['./demo/app.js']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

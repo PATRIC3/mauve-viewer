@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let statusHandle = loading(ele);
 
     // get alignment
-    axios.get(`data/more-brucella.json`).then(res => {
+    let lcbsPath = ele.getAttribute('data-lcb-file');
+    axios.get(lcbsPath).then(res => {
         let data = res.data;
 
         // use organism labels for each track (optional)
