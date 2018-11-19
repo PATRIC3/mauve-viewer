@@ -1,7 +1,7 @@
 /**
  * mauve-viewer.js
  *
- * A JS/d3.js Mauve Viewer
+ * A Javascript Mauve/xmfa Whole Genome Alignment Viewer
  *
  * Author(s): nconrad
  *
@@ -26,9 +26,7 @@ export default class MauveViewer {
         this.data = data;
         this.features = features;
         this.contigs = contigs;
-
         this.labels = labels;
-
 
         this.svg;
         this.tracks = [];

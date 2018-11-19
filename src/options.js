@@ -1,4 +1,10 @@
 
+import panLeft from './static/icons/chevron_left.svg';
+import panRight from './static/icons/chevron_right.svg';
+import zoomIn from './static/icons/zoom_in.svg';
+import zoomOut from './static/icons/zoom_out.svg';
+
+
 export class Options {
     constructor({ele, d3, zoom, tracks, backbone, getLabel}) {
         this.ele = ele;
@@ -9,9 +15,18 @@ export class Options {
 
         this.zoom = zoom;
 
+        this.setSVGs();
         this.init();
 
         return this;
+    }
+
+    setSVGs() {
+        let node = this.ele;
+        node.querySelector('.pan-left').innerHTML = panLeft;
+        node.querySelector('.pan-right').innerHTML = panRight;
+        node.querySelector('.zoom-in').innerHTML = zoomIn;
+        node.querySelector('.zoom-out').innerHTML = zoomOut;
     }
 
     init() {

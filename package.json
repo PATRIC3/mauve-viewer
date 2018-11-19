@@ -1,5 +1,5 @@
 {
-  "name": "mauve_viewer",
+  "name": "mauve-viewer",
   "version": "0.9.0-beta",
   "description": "",
   "main": "index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nconrad/mauve_viewer.git"
+    "url": "git+https://github.com/nconrad/mauve-viewer.git"
   },
   "author": "nconrad",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nconrad/mauve_viewer/issues"
+    "url": "https://github.com/nconrad/mauve-viewer/issues"
   },
-  "homepage": "https://github.com/nconrad/mauve_viewer#readme",
+  "homepage": "https://github.com/nconrad/mauve-viewer#readme",
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
@@ -39,12 +39,13 @@
     "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",
     "http-server": "^0.11.1",
+    "svg-inline-loader": "^0.8.0",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.7"
   },
-  "dojoBuild": "app.profile.js",
   "dependencies": {
-    "d3": "^5.7.0"
-  }
+    "d3": "5.7.0"
+  },
+  "dojoBuild": "app.profile.js"
 }

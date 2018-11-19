@@ -30,8 +30,8 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.(gif|svg|jpg|png)$/,
-                loader: "file-loader"
+                test: /\.svg$/,
+                loader: 'svg-inline-loader'
             }
         ]
     },
