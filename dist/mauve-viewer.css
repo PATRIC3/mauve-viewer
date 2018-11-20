@@ -71,9 +71,8 @@
 
 
 /**
- * buttons
+ * global buttons
  */
-
 
 .mauve-viewer button {
     background-color: #fff;
@@ -94,6 +93,11 @@
     vertical-align: top;
  }
 
+.mauve-viewer .options .pan,
+.mauve-viewer .options .zoom {
+    width: 37px;
+    padding: 2px 5px;
+}
 
 
 /**
