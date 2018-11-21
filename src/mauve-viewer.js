@@ -77,7 +77,7 @@ export default class MauveViewer {
         const xLength = endMax + 100;
 
         // create svg dom element
-        d3.select(this.ele.querySelector('svg')).remove();
+        d3.select(this.ele.querySelector('.mv-chart svg')).remove();
         const svg = this.svg = d3.select(this.ele.querySelector('.mv-chart')).append('svg')
             .attr('width', 1000)
             .attr('height', trackCount * 165);
