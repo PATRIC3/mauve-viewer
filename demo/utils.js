@@ -21,7 +21,7 @@ function getFeatures({genomeIDs}) {
     let proms = [];
     for (const id of genomeIDs) {
         let url = `${api}/genome_feature/?eq(genome_id,${id})` +
-            `&select(${featureSelect})&limit(10000000)`;
+            `&select(${featureSelect})&eq(annotation,PATRIC)&limit(25000)`;
         let prom = axios.get(url).then(res => res.data);
         proms.push(prom);
     }
@@ -36,7 +36,7 @@ function getContigs({genomeIDs}) {
 
     for (const id of genomeIDs) {
         let url = `${api}/genome_sequence/?eq(genome_id,${id})` +
-            `&select(${contigSelect.join(',')})&sort(-length)&limit(10000000)`;
+            `&select(${contigSelect.join(',')})&sort(-length,+sequence_id)&limit(25000)`;
         let prom = axios.get(url).then(res => res.data);
         proms.push(prom);
     }
@@ -64,8 +64,7 @@ function setFeaturePositions(contigs, features) {
     contigs.forEach(c => {
         // get all features in this contig
         let contigFeatures = features.filter(f => f.sequence_id == c.sequence_id)
-            .filter(f => f.feature_type != 'source')
-            .filter(f => f.annotation.toLowerCase() == 'patric');
+            .filter(f => f.feature_type != 'source');
 
         // adjust start/end
         contigFeatures = contigFeatures.map(f => {
@@ -99,6 +98,7 @@ function getMauveData({genomeIDs, ext}) {
         .then(data => {
             let mapping = {};
             genomeIDs.forEach((id, i) => { mapping[id] = data[i]; });
+
             return mapping;
         });
 
