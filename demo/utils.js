@@ -20,7 +20,7 @@ function getFeatures(genomeIDs) {
 
     let proms = genomeIDs.map(id => {
         let url = `${api}/genome_feature/?eq(genome_id,${id})` +
-            `&select(${featureSelect})&eq(annotation,PATRIC)&limit(25000)`;
+            `&select(${featureSelect})&eq(annotation,PATRIC)&ne(feature_type,source)&limit(25000)`;
         return axios.get(url).then(res => res.data);
     });
 
@@ -58,10 +58,9 @@ function setFeaturePositions(contigs, features) {
     let ntPos = 0;
     contigs.forEach(c => {
         // get all features in this contig
-        let contigFeatures = features.filter(f => f.sequence_id == c.sequence_id)
-            .filter(f => f.feature_type != 'source');
+        let contigFeatures = features.filter(f => f.sequence_id == c.sequence_id);
 
-        // adjust start/end
+        // set xStart/xEnd using contig's start/end
         contigFeatures = contigFeatures.map(f => {
             f.xStart = ntPos + f.start;
             f.xEnd = ntPos + f.end;
