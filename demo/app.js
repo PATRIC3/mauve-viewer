@@ -1,6 +1,6 @@
 
 import MauveViewer from '../src/mauve-viewer';
-import { getMauveData, getGenomeLabels } from './utils';
+import { getMauveData } from './utils';
 import * as d3 from 'd3';
 import axios from 'axios';
 
@@ -12,24 +12,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // get alignment
     let lcbsPath = ele.getAttribute('data-lcb-file');
     axios.get(lcbsPath).then(res => {
-        let data = res.data;
+        let lcbs = res.data;
 
         // use organism labels for each track (optional)
         let ext;
         let ids = [];
-        data.forEach(lcbs => {
-            lcbs.forEach(r => {
+        lcbs.forEach(lcbSet => {
+            lcbSet.forEach(r => {
                 ext = r.name.split('.').pop();
                 let name = r.name.replace(`.${ext}`, '');
                 if (!ids.includes(name)) ids.push(name);
             });
         });
 
+        // fetch all associated data
         getMauveData({genomeIDs: ids, ext})
             .then(({labels, contigs, features}) => {
                 clearInterval(statusHandle);
+
+                // display viewer
                 new MauveViewer({
-                    ele, d3, data,
+                    ele, d3, lcbs,
                     labels, features, contigs
                 });
             }).catch(e => {

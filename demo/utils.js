@@ -15,31 +15,26 @@ const contigSelect = [
     'sequence_type', 'chromosome', 'description'
 ];
 
-function getFeatures({genomeIDs}) {
+function getFeatures(genomeIDs) {
     genomeIDs = Array.isArray(genomeIDs) ? genomeIDs : [genomeIDs];
 
-    let proms = [];
-    for (const id of genomeIDs) {
+    let proms = genomeIDs.map(id => {
         let url = `${api}/genome_feature/?eq(genome_id,${id})` +
             `&select(${featureSelect})&eq(annotation,PATRIC)&limit(25000)`;
-        let prom = axios.get(url).then(res => res.data);
-        proms.push(prom);
-    }
+        return axios.get(url).then(res => res.data);
+    });
 
     return axios.all(proms);
 }
 
-function getContigs({genomeIDs}) {
+function getContigs(genomeIDs) {
     genomeIDs = Array.isArray(genomeIDs) ? genomeIDs : [genomeIDs];
 
-    let proms = [];
-
-    for (const id of genomeIDs) {
+    let proms = genomeIDs.map(id => {
         let url = `${api}/genome_sequence/?eq(genome_id,${id})` +
             `&select(${contigSelect.join(',')})&sort(-length,+sequence_id)&limit(25000)`;
-        let prom = axios.get(url).then(res => res.data);
-        proms.push(prom);
-    }
+        return axios.get(url).then(res => res.data);
+    });
 
     return axios.all(proms);
 }
@@ -94,7 +89,7 @@ function setContigPositions(contigs) {
 function getMauveData({genomeIDs, ext}) {
     let nameProm = getGenomeLabels({genomeIDs, ext});
 
-    let featProm = getFeatures({genomeIDs})
+    let featProm = getFeatures(genomeIDs)
         .then(data => {
             let mapping = {};
             genomeIDs.forEach((id, i) => { mapping[id] = data[i]; });
@@ -102,7 +97,7 @@ function getMauveData({genomeIDs, ext}) {
             return mapping;
         });
 
-    let contigProm = getContigs({genomeIDs})
+    let contigProm = getContigs(genomeIDs)
         .then(data => {
             let mapping = {};
             genomeIDs.forEach((id, i) => { mapping[id] = data[i]; });

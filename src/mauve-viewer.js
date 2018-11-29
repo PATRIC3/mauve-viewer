@@ -19,11 +19,11 @@ import {marginTop, trackOffset, hideTrackOffset} from './consts';
 
 
 export default class MauveViewer {
-    constructor({d3, ele, data, labels, features, contigs}) {
+    constructor({d3, ele, lcbs, labels, features, contigs}) {
         this.d3 = d3;
         this.ele = ele;
 
-        this.data = data;
+        this.data = lcbs;
         this.features = features;
         this.contigs = contigs;
         this.labels = labels;
