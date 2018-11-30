@@ -33,8 +33,9 @@
  * mv ele styling
  */
 
-.mauve-viewer .cursor-info {
+.mauve-viewer table.cursor-info {
     font-size: .9em;
+    width: inherit;
  }
 
 .mauve-viewer table.cursor-info tr > * {
