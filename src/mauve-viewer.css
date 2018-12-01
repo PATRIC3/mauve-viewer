@@ -38,6 +38,10 @@
     width: inherit;
  }
 
+.mauve-viewer table.cursor-info th {
+    font-weight: bold;
+}
+
 .mauve-viewer table.cursor-info tr > * {
     padding: 0 30px 0 30px;
 }
