@@ -152,17 +152,21 @@ export class Track {
                     y = d3.event.pageY;
 
                 tooltip.html(
-                    `<div><b>${d.patric_id}</b> | <b>${d.refseq_locus_tag}</b> | <b>${d.gene}</b></div>
-                     <div>${d.product}</div>
+                    `<div>
+                        <b>${d.patric_id}</b> |
+                        <b>${d.refseq_locus_tag || 'N/A'}</b> |
+                        <b>${d.gene || 'N/A'}</b>
+                     </div>
+                     <div>${d.product || 'N/A'}</div>
                      <div>${d.feature_type} [${d.start}, ${d.end}]</div>
                      <div class="help-text">click for more</div>`
                 )
                     .style('left', x + 50 + 'px')
-                    .style('top', y - 10 + 'px');
+                    .style('top', y + 'px');
 
                 // also highlight feature
                 d3.select(this).attr('opacity', 1.0);
-            }).on('mouseleave', function(d) {
+            }).on('mouseout', function(d) {
                 d3.select(this).attr('opacity', 0.4);
                 tooltip.style('opacity', 0);
             }).on('click', d => {
@@ -173,7 +177,7 @@ export class Track {
     _rmFeatureEvents() {
         this.svg.selectAll('.feature')
             .on('mouseover', null)
-            .on('mouseleave', null)
+            .on('mouseout', null)
             .on('click', null);
 
         this.d3.selectAll('.tooltip').remove();
