@@ -22,6 +22,8 @@ export class Track {
         this.features = params.features;
         this.contigs = params.contigs;
 
+        this.onFeatureClick = params.onFeatureClick;
+
         // render and expose axis/scale
         this.x;
         this.xAxis;
@@ -95,7 +97,7 @@ export class Track {
     _updateFeatures(start, end) {
         if (!this.features) return;
 
-        this._rmFeatureHoverEvent();
+        this._rmFeatureEvents();
 
         let features = this.features.filter(f =>
             (f.xStart < start && f.xEnd >= start) ||
@@ -119,7 +121,7 @@ export class Track {
             .attr('fill', d => '#777' )
             .attr('opacity', 0.4);
 
-        this._addFeatureHoverEvent();
+        this._addFeatureEvents();
 
         // also hide connections
         this.svg.selectAll('.lcb-line').attr('opacity', 0);
@@ -127,13 +129,13 @@ export class Track {
 
     _rmFeatures() {
         this.svg.selectAll('.feature').remove();
-        this._rmFeatureHoverEvent();
+        this._rmFeatureEvents();
 
         // show connections again
         this.svg.selectAll('.lcb-line').attr('opacity', 1.0);
     }
 
-    _addFeatureHoverEvent() {
+    _addFeatureEvents() {
         let d3 = this.d3;
 
         let tooltip = d3.select('body')
@@ -163,13 +165,16 @@ export class Track {
             }).on('mouseleave', function(d) {
                 d3.select(this).attr('opacity', 0.4);
                 tooltip.style('opacity', 0);
+            }).on('click', d => {
+                this.onFeatureClick(d.patric_id);
             });
     }
 
-    _rmFeatureHoverEvent() {
+    _rmFeatureEvents() {
         this.svg.selectAll('.feature')
             .on('mouseover', null)
-            .on('mouseleave', null);
+            .on('mouseleave', null)
+            .on('click', null);
 
         this.d3.selectAll('.tooltip').remove();
     }

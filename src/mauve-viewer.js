@@ -19,14 +19,15 @@ import {marginTop, trackOffset, hideTrackOffset} from './consts';
 
 
 export default class MauveViewer {
-    constructor({d3, ele, lcbs, labels, features, contigs}) {
-        this.d3 = d3;
-        this.ele = ele;
+    constructor(params) {
+        this.d3 = params.d3;
+        this.ele = params.ele;
 
-        this.data = lcbs;
-        this.features = features;
-        this.contigs = contigs;
-        this.labels = labels;
+        this.data = params.lcbs;
+        this.features = params.features;
+        this.contigs = params.contigs;
+        this.labels = params.labels;
+        this.onFeatureClick = params.onFeatureClick;
 
         this.svg;
         this.tracks = [];
@@ -122,7 +123,8 @@ export default class MauveViewer {
                 hidden: isHidden,
                 regions: genomeRegions[id],
                 features: this.features ? this.features[ genomeID ] : null,
-                contigs: this.contigs ? this.contigs[ genomeID ] : null
+                contigs: this.contigs ? this.contigs[ genomeID ] : null,
+                onFeatureClick: id => { this.onFeatureClick(id); }
             });
             tracks.push(track);
 
