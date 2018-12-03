@@ -43,8 +43,6 @@ export class Options {
 
         // close all dropdown contents on outside click
         document.onclick = (evt) => {
-            if (dd.contains(evt.target)) return;
-
             if (!evt.target.matches('.dd-btn')) {
                 var dds = node.getElementsByClassName('dd-content');
                 Array.from(dds).forEach(dd => { dd.classList.remove('show'); });
