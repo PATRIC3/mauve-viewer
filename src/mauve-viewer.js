@@ -59,7 +59,7 @@ export default class MauveViewer {
             ele: this.ele,
             tracks: this.tracks,
             backbone: this.backbone,
-            getLabel: this.getLabel,
+            getLabel: this.getLabel.bind(this),
             zoom: this.zoom,
             d3: this.d3
         });
