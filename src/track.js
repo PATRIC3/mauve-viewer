@@ -134,10 +134,9 @@ export class Track {
     }
 
     _addFeatureHoverEvent() {
-        let d3 = this.d3,
-            svg = this.svg;
+        let d3 = this.d3;
 
-        let tooltip = d3.select('.mauve-viewer')
+        let tooltip = d3.select('body')
             .append('div')
             .attr('class', 'tooltip')
             .style('position', 'absolute')
@@ -147,9 +146,7 @@ export class Track {
             .on('mouseover', function(d) {
                 tooltip.transition().style('opacity', 0.9);
 
-                let svgPos = svg.node().getBoundingClientRect();
-
-                let x = d3.event.pageX - svgPos.left,
+                let x = d3.event.pageX,
                     y = d3.event.pageY;
 
                 tooltip.html(
@@ -158,9 +155,10 @@ export class Track {
                      <div>${d.feature_type} [${d.start}, ${d.end}]</div>
                      <div class="help-text">click for more</div>`
                 )
-                    .style('left', x + 25 + 'px')
+                    .style('left', x + 50 + 'px')
                     .style('top', y - 10 + 'px');
 
+                // also highlight feature
                 d3.select(this).attr('opacity', 1.0);
             }).on('mouseleave', function(d) {
                 d3.select(this).attr('opacity', 0.4);
