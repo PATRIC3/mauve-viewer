@@ -1,4 +1,4 @@
-# mauve-viewer (WIP)
+# mauve-viewer
 
 A JavaScript Mauve/.xmfa viewer for multiple whole genome alignments.   The UI is highly inspired by the original [Mauve](http://darlinglab.org/mauve/mauve.html) viewer, with web/application integration in mind.  Note this is a __work in progress__.
 
