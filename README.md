@@ -121,7 +121,7 @@ let mauveViewer = new MauveViewer({
 
 ##### lcbs
 
-Each LCB is grouped as an Array of Objects.  To parse `.xmfa` files into json formatted LCBs, you may consider using this [script](https://github.com/nconrad/p3_mauve/blob/master/scripts/mauve-parser.js).  It's based on [biojs-io-xmfa](https://github.com/erasche/biojs-io-xmfa).  It can be ran as follows:
+Each LCB is grouped as an Array of Objects.  To parse `.xmfa` files into json-formatted LCBs, you may consider using this [script](https://github.com/nconrad/p3_mauve/blob/master/scripts/mauve-parser.js).  It's based on [biojs-io-xmfa](https://github.com/erasche/biojs-io-xmfa).  It can be ran as follows:
 
 ```
 git clone https://github.com/nconrad/p3_mauve && cd p3_mauve
