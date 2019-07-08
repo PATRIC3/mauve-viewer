@@ -4,6 +4,15 @@ A JavaScript Mauve/.xmfa viewer for multiple whole genome alignments.   The UI i
 
 [Demo](https://nconrad.github.io/mauve-viewer/demo/)
 
+Alignment of 11 Brucella reference genomes:
+
+![11 brucella screenshot](docs/screenshots/brucella-lcbs.png)
+      
+Zooming in to view features/annotations of Ecoli:
+
+![viewing features/annotations brucella screenshot](docs/screenshots/viewing-features.png)
+      
+    
 
 ## Why?
 
