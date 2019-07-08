@@ -34,7 +34,7 @@ MauveViewer does not currently package d3.js and takes a reference to `d3` when 
 
 ## Usage
 
-*First, sure the CSS is included:*
+*First, make sure the CSS is included:*
 ```
 <link rel="stylesheet" type="text/css" href="dist/heatmap.css">
 ```
@@ -42,12 +42,12 @@ MauveViewer does not currently package d3.js and takes a reference to `d3` when 
 
 #### Global
 
-Add the required CSS/JS:
-
 ```
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="dist/heatmap.js"></script>
 ```
+
+See example [here](https://github.com/nconrad/mauve-viewer/blob/master/demo/global-demo/index.html).
 
 #### ES6
 
@@ -69,6 +69,9 @@ requirejs([
     ...
 })
 ```
+
+See example [here](https://github.com/nconrad/mauve-viewer/tree/master/demo/amd-demo).
+
 
 ### Basic Example Config
 
@@ -149,7 +152,7 @@ npm install
 
 ##### labels (optional)
 
-This is a mapping from the `name` of the fasta file to a more meaningful name (such as organism name)
+This is a mapping from the `name`/path of the fasta file to a more meaningful name (such as organism name)
 
 ```javascript
 {
