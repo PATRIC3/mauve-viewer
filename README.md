@@ -29,7 +29,7 @@ Collaboration is welcome!
 
 - [d3](https://github.com/d3/d3) v5.0+
 
-MauveViewer does not currently package d3.js and takes a reference to `d3` when instantiating the viewer.  See below.
+`MauveViewer` does not currently package d3.js and takes a reference to `d3` when instantiating the viewer.  See below.
 
 
 ## Usage
@@ -121,33 +121,28 @@ let mauveViewer = new MauveViewer({
 
 ##### lcbs
 
-Each LCB is grouped as an Array of Objects.  To parse `.xmfa` files, one option is using this [script](https://github.com/PATRIC3/p3_mauve/blob/master/scripts/mauve-parser.js), which is based on [biojs-io-xmfa](https://github.com/erasche/biojs-io-xmfa) (and embraces the same format).  It can be ran like so:
+Each LCB is grouped as an Array of Objects.  To parse `.xmfa` files into json formatted LCBs, you may consider using this [script](https://github.com/nconrad/p3_mauve/blob/master/scripts/mauve-parser.js).  It's based on [biojs-io-xmfa](https://github.com/erasche/biojs-io-xmfa).  It can be ran as follows:
 
 ```
+git clone https://github.com/nconrad/p3_mauve && cd p3_mauve
 npm install
-./mauve-parser.js --input <path_to_xmfa> > output.xmfa
+node ./scripts/mauve-parser.js --input test-data/alignment.xmfa > lcbs.json
 ```
 
+`lcbs.json`:
 
 ```javascript
 [
     [
         {
             "name": "224914.11.fasta",
-            "start": 200,
-            "end": 300,
-            "strand": "+",
+            "start": 6,
+            "end": 2003350,
+            "strand": "-",
             "lcb_idx": 1
-        },
-        {
-            "name": "organism2.fasta",
-            "start": 100,
-            "end": 200,
-            "strand": "+",
-            "lcb_idx": 2
-        }
+        }, ...
     ], ...
-]
+]  
 ```
 
 ##### labels (optional)
@@ -156,9 +151,9 @@ This is a mapping from the `name`/path of the fasta file to a more meaningful na
 
 ```javascript
 {
+    "224914.11.fasta": "Brucella melitensis bv. 1 str. 16M",
     "204722.5.fasta": "Brucella suis 1330",
     "444178.3.fasta": "Brucella ovis ATCC 25840",
-    "224914.11.fasta": "Brucella melitensis bv. 1 str. 16M",
     "262698.4.fasta": "Brucella abortus bv. 1 str. 9-941",
     "483179.4.fasta": "Brucella canis ATCC 23365"
 }
