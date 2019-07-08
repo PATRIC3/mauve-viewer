@@ -16,7 +16,7 @@ Zooming in to view features/annotations of Ecoli:
 
 ## Why?
 
-The original viewer [Mauve](http://darlinglab.org/mauve/mauve.html) viewer is great, but it's written and Java and doesn't run in the browser.  I'm particularly interested in creating a general purpose solution for genome alignment tools, such as [Mummer4](https://github.com/mummer4/mummer).
+The original [Mauve](http://darlinglab.org/mauve/mauve.html) viewer is great, but it's written in Java and doesn't run in the browser.  I'm particularly interested in creating a general purpose solution for genome alignment tools, such as [Mummer4](https://github.com/mummer4/mummer).
 
 Collaboration is welcome!
 
@@ -30,6 +30,7 @@ Collaboration is welcome!
 #### Upcoming:
 
 - SVG Download
+- Canvas resizing
 - Performance improvements?
 
 
@@ -45,7 +46,7 @@ Collaboration is welcome!
 
 *First, make sure the CSS is included:*
 ```
-<link rel="stylesheet" type="text/css" href="dist/heatmap.css">
+<link rel="stylesheet" type="text/css" href="dist/mauve-viewer.css">
 ```
 
 
@@ -53,7 +54,7 @@ Collaboration is welcome!
 
 ```
 <script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="dist/heatmap.js"></script>
+<script src="dist/mauve-viewer.js"></script>
 ```
 
 See example [here](https://github.com/nconrad/mauve-viewer/blob/master/demo/global-demo/index.html).
@@ -62,7 +63,7 @@ See example [here](https://github.com/nconrad/mauve-viewer/blob/master/demo/glob
 
 ```
 import * as d3 from 'd3';
-import Heatmap from 'dist/heatmap';
+import MauveViewer from 'dist/mauve-viewer';
 ```
 
 #### AMD
@@ -73,8 +74,8 @@ requirejs.config({
 });
 
 requirejs([
-    'heatmap', 'path/to/d3'
-], function (Heatmap, d3) {
+    'mauve-viewer', 'path/to/d3'
+], function (MauveViewer, d3) {
     ...
 })
 ```
@@ -84,10 +85,17 @@ See example [here](https://github.com/nconrad/mauve-viewer/tree/master/demo/amd-
 
 ### Basic Example Config
 
+```html
+<body>
+      <!-- note: canvas auto-resizing is not implemented yet -->       
+      <div class="mauve-viewer" style="margin: 0 auto; width:1024px;"></div>
+</body>
+```      
+
 ```javascript
 let mauveViewer = new MauveViewer({
     d3: d3,
-    ele: document.querySelector('mauve-viewer'),
+    ele: document.querySelector('.mauve-viewer'),
     lcbs: [
         [
             {
@@ -113,7 +121,7 @@ let mauveViewer = new MauveViewer({
 
 | Param                 | Type                              | Required? |
 |-----------------------|-----------------------------------|-----------|
-| d3                    | instance of d3                    | &check;   |
+| d3                    | Reference to d3                   | &check;   |
 | ele                   | DOM element                       | &check;   |
 | [lcbs](#lcbs)         | LCBs (list of lists)              | &check;   |
 | [labels](#labels)     | Object (see below)                | -         |
@@ -156,7 +164,7 @@ node ./scripts/mauve-parser.js --input test-data/alignment.xmfa > lcbs.json
 
 ##### labels (optional)
 
-This is a mapping from the `name`/path of the fasta file to a more meaningful name (such as organism name)
+This is a mapping from the `name`/path of the fasta file to a more meaningful name, such as the organism name.
 
 ```javascript
 {
@@ -217,7 +225,7 @@ This is a mapping from the `name`/path of the fasta file to a more meaningful na
 
 ## Development
 
-### Local Installation
+### Installation
 
 ```
 npm install
@@ -248,7 +256,7 @@ This creates a new build in `dist/`.
 
 ## Citation
 
-Paper pending.  In the meantime, please cite this repo:
+In the meantime, please cite this repo:
 
 N. Conrad, A Whole Genome Alignment Visualization Tool for the Web, (2019), GitHub repository, https://github.com/nconrad/mauve-viewer
 
