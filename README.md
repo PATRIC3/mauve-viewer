@@ -4,10 +4,19 @@ A JavaScript Mauve/.xmfa viewer for multiple whole genome alignments.   The UI i
 
 [Demo](https://nconrad.github.io/mauve-viewer/demo/)
 
+Alignment of 11 Brucella reference genomes:
+
+![11 brucella screenshot](docs/screenshots/brucella-lcbs.png)
+      
+Zooming in to view features/annotations of Ecoli:
+
+![viewing features/annotations brucella screenshot](docs/screenshots/viewing-features.png)
+      
+    
 
 ## Why?
 
-The original viewer [Mauve](http://darlinglab.org/mauve/mauve.html) viewer is great, but it's written and Java and doesn't run in the browser.  I'm particularly interested in creating a general purpose solution for genome alignment tools, such as [Mummer4](https://github.com/mummer4/mummer).
+The original [Mauve](http://darlinglab.org/mauve/mauve.html) viewer is great, but it's written in Java and doesn't run in the browser.  I'm particularly interested in creating a general purpose solution for genome alignment tools, such as [Mummer4](https://github.com/mummer4/mummer).
 
 Collaboration is welcome!
 
@@ -16,11 +25,12 @@ Collaboration is welcome!
 ## Features
 
 - panning, scaling, zoom
-- tooltips (TODO: make customizable)
+- tooltips (Todo: make customizable)
 
 #### Upcoming:
 
 - SVG Download
+- Canvas resizing
 - Performance improvements?
 
 
@@ -29,31 +39,31 @@ Collaboration is welcome!
 
 - [d3](https://github.com/d3/d3) v5.0+
 
-MauveViewer does not currently package d3.js and takes a reference to `d3` when instantiating the viewer.  See below.
+`MauveViewer` does not currently package d3.js and takes a reference to `d3` when instantiating the viewer.  See below.
 
 
 ## Usage
 
-*First, sure the CSS is included:*
+*First, make sure the CSS is included:*
 ```
-<link rel="stylesheet" type="text/css" href="dist/heatmap.css">
+<link rel="stylesheet" type="text/css" href="dist/mauve-viewer.css">
 ```
 
 
 #### Global
 
-Add the required CSS/JS:
-
 ```
 <script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="dist/heatmap.js"></script>
+<script src="dist/mauve-viewer.js"></script>
 ```
+
+See example [here](https://github.com/nconrad/mauve-viewer/blob/master/demo/global-demo/index.html).
 
 #### ES6
 
 ```
 import * as d3 from 'd3';
-import Heatmap from 'dist/heatmap';
+import MauveViewer from 'dist/mauve-viewer';
 ```
 
 #### AMD
@@ -64,18 +74,28 @@ requirejs.config({
 });
 
 requirejs([
-    'heatmap', 'path/to/d3'
-], function (Heatmap, d3) {
+    'mauve-viewer', 'path/to/d3'
+], function (MauveViewer, d3) {
     ...
 })
 ```
 
+See example [here](https://github.com/nconrad/mauve-viewer/tree/master/demo/amd-demo).
+
+
 ### Basic Example Config
+
+```html
+<body>
+      <!-- note: canvas auto-resizing is not implemented yet -->       
+      <div class="mauve-viewer" style="margin: 0 auto; width:1024px;"></div>
+</body>
+```      
 
 ```javascript
 let mauveViewer = new MauveViewer({
     d3: d3,
-    ele: document.querySelector('mauve-viewer'),
+    ele: document.querySelector('.mauve-viewer'),
     lcbs: [
         [
             {
@@ -101,7 +121,7 @@ let mauveViewer = new MauveViewer({
 
 | Param                 | Type                              | Required? |
 |-----------------------|-----------------------------------|-----------|
-| d3                    | instance of d3                    | &check;   |
+| d3                    | Reference to d3                   | &check;   |
 | ele                   | DOM element                       | &check;   |
 | [lcbs](#lcbs)         | LCBs (list of lists)              | &check;   |
 | [labels](#labels)     | Object (see below)                | -         |
@@ -118,44 +138,39 @@ let mauveViewer = new MauveViewer({
 
 ##### lcbs
 
-Each LCB is grouped as an Array of Objects.  To parse `.xmfa` files, one option is using this [script](https://github.com/PATRIC3/p3_mauve/blob/master/scripts/mauve-parser.js), which is based on [biojs-io-xmfa](https://github.com/erasche/biojs-io-xmfa) (and embraces the same format).  It can be ran like so:
+Each LCB is grouped as an Array of Objects.  To parse `.xmfa` files into json-formatted LCBs, you may consider using this [script](https://github.com/nconrad/p3_mauve/blob/master/scripts/mauve-parser.js).  It's based on [biojs-io-xmfa](https://github.com/erasche/biojs-io-xmfa).  It can be ran as follows:
 
 ```
+git clone https://github.com/nconrad/p3_mauve && cd p3_mauve
 npm install
-./mauve-parser.js --input <path_to_xmfa> > output.xmfa
+node ./scripts/mauve-parser.js --input test-data/alignment.xmfa > lcbs.json
 ```
 
+`lcbs.json`:
 
 ```javascript
 [
     [
         {
             "name": "224914.11.fasta",
-            "start": 200,
-            "end": 300,
-            "strand": "+",
+            "start": 6,
+            "end": 2003350,
+            "strand": "-",
             "lcb_idx": 1
-        },
-        {
-            "name": "organism2.fasta",
-            "start": 100,
-            "end": 200,
-            "strand": "+",
-            "lcb_idx": 2
-        }
+        }, ...
     ], ...
-]
+]  
 ```
 
 ##### labels (optional)
 
-This is a mapping from the `name` of the fasta file to a more meaningful name (such as organism name)
+This is a mapping from the `name`/path of the fasta file to a more meaningful name, such as the organism name.
 
 ```javascript
 {
+    "224914.11.fasta": "Brucella melitensis bv. 1 str. 16M",
     "204722.5.fasta": "Brucella suis 1330",
     "444178.3.fasta": "Brucella ovis ATCC 25840",
-    "224914.11.fasta": "Brucella melitensis bv. 1 str. 16M",
     "262698.4.fasta": "Brucella abortus bv. 1 str. 9-941",
     "483179.4.fasta": "Brucella canis ATCC 23365"
 }
@@ -210,7 +225,7 @@ This is a mapping from the `name` of the fasta file to a more meaningful name (s
 
 ## Development
 
-### Local Installation
+### Installation
 
 ```
 npm install
@@ -241,7 +256,7 @@ This creates a new build in `dist/`.
 
 ## Citation
 
-Paper pending.  In the meantime, please cite this repo:
+In the meantime, please cite this repo:
 
 N. Conrad, A Whole Genome Alignment Visualization Tool for the Web, (2019), GitHub repository, https://github.com/nconrad/mauve-viewer
 
