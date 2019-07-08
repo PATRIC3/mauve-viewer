@@ -16,7 +16,7 @@ Collaboration is welcome!
 ## Features
 
 - panning, scaling, zoom
-- tooltips (TODO: make customizable)
+- tooltips (Todo: make customizable)
 
 #### Upcoming:
 
