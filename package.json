@@ -1,6 +1,6 @@
 {
   "name": "mauve-viewer",
-  "version": "0.9.0-beta5",
+  "version": "1.0.0-beta1",
   "description": "",
   "main": "index.js",
   "scripts": {

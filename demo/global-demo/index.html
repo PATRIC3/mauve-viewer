@@ -14,11 +14,11 @@
         req.send();
 
         function onRes () {
-          var data = JSON.parse(this.responseText);
+          var lcbs = JSON.parse(this.responseText);
           var ele = document.getElementById('chart');
 
           var chart = new MauveViewer({
-            data: data,
+            lcbs: lcbs,
             d3: d3,
             ele: ele
           })

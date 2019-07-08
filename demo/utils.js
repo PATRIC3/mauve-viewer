@@ -15,7 +15,7 @@ const contigSelect = [
     'sequence_type', 'chromosome', 'description'
 ];
 
-function getFeatures(genomeIDs) {
+export function getFeatures(genomeIDs) {
     genomeIDs = Array.isArray(genomeIDs) ? genomeIDs : [genomeIDs];
 
     let proms = genomeIDs.map(id => {
@@ -27,7 +27,7 @@ function getFeatures(genomeIDs) {
     return axios.all(proms);
 }
 
-function getContigs(genomeIDs) {
+export function getContigs(genomeIDs) {
     genomeIDs = Array.isArray(genomeIDs) ? genomeIDs : [genomeIDs];
 
     let proms = genomeIDs.map(id => {
@@ -39,7 +39,7 @@ function getContigs(genomeIDs) {
     return axios.all(proms);
 }
 
-function getGenomeLabels({genomeIDs, ext}) {
+export function getGenomeLabels({genomeIDs, ext}) {
     let url = `${api}/genome/?in(genome_id,(${genomeIDs.join(',')}))` +
         `&select(genome_id,genome_name)`;
     return axios.get(url)
@@ -53,7 +53,7 @@ function getGenomeLabels({genomeIDs, ext}) {
         });
 }
 
-function setFeaturePositions(contigs, features) {
+export function setFeaturePositions(contigs, features) {
     let newFeatures = [];
     let ntPos = 0;
     contigs.forEach(c => {
@@ -85,7 +85,7 @@ function setContigPositions(contigs) {
     return contigs;
 }
 
-function getMauveData({genomeIDs, ext}) {
+export function getData({genomeIDs, ext}) {
     let nameProm = getGenomeLabels({genomeIDs, ext});
 
     let featProm = getFeatures(genomeIDs)
@@ -121,11 +121,3 @@ function getMauveData({genomeIDs, ext}) {
         });
 }
 
-export {
-    getFeatures,
-    getContigs,
-    setFeaturePositions,
-    setContigPositions,
-    getGenomeLabels,
-    getMauveData
-};

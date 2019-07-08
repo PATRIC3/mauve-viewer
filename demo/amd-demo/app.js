@@ -11,12 +11,17 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['mauve-viewer', '../../node_modules/d3/dist/d3', '../../node_modules/axios/dist/axios'],
-    function(MauveViewer, d3, axios) {
-        let ele = document.getElementById('chart');
+requirejs([
+    'mauve-viewer', '../../node_modules/d3/dist/d3', '../../node_modules/axios/dist/axios'
+], function(MauveViewer, d3, axios) {
+    let ele = document.getElementById('chart');
 
-        axios.get(`../data/brucella-lcbs.json`).then(res => {
-            let data = res.data;
-            let chart = new MauveViewer({data, d3, ele});
-        }).catch(error => { alert('An error occurred while loading the component') });
-    });
+    axios.get(`../data/brucella-lcbs.json`).then(res => {
+        let lcbs = res.data;
+        let chart = new MauveViewer({
+            d3: d3,
+            lcbs: lcbs,
+            ele: ele
+        });
+    }).catch(error => { alert('An error occurred while loading the component') });
+});

@@ -160,22 +160,22 @@
  *  tooltips
  */
 
-.mauve-viewer .tooltip {
+.tooltip {
     position: absolute;
     width: inherit;
     height: 150px;
     padding: 7px;
     color: #fff;
     background: #444;
-    border: 2px xolid #000;
+    border: 2px solid #000;
     pointer-events: none;
 }
 
-.mauve-viewer .tooltip div {
+.tooltip div {
     margin: 0 0 10px 0;
 }
 
-.mauve-viewer .tooltip div.help-text {
+.tooltip div.help-text {
     position: absolute;
     bottom: 0;
     right: 7;

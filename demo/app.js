@@ -1,6 +1,6 @@
 
 import MauveViewer from '../src/mauve-viewer';
-import { getMauveData } from './utils';
+import { getData } from './utils';
 import * as d3 from 'd3';
 import axios from 'axios';
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // fetch all associated data
-        getMauveData({genomeIDs: ids, ext})
+        getData({genomeIDs: ids, ext})
             .then(({labels, contigs, features}) => {
                 clearInterval(statusHandle);
 
