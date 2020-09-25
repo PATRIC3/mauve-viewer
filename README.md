@@ -37,7 +37,7 @@ Collaboration is welcome!
 ## Dependencies
 
 
-- [d3](https://github.com/d3/d3) v5.0+
+- [d3](https://github.com/d3/d3) v5 (currently)
 
 `MauveViewer` does not currently package d3.js and takes a reference to `d3` when instantiating the viewer.  See below.
 
