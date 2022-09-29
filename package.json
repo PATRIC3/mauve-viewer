@@ -45,7 +45,7 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
-    "d3": "5.7.0"
+    "d3": "7.6.1"
   },
   "dojoBuild": "app.profile.js"
 }
