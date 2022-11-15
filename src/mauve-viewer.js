@@ -175,6 +175,9 @@ export default class MauveViewer {
         d3.select(this.ele.querySelector('.reset-btn'))
             .on('click', () => { this.reset(); });
 
+        d3.select(this.ele.querySelector('.save-btn'))
+            .on('click', () => { this.saveSVG(); });
+
         d3.selectAll('button.pan')
             .on('click', (d, i, nodes) => {
                 this.pan(nodes[i]);
@@ -279,6 +282,21 @@ export default class MauveViewer {
     reset() {
         this.tracks.forEach(track => { track.reset(); });
         this.zoom.transform(this.svg, this.d3.zoomIdentity);
+    }
+    
+    saveSVG() {
+        var html = d3.select('.mv-chart svg').attr('version', 1.1).attr('xmlns', 'http://www.w3.org/2000/svg').node();
+        html.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+        var innerhtml = html.parentNode.innerHTML;
+        var start = innerhtml.indexOf('<svg');
+        innerhtml = innerhtml.substr(start, innerhtml.length);
+        var imgsrc = 'data:image/svg+xml;base64,' + btoa(innerhtml);
+        var a = document.createElement('a'); // required for Firefox, optional for Chrome
+        document.body.appendChild(a);
+        a.download = 'genomealignment.svg';
+        a.href = imgsrc;
+        a.target = '_self'; // required for Firefox, optional for Chrome
+        a.click();
     }
 
     zoomTo(xPos, srcElement) {
