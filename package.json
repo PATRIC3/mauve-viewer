@@ -1,6 +1,6 @@
 {
   "name": "mauve-viewer",
-  "version": "1.0.0-beta1",
+  "version": "1.0.0-beta2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nconrad/mauve-viewer.git"
+    "url": "git+https://github.com/PATRIC3/mauve-viewer.git"
   },
   "author": "nconrad",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nconrad/mauve-viewer/issues"
+    "url": "https://github.com/PATRIC3/mauve-viewer/issues"
   },
-  "homepage": "https://github.com/nconrad/mauve-viewer#readme",
+  "homepage": "https://github.com/PATRIC3/mauve-viewer#readme",
   "devDependencies": {
     "@babel/core": "^7.5.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
